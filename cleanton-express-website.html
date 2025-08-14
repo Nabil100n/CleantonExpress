@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Cleanton Express - Professional Cleaning Services Brisbane & Sydney">
+    <meta name="description" content="Same day cleaning available. Professional cleaning services for Airbnb, end of lease, commercial and residential properties in Brisbane and Sydney. Get a free quote today!">
+    <meta name="keywords" content="cleaning services Brisbane, cleaning Sydney, end of lease cleaning, Airbnb cleaning, commercial cleaning, same day cleaning">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cleanton Express - Same Day Professional Cleaning">
+    <meta property="og:description" content="Fast, reliable cleaning services in Brisbane and Sydney. Same day service available!">
+    <meta property="og:type" content="website">
+    <title>Cleanton Express - Professional Cleaning Services Brisbane & Sydney | Same Day Available</title>
+    
+    <style>
+        /* Reset and Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #6DAEDB;
+            --primary-orange: #EBA96B;
+            --dark-blue: #0B3954;
+            --bg-light: #F9F5F0;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-hover: 0 10px 30px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+        }
+
+        /* Typography */
+        body {
+            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; font-weight: 700; }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 600; }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        /* Exact Logo Recreation from Image */
+        .logo-svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), #5A9BC7);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(109, 174, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(109, 174, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--primary-orange), #E09555);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(235, 169, 107, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(235, 169, 107, 0.4);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, rgba(109, 174, 219, 0.1), rgba(235, 169, 107, 0.05)),
+                        var(--bg-light);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
+            opacity: 0.05;
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .badge-same-day {
+            display: inline-block;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .services-categories {
+            display: grid;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .category {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-orange));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            background: white;
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .service-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .service-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .service-features {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .service-features li {
+            padding-left: 1.2rem;
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .quote-btn {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .quote-btn:hover {
+            background: var(--primary-orange);
+            transform: translateX(5px);
+        }
+
+        /* Trust Badges */
+        .trust-section {
+            background: var(--bg-light);
+            padding: 3rem 5%;
+            margin-top: 4rem;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .trust-badge {
+            text-align: center;
+        }
+
+        .trust-badge-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 0.5rem;
+            color: var(--primary-blue);
+        }
+
+        .trust-badge h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .trust-badge p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+            border-radius: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-blue);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem 5%;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-orange);
+        }
+
+        .footer-section a {
+            color: #B0B0B0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #B0B0B0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero {
+                min-height: 70vh;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .trust-badges {
+                gap: 2rem;
+            }
+        }
+
+        /* Scroll Animations */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">
+                <!-- Exact Logo Recreation from Image -->
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Blue C shape with gradient and gloss effect -->
+                    <defs>
+                        <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6DAEDB;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4A90C5;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#EBA96B;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#E09555;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Main C shape -->
+                    <path d="M 50 15 C 25 15, 10 30, 10 50 C 10 70, 25 85, 50 85 C 65 85, 75 78, 80 70 L 65 60 C 62 65, 57 68, 50 68 C 38 68, 28 60, 28 50 C 28 40, 38 32, 50 32 C 57 32, 62 35, 65 40 L 80 30 C 75 22, 65 15, 50 15 Z" 
+                          fill="url(#blueGradient)"/>
+                    <!-- Orange accent slash -->
+                    <rect x="62" y="20" width="25" height="8" rx="4" 
+                          transform="rotate(35 75 24)" 
+                          fill="url(#orangeGradient)"/>
+                    <!-- Gloss effect on C -->
+                    <ellipse cx="35" cy="35" rx="8" ry="12" fill="white" opacity="0.3"/>
+                    <ellipse cx="30" cy="40" rx="4" ry="6" fill="white" opacity="0.2"/>
+                </svg>
+                <span>Cleanton Express</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="btn-primary">Get Free Quote</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="badge-same-day">⚡ Same Day Cleaning Available</div>
+            <h1 class="fade-in">Professional Cleaning Services<br>in Brisbane & Sydney</h1>
+            <p class="hero-subtitle fade-in">
+                End of lease, Airbnb, Commercial & Residential cleaning.<br>
+                Fast, reliable, and satisfaction guaranteed.
+            </p>
+            <div class="fade-in" style="animation-delay: 0.3s;">
+                <a href="#contact" class="btn-secondary" style="margin-right: 1rem;">Get Instant Quote</a>
+                <a href="tel:+61400000000" class="btn-primary">📞 Call Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="section-header scroll-fade">
+            <h2>Our Services</h2>
+            <p class="section-subtitle">Tailored cleaning solutions for your needs, fast and reliable</p>
+        </div>
+
+        <div class="services-categories">
+            <!-- Commercial Cleaning Category -->
+            <div class="category scroll-fade">
+                <div class="category-header">
+                    <div class="category-icon">🏢</div>
+                    <div>
+                        <h3>Commercial Cleaning</h3>
+                        <p style="color: var(--text-light); margin: 0;">Professional cleaning for businesses</p>
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <h4>Offices & Workspaces</h4>
+                        <p class="service-description">Complete office cleaning solution</p>
+                        <ul class="service-features">
+                            <li>Desks and workstations</li>
+                            <li>Meeting rooms</li>
+                            <li>Kitchen areas</li>
+                            <li>Sanitization services</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <h4>Retail & Shops</h4>
+                        <p class="service-description">Keep your store spotless</p>
+                        <ul class="service-features">
+                            <li>Shop floors</li>
+                            <li>Display windows</li>
+                            <li>Customer areas</li>
+                            <li>Storage spaces</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                        <h4>Gyms & Fitness Centers</h4>
+                        <p class="service-description">Hygienic fitness environment</p>
+                        <ul class="service-features">
+                            <li>Equipment sanitization</li>
+                            <li>Floor cleaning</li>
+                            <li>Locker rooms</li>
+                            <li>Reception areas</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                        </svg>
+                        <h4>Schools & Childcare</h4>
+                        <p class="service-description">Safe & clean learning spaces</p>
+                        <ul class="service-features">
+                            <li>Classrooms</li>
+                            <li>Play areas</li>
+                            <li>Cafeterias</li>
+                            <li>Sanitization protocols</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        <h4>End of Lease (Commercial)</h4>
+                        <p class="service-description">Bond recovery cleaning</p>
+                        <ul class="service-features">
+                            <li>Deep clean all areas</li>
+                            <li>Carpet cleaning</li>
+                            <li>Window washing</li>
+                            <li>Final inspection ready</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <h4>After Events</h4>
+                        <p class="service-description">Post-event cleanup</p>
+                        <ul class="service-features">
+                            <li>Venue cleaning</li>
+                            <li>Waste removal</li>
+                            <li>Floor restoration</li>
+                            <li>Quick turnaround</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Residential Cleaning Category -->
+            <div class="category scroll-fade">
+                <div class="category-header">
+                    <div class="category-icon">🏡</div>
+                    <div>
+                        <h3>Residential Cleaning</h3>
+                        <p style="color: var(--text-light); margin: 0;">Your home, perfectly clean</p>
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <h4>Regular House Cleaning</h4>
+                        <p class="service-description">Weekly, fortnightly or monthly</p>
+                        <ul class="service-features">
+                            <li>All rooms cleaned</li>
+                            <li>Kitchen & bathrooms</li>
+                            <li>Floors & surfaces</li>
+                            <li>Dusting & vacuuming</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                        </svg>
+                        <h4>Spring/Deep Cleaning</h4>
+                        <p class="service-description">Thorough seasonal cleaning</p>
+                        <ul class="service-features">
+                            <li>Inside appliances</li>
+                            <li>Behind furniture</li>
+                            <li>Window tracks</li>
+                            <li>Light fixtures</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        </svg>
+                        <h4>Move In/Out Cleaning</h4>
+                        <p class="service-description">Bond recovery specialists</p>
+                        <ul class="service-features">
+                            <li>100% bond back guarantee</li>
+                            <li>Real estate approved</li>
+                            <li>Detailed checklist</li>
+                            <li>Same day service</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <h4>Airbnb & Short Stay</h4>
+                        <p class="service-description">5-star guest experience</p>
+                        <ul class="service-features">
+                            <li>Quick turnaround</li>
+                            <li>Linen service available</li>
+                            <li>Guest supplies restocking</li>
+                            <li>24/7 availability</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        <h4>After Renovation</h4>
+                        <p class="service-description">Post-construction cleanup</p>
+                        <ul class="service-features">
+                            <li>Dust removal</li>
+                            <li>Debris cleanup</li>
+                            <li>Surface polishing</li>
+                            <li>Ready to move in</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Specialized Services Category -->
+            <div class="category scroll-fade">
+                <div class="category-header">
+                    <div class="category-icon">✨</div>
+                    <div>
+                        <h3>Specialized Services</h3>
+                        <p style="color: var(--text-light); margin: 0;">Extra care for specific needs</p>
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        <h4>Windows & Mirrors</h4>
+                        <p class="service-description">Crystal clear results</p>
+                        <ul class="service-features">
+                            <li>Interior & exterior</li>
+                            <li>Streak-free finish</li>
+                            <li>Window sills & tracks</li>
+                            <li>High windows</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                            <path d="M2 10h20"></path>
+                        </svg>
+                        <h4>Carpet & Upholstery</h4>
+                        <p class="service-description">Deep clean & stain removal</p>
+                        <ul class="service-features">
+                            <li>Steam cleaning</li>
+                            <li>Stain treatment</li>
+                            <li>Odor elimination</li>
+                            <li>Fast drying</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path>
+                        </svg>
+                        <h4>COVID Disinfection</h4>
+                        <p class="service-description">Hospital-grade sanitization</p>
+                        <ul class="service-features">
+                            <li>EPA approved products</li>
+                            <li>All surfaces treated</li>
+                            <li>Air purification</li>
+                            <li>Safety certified</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                        </svg>
+                        <h4>Mattress Cleaning</h4>
+                        <p class="service-description">Sleep fresh & healthy</p>
+                        <ul class="service-features">
+                            <li>Dust mite removal</li>
+                            <li>Allergen treatment</li>
+                            <li>Stain removal</li>
+                            <li>Deodorization</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                    <div class="service-card">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"></path>
+                        </svg>
+                        <h4>Outdoor Areas</h4>
+                        <p class="service-description">External maintenance</p>
+                        <ul class="service-features">
+                            <li>Pressure washing</li>
+                            <li>Patio cleaning</li>
+                            <li>Garage floors</li>
+                            <li>Driveway cleaning</li>
+                        </ul>
+                        <a href="#contact" class="quote-btn">Get Quote →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges Section -->
+    <section class="trust-section scroll-fade">
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <h4>Same Day Service</h4>
+                <p>Available 7 days</p>
+            </div>
+            <div class="trust-badge">
+                <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+                <h4>Fully Insured</h4>
+                <p>$20M liability cover</p>
+            </div>
+            <div class="trust-badge">
+                <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <h4>5-Star Rated</h4>
+                <p>500+ happy customers</p>
+            </div>
+            <div class="trust-badge">
+                <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path>
+                </svg>
+                <h4>No Hidden Fees</h4>
+                <p>Transparent pricing</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <h2>Ready for a Spotless Space?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">Get your free quote in under 60 seconds</p>
+        <div class="cta-buttons">
+            <a href="#quote-form" class="btn-white">Get Instant Quote</a>
+            <a href="https://wa.me/61400000000?text=Hi%20Cleanton%20Express,%20I%20need%20a%20cleaning%20quote" 
+               class="btn-white" target="_blank">💬 WhatsApp Us</a>
+            <a href="tel:+61400000000" class="btn-white">📞 Call Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Cleanton Express</h4>
+                <p>Professional cleaning services in Brisbane and Sydney. Same day service available.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#services">Our Services</a>
+                <a href="#about">About Us</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+                <a href="#">Service Areas</a>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <a href="#services">End of Lease Cleaning</a>
+                <a href="#services">Airbnb Cleaning</a>
+                <a href="#services">Office Cleaning</a>
+                <a href="#services">Deep Cleaning</a>
+                <a href="#services">COVID Disinfection</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>📱 +61 400 XXX XXX</p>
+                <p>✉️ info@cleantonexpress.com.au</p>
+                <p>📍 Brisbane & Sydney</p>
+                <p>ABN: XX XXX XXX XXX</p>
+                <p>⏰ Available 24/7</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cleanton Express. All rights reserved. | Licensed & Insured | Satisfaction Guaranteed</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-fade').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                header.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Service cards hover effect
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('quote-btn')) {
+                    const btn = this.querySelector('.quote-btn');
+                    if (btn) btn.click();
+                }
+            });
+        });
+
+        // Initialize animations
+        window.addEventListener('load', () => {
+            console.log('Cleanton Express - Professional Cleaning Services');
+        });
+    </script>
+</body>
+</html>
