@@ -26,6 +26,7 @@ Pour remplacer une photo, il suffit de déposer un fichier du même nom dans `im
 | 5 | `images/logo.png` | En-tête et pied de page, à gauche du nom | PNG transparent, 80 px de haut (affiché à 40 px) | Ton `Logo_detour.png` actuel, ou une version plate à faire | Une version plate du symbole, plus cohérente avec le style luxe |
 | 6 | `images/favicon.png` | Onglet du navigateur | Carré 512 × 512 px, PNG | Le symbole du logo seul | |
 | 7 | `images/og.jpg` | Aperçu quand le lien est partagé (WhatsApp, Facebook) | 1200 × 630 px | La photo du hero recadrée, avec le nom | À faire quand le domaine sera acheté |
+| 8 | `images/apple-touch-icon.png` | Icône sur l'écran d'accueil d'un iPhone | Carré 180 × 180 px, PNG opaque sur fond lin `#F7F5F0` | Le symbole du logo (déjà en place) | La version plate du symbole |
 
 ## Liens des photos de départ
 Elles ont été choisies dans l'autre conversation, toutes sous licence Unsplash. Cette licence autorise l'usage commercial gratuit, sans attribution obligatoire.

@@ -23,6 +23,8 @@
   let currentStep = 1;
   let sending = false;
   let sendFailed = false;
+  let tabChosen = false;        // le client a choisi un onglet de prix lui-même
+  let serviceSetByUser = false; // le client a coché un service lui-même dans le formulaire
   const openFaq = new Set();
   const fieldErrors = new Map();
 
@@ -263,7 +265,9 @@
     if (!list) return;
     list.addEventListener("click", (event) => {
       const tab = event.target.closest("[data-tab]");
-      if (tab) selectTab(tab.dataset.tab, true);
+      if (!tab) return;
+      tabChosen = true;
+      selectTab(tab.dataset.tab, true);
     });
     list.addEventListener("keydown", (event) => {
       const tabs = $$("[data-tab]", list);
@@ -276,6 +280,7 @@
       else if (event.key === "End") next = tabs[tabs.length - 1];
       if (!next) return;
       event.preventDefault();
+      tabChosen = true;
       selectTab(next.dataset.tab, true);
       next.focus();
     });
@@ -537,8 +542,19 @@
       $$("input, select, textarea", block).forEach((control) => { control.disabled = !show; });
     });
     updateAddonState();
+    updateOptionalLabels();
+    updateEmailLabel();
     updateProgress();
     if (currentStep === 4) updateSummary();
+  }
+
+  // Pour les pros, adresse, date et heure d'arrivée sont facultatives : le libellé le dit
+  function updateOptionalLabels() {
+    const pro = serviceKey() === "pro";
+    [["label[for=\"address\"]", "address"], ["label[for=\"date\"]", "date"], ['[data-field="arrival_window"] .label', "arrival"]].forEach(([selector, key]) => {
+      const node = $(selector, form);
+      if (node) node.textContent = t("form.step3." + key + (pro ? "Optional" : ""));
+    });
   }
 
   function updateProgress() {
@@ -560,7 +576,8 @@
     showSendError(false);
     if (!focus) return;
     const top = form.getBoundingClientRect().top;
-    if (top < 0 || top > window.innerHeight * 0.5) {
+    const headerBottom = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+    if (top < headerBottom || top > window.innerHeight * 0.5) {
       form.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
     }
     $('.step[data-step="' + step + '"] .step__title', form).focus({ preventScroll: true });
@@ -738,9 +755,11 @@
       whenPlain ? whenPlain + (flex ? " (" + flex.value + ")" : "") : "");
 
     const unit = value("unit");
-    const addressParts = [value("address"), unit ? "#" + unit.replace(/^#/, "") : "", value("postal_code").toUpperCase(), value("city")];
+    const postalCode = value("postal_code").toUpperCase();
+    const addressParts = [value("address"), unit ? "#" + unit.replace(/^#/, "") : "", postalCode, value("city")];
     const address = addressParts.filter(Boolean).join(", ");
-    add("form.summary.address", address, address);
+    // À l'écran, le code postal ne se coupe pas en deux lignes
+    add("form.summary.address", postalCode ? address.replace(postalCode, postalCode.replace(" ", "\u00A0")) : address, address);
 
     const access = checked("access");
     const elevator = checked("elevator_booking");
@@ -844,6 +863,7 @@
       input.closest(".check").classList.remove("is-included");
     });
     Array.from(fieldErrors.keys()).forEach((name) => setError(name, null));
+    serviceSetByUser = false;
     renderFormLabels();
     refreshForm();
     showStep(1, false);
@@ -884,6 +904,7 @@
     if (!radio) return false;
     radio.checked = true;
     if (key === "recurring") form.querySelector('input[data-freq="biweekly"]').checked = true;
+    if (key === "regular") form.querySelector('input[data-freq="once"]').checked = true;
     setError("service", null);
     refreshForm();
     clearStaleErrors();
@@ -898,6 +919,7 @@
     form.addEventListener("change", (event) => {
       const name = event.target.name;
       if (name === "service") {
+        if (event.isTrusted) serviceSetByUser = true;
         setError("service", null);
         refreshForm();
         clearStaleErrors();
@@ -936,13 +958,28 @@
     });
 
     document.addEventListener("click", (event) => {
+      // Boutons « Réserver » génériques : si le client a choisi un onglet de prix et n'a pas encore
+      // choisi de service dans le formulaire, on présélectionne le service de cet onglet
+      const plainBook = event.target.closest('a[href="#book"]:not([data-book-service])');
+      if (plainBook) {
+        if (tabChosen && !serviceSetByUser && currentStep === 1) preselect(currentTab);
+        return;
+      }
+
       const link = event.target.closest("[data-book-service]");
       if (!link) return;
       event.preventDefault();
       preselect(link.dataset.bookService);
-      // Sur ordinateur, on montre la section ; sur mobile, directement le formulaire et le service coché
-      const target = window.matchMedia("(min-width: 1000px)").matches ? $("#book") : form;
-      target.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
+      const behavior = reduceMotion.matches ? "auto" : "smooth";
+      if (window.matchMedia("(min-width: 1000px)").matches) {
+        $("#book").scrollIntoView({ behavior, block: "start" });
+      } else {
+        // Sur mobile, directement le formulaire ; sur un petit écran, la carte du service cochée
+        const card = checked("service").closest("label");
+        const tooLow = card.getBoundingClientRect().bottom - form.getBoundingClientRect().top > window.innerHeight - 90;
+        if (tooLow) card.scrollIntoView({ behavior, block: "center" });
+        else form.scrollIntoView({ behavior, block: "start" });
+      }
       $('.step[data-step="1"] .step__title', form).focus({ preventScroll: true });
     });
   }
