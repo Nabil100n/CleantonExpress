@@ -4,6 +4,12 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Le détail du site (design, structure, réservation, textes EN/FR) est dans `docs/brief-site.md`.
 - L'emplacement de chaque image est dans `docs/images.md`.
 
+## Direction visuelle (décision du 14 octobre 2026)
+- Le site reprend le style de l'ancien site Vercel : fond bleu nuit, titres Bebas Neue en capitales, texte DM Sans, orange pour les actions, bleu clair en accent, cartes Services à retourner, bandeau défilant.
+- La section 1 de `docs/brief-site.md` (direction « hôtel boutique », Cormorant, Jost, fond lin) ne s'applique plus. Le reste du brief (réservation en 4 étapes, prix, textes du formulaire, comportements) reste valable.
+- Pas de section d'avis tant qu'il n'y a pas de vrais avis Google. Pas de mention « urgence ». La disponibilité 24/7 est affichée (un bot WhatsApp viendra plus tard).
+- Texte des boutons orange en bleu nuit (contraste AA), pas en blanc.
+
 ## L'entreprise
 - Cleanton Express Cleaning : ménage de condos, d'appartements et de townhouses à Toronto (GTA), Ontario, Canada.
 - Entreprise individuelle lancée par Nabil, seul au départ ; des cleaners indépendants viendront plus tard.
@@ -19,8 +25,8 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Hébergement sur Netlify, en publiant la racine du projet.
 - Formulaire envoyé à Formspree (`https://formspree.io/f/mjgeappr`) avec `fetch`, en `FormData`, avec l'en-tête `Accept: application/json`.
 - Polices Google Fonts :
-  - **Cormorant Garamond** (500, 600, italique 500) pour les titres et les prix.
-  - **Jost** (400, 500) pour le texte et l'interface.
+  - **Bebas Neue** pour les titres, les prix et le nom de marque.
+  - **DM Sans** (300, 400, 500) pour le texte et l'interface.
 
 ## Structure des fichiers
 ```

@@ -4,374 +4,178 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Titre et description en anglais pour les aperçus de liens (WhatsApp, Facebook, Google).
-       Ils sont recopiés de js/i18n.js ; js/main.js les remplace selon la langue. -->
-  <title>Cleanton Express Cleaning | Condo &amp; apartment cleaning in Toronto, prices upfront</title>
-  <meta name="description" content="Move-in/move-out, regular and deep cleaning for Toronto condos and apartments. Prices upfront, eco-friendly products included, service in English and French.">
+       js/main.js les remplace selon la langue. -->
+  <title>Cleanton Express Cleaning | 24/7 cleaning services in Toronto</title>
+  <meta name="description" content="24/7 professional cleaning in Toronto for condos, apartments, homes and businesses. Eco-friendly products, service in English and French.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cleanton Express Cleaning">
-  <meta property="og:title" content="Cleanton Express Cleaning | Condo &amp; apartment cleaning in Toronto, prices upfront">
-  <meta property="og:description" content="Move-in/move-out, regular and deep cleaning for Toronto condos and apartments. Prices upfront, eco-friendly products included, service in English and French.">
+  <meta property="og:title" content="Cleanton Express Cleaning | 24/7 cleaning services in Toronto">
+  <meta property="og:description" content="24/7 professional cleaning in Toronto for condos, apartments, homes and businesses. Eco-friendly products, service in English and French.">
   <meta property="og:locale" content="en_CA">
   <meta property="og:locale:alternate" content="fr_CA">
   <!-- og:url et og:image (images/og.jpg) : à ajouter quand le domaine sera acheté (voir docs/images.md, n° 7) -->
-  <meta name="theme-color" content="#0B1628">
-  <!-- IMAGE : images/favicon.png (voir docs/images.md, n° 6) -->
+  <meta name="theme-color" content="#0b1628">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Jost:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Icônes au trait, réutilisées dans la page -->
-  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
-    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/></symbol>
-    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M8.6 3.5H5.5a2 2 0 0 0-2 2.1C4 13.7 10.3 20 18.4 20.5a2 2 0 0 0 2.1-2v-3.1l-4.2-1.7-2.1 2.1a12.7 12.7 0 0 1-5.4-5.4l2.1-2.1z"/></symbol>
-    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4.2 19.8l1.2-4.1a8.4 8.4 0 1 1 3.1 3z"/><path d="M9.3 8.2c.3-.5.6-.5 1-.5.2 0 .4 0 .5.3l.8 1.8c.1.2 0 .4-.1.6l-.6.7c-.1.2-.1.3 0 .5a6.3 6.3 0 0 0 2.8 2.5c.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.7.8c.2.1.3.3.2.6-.1.7-.6 1.4-1.4 1.6-1 .3-2.5 0-4.2-1.3a8.6 8.6 0 0 1-2.9-3.6c-.4-1.1-.2-2.2.4-3z"/></symbol>
-    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5.5 18.5C5 10.5 9.5 5 19.5 4.5c.5 10-5 14.5-13 14"/><path d="M4 20l1.5-1.5c2.5-3.5 5.5-6.5 9.5-8.5"/></symbol>
-    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.4V4.5a1 1 0 0 1 1-1h7.9l8.1 8.1a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0z"/><circle cx="8" cy="8" r="1.5"/></symbol>
-    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8.5a1 1 0 0 1 1-1h3l1.5-2.5h6L16.5 7.5h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/><circle cx="12" cy="13" r="3.5"/></symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M3.5 4.5h11v8h-6l-3 3v-3h-2z"/><path d="M14.5 8.5h6v8h-2v3l-3-3h-5v-4"/></symbol>
-  </svg>
-
   <a class="skip-link" href="#main" data-i18n="skip"></a>
 
-  <div id="top"></div>
-  <aside class="announce" data-launch-offer>
-    <p class="announce__text" data-i18n="banner"></p>
-  </aside>
-
-  <header class="header" data-header>
-    <div class="container header__inner">
-      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.home">
-        <!-- IMAGE : images/logo.png (voir docs/images.md, n° 5) -->
-        <img class="brand__logo" src="images/logo.png" alt="" width="94" height="80" onerror="this.remove()">
-        <span class="brand__words" aria-hidden="true">
-          <span class="brand__name" data-i18n="brand.name"></span>
-          <span class="brand__tag" data-i18n="brand.tag"></span>
-        </span>
-      </a>
-
-      <nav class="nav" data-i18n-attr="aria-label:nav.label">
-        <ul class="nav__list">
-          <li><a class="nav__link" href="#prices" data-i18n="nav.prices"></a></li>
-          <li><a class="nav__link" href="#services" data-i18n="nav.services"></a></li>
-          <li><a class="nav__link" href="#checklist" data-open-checklist data-i18n="nav.checklist"></a></li>
-          <li><a class="nav__link" href="#faq" data-i18n="nav.faq"></a></li>
-        </ul>
-      </nav>
-
-      <div class="header__actions">
-        <div class="lang-switch" role="group" data-i18n-attr="aria-label:nav.language">
-          <button type="button" class="lang-switch__btn" data-set-lang="en" lang="en" data-i18n="lang.en" data-i18n-attr="aria-label:lang.enName"></button>
-          <button type="button" class="lang-switch__btn" data-set-lang="fr" lang="fr" data-i18n="lang.fr" data-i18n-attr="aria-label:lang.frName"></button>
-        </div>
-        <a class="header__phone" href="#" data-phone-link data-i18n-attr="aria-label:nav.call">
-          <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-          <span class="header__phone-number" data-phone-text></span>
-        </a>
-        <a class="btn btn--primary header__book" href="#book" data-i18n="nav.book"></a>
-        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="drawer" data-menu-toggle data-i18n-attr="aria-label:nav.menuOpen">
-          <span class="menu-toggle__bars" aria-hidden="true"></span>
-        </button>
+  <!-- NAVIGATION -->
+  <header class="nav" id="top" data-header>
+    <a class="nav-brand" href="#top" data-i18n-attr="aria-label:brand.home">
+      <img class="logo" src="images/logo.png" alt="" width="94" height="80" onerror="this.remove()">
+      <span class="nav-brand-name" aria-hidden="true"><span class="n-white" data-i18n="brand.word1"></span> <span class="n-orange" data-i18n="brand.word2"></span> <span class="n-blue" data-i18n="brand.word3"></span></span>
+    </a>
+    <nav class="nav-links" data-i18n-attr="aria-label:nav.label">
+      <a href="#why" data-i18n="nav.why"></a>
+      <a href="#services" data-i18n="nav.services"></a>
+      <a href="#book" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" data-i18n-attr="aria-label:nav.language">
+        <button type="button" class="lang-switch__btn" data-set-lang="en" lang="en" data-i18n="lang.en" data-i18n-attr="aria-label:lang.enName"></button>
+        <button type="button" class="lang-switch__btn" data-set-lang="fr" lang="fr" data-i18n="lang.fr" data-i18n-attr="aria-label:lang.frName"></button>
       </div>
+      <a class="nav-cta" href="#book" data-i18n="nav.quote"></a>
+      <button type="button" class="hamburger" aria-expanded="false" aria-controls="drawer" data-menu-toggle>
+        <span></span><span></span><span></span>
+      </button>
     </div>
 
-    <div class="drawer" id="drawer" hidden data-drawer>
-      <div class="container drawer__inner">
-        <nav data-i18n-attr="aria-label:nav.label">
-        <ul class="drawer__list">
-          <li><a class="drawer__link" href="#prices" data-i18n="nav.prices"></a></li>
-          <li><a class="drawer__link" href="#services" data-i18n="nav.services"></a></li>
-          <li><a class="drawer__link" href="#checklist" data-open-checklist data-i18n="nav.checklist"></a></li>
-          <li><a class="drawer__link" href="#faq" data-i18n="nav.faq"></a></li>
-          <li><a class="drawer__link drawer__link--small" href="#pros" data-i18n="nav.pros"></a></li>
-        </ul>
-        </nav>
-        <div class="drawer__foot">
-          <div class="lang-switch lang-switch--large" role="group" data-i18n-attr="aria-label:nav.language">
-            <button type="button" class="lang-switch__btn" data-set-lang="en" lang="en" data-i18n="lang.en" data-i18n-attr="aria-label:lang.enName"></button>
-            <button type="button" class="lang-switch__btn" data-set-lang="fr" lang="fr" data-i18n="lang.fr" data-i18n-attr="aria-label:lang.frName"></button>
-          </div>
-          <a class="contact-link" href="#" data-phone-link>
-            <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-            <span data-phone-text></span>
-          </a>
-          <a class="btn btn--primary btn--block" href="#book" data-i18n="nav.book"></a>
-        </div>
-      </div>
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="drawer" hidden data-drawer>
+      <nav data-i18n-attr="aria-label:nav.label">
+        <a href="#why" data-i18n="nav.why"></a>
+        <a href="#services" data-i18n="nav.services"></a>
+        <a href="#book" data-i18n="nav.contact"></a>
+        <a href="#book" class="mobile-cta" data-i18n="nav.quote"></a>
+      </nav>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
 
-    <!-- 3. HERO -->
+    <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero__grid">
-        <div class="hero__text">
-          <p class="eyebrow" data-i18n="hero.eyebrow"></p>
-          <h1 class="hero__title" id="hero-title">
-            <span class="hero__line" data-i18n="hero.title1"></span>
-            <em class="hero__line hero__line--italic" data-i18n="hero.title2"></em>
-          </h1>
-          <p class="hero__subtitle" data-i18n="hero.subtitle"></p>
+      <div class="hero-slide hero-slide--1" aria-hidden="true"></div>
+      <div class="hero-slide hero-slide--2" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="badge" data-i18n="hero.badge"></p>
+        <h1 id="hero-title"><span data-i18n="hero.title1"></span><br><span class="accent" data-i18n="hero.title2"></span></h1>
+        <p class="sub" data-i18n="hero.sub"></p>
+        <div class="cta-group">
+          <a href="#book" class="btn btn-primary" data-i18n="hero.cta"></a>
+          <a href="#" class="btn btn-outline btn-phone" data-phone-link data-i18n-attr="aria-label:nav.call"><span data-phone-text></span></a>
         </div>
-
-        <div class="hero__media">
-          <div class="frame frame--hero">
-            <!-- IMAGE : images/hero.jpg (voir docs/images.md, n° 1) -->
-            <img src="images/hero.jpg" alt="" width="1600" height="2000" fetchpriority="high" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
-          </div>
-
-          <div class="price-card" id="prices">
-            <div class="price-card__head">
-              <h2 class="price-card__title" id="price-card-title" data-i18n="card.title"></h2>
-              <p class="price-card__note" data-i18n="card.note"></p>
-            </div>
-            <div class="tabs" role="tablist" data-i18n-attr="aria-label:card.tabsLabel" data-price-tabs>
-              <button type="button" class="tabs__tab" role="tab" id="tab-regular" aria-controls="price-panel" aria-selected="true" data-tab="regular" data-i18n="card.tabs.regular"></button>
-              <button type="button" class="tabs__tab" role="tab" id="tab-deep" aria-controls="price-panel" aria-selected="false" tabindex="-1" data-tab="deep" data-i18n="card.tabs.deep"></button>
-              <button type="button" class="tabs__tab" role="tab" id="tab-move" aria-controls="price-panel" aria-selected="false" tabindex="-1" data-tab="move" data-i18n="card.tabs.move"></button>
-              <button type="button" class="tabs__tab" role="tab" id="tab-recurring" aria-controls="price-panel" aria-selected="false" tabindex="-1" data-tab="recurring" data-i18n="card.tabs.recurring"></button>
-            </div>
-            <div class="price-panel" id="price-panel" role="tabpanel" aria-labelledby="tab-regular" tabindex="0" data-price-panel>
-              <ul class="price-rows" data-price-rows></ul>
-              <p class="price-card__desc" data-price-desc></p>
-            </div>
-            <p class="price-card__foot">
-              <span data-i18n="card.foot"></span>
-              <a class="link" href="#included" data-i18n="card.footLink"></a>
-            </p>
-          </div>
-        </div>
-
-        <div class="hero__ctas">
-          <a class="btn btn--primary" href="#book" data-i18n="nav.book"></a>
-          <a class="btn btn--outline" href="#" target="_blank" rel="noopener" data-whatsapp-link>
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            <span data-i18n="nav.whatsapp"></span>
-          </a>
-        </div>
+        <p class="hero-phone"><a href="#" target="_blank" rel="noopener" data-whatsapp-link data-i18n="hero.whatsapp"></a><strong data-i18n="hero.quick"></strong></p>
       </div>
     </section>
 
-    <!-- 4. ENGAGEMENTS -->
-    <div class="pledges">
-      <ul class="container pledges__list">
-        <li class="pledge">
-          <svg class="pledge__icon" aria-hidden="true"><use href="#i-leaf"/></svg>
-          <p class="pledge__body"><span class="pledge__title" data-i18n="pledges.0.title"></span> <span class="pledge__text" data-i18n="pledges.0.text"></span></p>
-        </li>
-        <li class="pledge">
-          <svg class="pledge__icon" aria-hidden="true"><use href="#i-tag"/></svg>
-          <p class="pledge__body"><span class="pledge__title" data-i18n="pledges.1.title"></span> <span class="pledge__text" data-i18n="pledges.1.text"></span></p>
-        </li>
-        <li class="pledge">
-          <svg class="pledge__icon" aria-hidden="true"><use href="#i-camera"/></svg>
-          <p class="pledge__body"><span class="pledge__title" data-i18n="pledges.2.title"></span> <span class="pledge__text" data-i18n="pledges.2.text"></span></p>
-        </li>
-        <li class="pledge">
-          <svg class="pledge__icon" aria-hidden="true"><use href="#i-chat"/></svg>
-          <p class="pledge__body"><span class="pledge__title" data-i18n="pledges.3.title"></span> <span class="pledge__text" data-i18n="pledges.3.text"></span></p>
-        </li>
-      </ul>
+    <!-- BANDEAU DÉFILANT (décoratif, les mêmes points sont repris plus bas) -->
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker" data-ticker></div>
     </div>
 
-    <!-- 5. SERVICES -->
-    <section class="section services" id="services" aria-labelledby="services-title">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title" id="services-title" data-i18n="services.title"></h2>
-          <p class="section-intro" data-i18n="services.intro"></p>
-        </div>
-        <ul class="service-list">
-          <li class="service">
-            <h3 class="service__name" id="svc-move" data-i18n="services.move.name"></h3>
-            <p class="service__text" data-i18n="services.move.text"></p>
-            <div class="service__side">
-              <p class="service__price" data-from-price="move"></p>
-              <a class="link-arrow" href="#book" data-book-service="move" aria-describedby="svc-move">
-                <span data-i18n="services.book"></span>
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
-              </a>
+    <!-- POURQUOI NOUS -->
+    <section class="section" id="why" aria-labelledby="why-title">
+      <p class="label" data-i18n="why.label"></p>
+      <h2 id="why-title"><span data-i18n="why.title1"></span><br><span data-i18n="why.title2"></span></h2>
+      <div class="intro-text">
+        <p data-i18n="why.p1"></p>
+        <p data-i18n="why.p2"></p>
+      </div>
+      <ul class="pillars">
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⚡"></span><h3 data-i18n="why.pillars.0.title"></h3><p data-i18n="why.pillars.0.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🌿"></span><h3 data-i18n="why.pillars.1.title"></h3><p data-i18n="why.pillars.1.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧹"></span><h3 data-i18n="why.pillars.2.title"></h3><p data-i18n="why.pillars.2.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🤝"></span><h3 data-i18n="why.pillars.3.title"></h3><p data-i18n="why.pillars.3.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="💰"></span><h3 data-i18n="why.pillars.4.title"></h3><p data-i18n="why.pillars.4.text"></p></li>
+      </ul>
+    </section>
+
+    <!-- SERVICES (fond blanc) -->
+    <section class="services-outer" id="services" aria-labelledby="services-title">
+      <div class="services-inner">
+        <p class="label"><span data-i18n="services.label"></span> <span class="label-brand" data-i18n="services.labelBrand"></span></p>
+        <h2 id="services-title" data-i18n="services.title"></h2>
+        <p class="services-hint" data-i18n="services.hint"></p>
+
+        <div class="services-grid">
+          <!-- Commercial : carte à retourner -->
+          <div class="flip-card" data-flip-card>
+            <div class="flip-card-inner">
+              <button type="button" class="flip-front flip-front--commercial" aria-controls="back-commercial">
+                <span class="flip-front-overlay" aria-hidden="true"></span>
+                <span class="flip-front-content">
+                  <span class="flip-tag" data-i18n="services.commercial.tag"></span>
+                  <span class="flip-title" data-icon="🏢"><span data-i18n="services.commercial.name"></span></span>
+                  <span class="flip-hint-front" data-i18n="services.more"></span>
+                </span>
+              </button>
+              <div class="flip-back" id="back-commercial" tabindex="-1">
+                <h3 data-i18n="services.commercial.title"></h3>
+                <p class="flip-back-desc" data-i18n="services.commercial.desc"></p>
+                <ul class="service-list" data-i18n-list="services.commercial.items"></ul>
+                <div class="flip-back-bottom">
+                  <a href="#book" class="btn btn-primary btn-small" data-book-service="pro" data-i18n="services.cta"></a>
+                  <button type="button" class="flip-hint-back" data-i18n="services.back"></button>
+                </div>
+              </div>
             </div>
-          </li>
-          <li class="service">
-            <h3 class="service__name" id="svc-regular" data-i18n="services.regular.name"></h3>
-            <p class="service__text" data-i18n="services.regular.text"></p>
-            <div class="service__side">
-              <p class="service__price">
-                <span data-from-price="regular"></span>
-                <small class="service__alt" data-regular-alt></small>
-              </p>
-              <a class="link-arrow" href="#book" data-book-service="regular" aria-describedby="svc-regular">
-                <span data-i18n="services.book"></span>
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
-              </a>
+          </div>
+
+          <!-- Résidentiel : carte à retourner -->
+          <div class="flip-card" data-flip-card>
+            <div class="flip-card-inner">
+              <button type="button" class="flip-front flip-front--residential" aria-controls="back-residential">
+                <span class="flip-front-overlay" aria-hidden="true"></span>
+                <span class="flip-front-content">
+                  <span class="flip-tag" data-i18n="services.residential.tag"></span>
+                  <span class="flip-title" data-icon="🏠"><span data-i18n="services.residential.name"></span></span>
+                  <span class="flip-hint-front" data-i18n="services.more"></span>
+                </span>
+              </button>
+              <div class="flip-back" id="back-residential" tabindex="-1">
+                <h3 data-i18n="services.residential.title"></h3>
+                <p class="flip-back-desc" data-i18n="services.residential.desc"></p>
+                <ul class="service-list" data-i18n-list="services.residential.items"></ul>
+                <div class="flip-back-bottom">
+                  <a href="#book" class="btn btn-primary btn-small" data-i18n="services.cta"></a>
+                  <button type="button" class="flip-hint-back" data-i18n="services.back"></button>
+                </div>
+              </div>
             </div>
-          </li>
-          <li class="service">
-            <h3 class="service__name" id="svc-deep" data-i18n="services.deep.name"></h3>
-            <p class="service__text" data-i18n="services.deep.text"></p>
-            <div class="service__side">
-              <p class="service__price" data-from-price="deep"></p>
-              <a class="link-arrow" href="#book" data-book-service="deep" aria-describedby="svc-deep">
-                <span data-i18n="services.book"></span>
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
-              </a>
-            </div>
-          </li>
-        </ul>
-        <p class="services__note">
-          <a class="link" href="#pros" data-i18n="services.note"></a>
-        </p>
-      </div>
-    </section>
-
-    <!-- 6. COMMENT ÇA MARCHE -->
-    <section class="section how" id="how" aria-labelledby="how-title">
-      <div class="container how__grid">
-        <div class="frame frame--how">
-          <!-- IMAGE : images/how.jpg (voir docs/images.md, n° 2) -->
-          <img src="images/how.jpg" alt="" width="1600" height="1200" loading="lazy" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
+          </div>
         </div>
-        <div class="how__content">
-          <h2 class="section-title" id="how-title" data-i18n="how.title"></h2>
-          <ol class="steps">
-            <li class="step-item">
-              <h3 class="step-item__title" data-i18n="how.steps.0.title"></h3>
-              <p class="step-item__text" data-i18n="how.steps.0.text"></p>
-            </li>
-            <li class="step-item">
-              <h3 class="step-item__title" data-i18n="how.steps.1.title"></h3>
-              <p class="step-item__text" data-i18n="how.steps.1.text"></p>
-            </li>
-            <li class="step-item">
-              <h3 class="step-item__title" data-i18n="how.steps.2.title"></h3>
-              <p class="step-item__text" data-i18n="how.steps.2.text"></p>
-            </li>
-          </ol>
+
+        <!-- Zones desservies -->
+        <div class="areas">
+          <p class="label" data-icon="📍"><span data-i18n="areas.label"></span></p>
+          <p class="areas-list" data-areas></p>
         </div>
       </div>
     </section>
 
-    <!-- 7. CE QUI EST INCLUS -->
-    <section class="section included" id="included" aria-labelledby="included-title">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title" id="included-title" data-i18n="included.title"></h2>
-          <p class="section-intro" data-i18n="included.intro"></p>
+    <!-- CONTACT ET RÉSERVATION -->
+    <section class="section" id="book" aria-labelledby="book-title">
+      <p class="label" data-i18n="contact.label"></p>
+      <h2 id="book-title" data-i18n="contact.title"></h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p data-i18n="contact.intro"></p>
+          <a href="#" class="contact-item" data-icon="📞" data-phone-link><span data-phone-text></span></a>
+          <a href="#" class="contact-item" data-icon="💬" target="_blank" rel="noopener" data-whatsapp-link><span data-i18n="contact.whatsapp"></span></a>
+          <a href="https://maps.google.com/?q=Toronto,+ON" class="contact-item" data-icon="📍" target="_blank" rel="noopener"><span data-i18n="contact.area"></span></a>
         </div>
 
-        <div class="tiers">
-          <div class="tier">
-            <h3 class="tier__title" data-i18n="included.regular.title"></h3>
-            <ul class="tier__list" data-i18n-list="included.regular.items"></ul>
-          </div>
-          <div class="tier">
-            <h3 class="tier__title" data-i18n="included.deep.title"></h3>
-            <p class="tier__lead" data-i18n="included.deep.lead"></p>
-            <ul class="tier__list" data-i18n-list="included.deep.items"></ul>
-          </div>
-          <div class="tier">
-            <h3 class="tier__title" data-i18n="included.move.title"></h3>
-            <p class="tier__lead" data-i18n="included.move.lead"></p>
-            <ul class="tier__list" data-i18n-list="included.move.items"></ul>
-          </div>
-        </div>
-
-        <div class="addons">
-          <div class="addons__main">
-            <div class="addons-card">
-              <h3 class="addons-card__title" data-i18n="included.addons.title"></h3>
-              <ul class="menu-list" data-addons-list></ul>
-              <p class="addons-card__note" data-i18n="included.addons.note"></p>
-            </div>
-            <p class="not-included" data-i18n="included.notIncluded"></p>
-          </div>
-          <div class="frame frame--included">
-            <!-- IMAGE : images/included.jpg (voir docs/images.md, n° 3) -->
-            <img src="images/included.jpg" alt="" width="1200" height="1500" loading="lazy" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
-          </div>
-        </div>
-
-        <details class="checklist" id="checklist">
-          <summary class="checklist__summary">
-            <span data-i18n="checklist.toggle"></span>
-            <svg class="checklist__icon" aria-hidden="true"><use href="#i-plus"/></svg>
-          </summary>
-          <div class="checklist__body">
-            <ul class="legend">
-              <li class="legend__item"><svg class="mark mark--Y" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="checklist.legend.Y"></span></li>
-              <li class="legend__item"><svg class="mark mark--O" aria-hidden="true"><use href="#i-plus"/></svg><span data-i18n="checklist.legend.O"></span></li>
-              <li class="legend__item"><svg class="mark mark--N" aria-hidden="true"><use href="#i-minus"/></svg><span data-i18n="checklist.legend.N"></span></li>
-            </ul>
-            <table class="checklist-table" data-checklist-table></table>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <!-- 8. PROS -->
-    <section class="pros" id="pros" aria-labelledby="pros-title">
-      <div class="pros__grid">
-        <div class="frame frame--pros">
-          <!-- IMAGE : images/pros.jpg (voir docs/images.md, n° 4) -->
-          <img src="images/pros.jpg" alt="" width="1800" height="1200" loading="lazy" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
-        </div>
-        <div class="pros__content">
-          <h2 class="section-title" id="pros-title" data-i18n="pros.title"></h2>
-          <p class="pros__text" data-i18n="pros.text"></p>
-          <ul class="pros__points" data-i18n-list="pros.points"></ul>
-          <a class="btn btn--accent" href="#book" data-book-service="pro" data-i18n="pros.cta"></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. OÙ ON INTERVIENT + FAQ -->
-    <section class="section areas-faq">
-      <div class="container areas-faq__grid">
-        <div class="areas" id="areas">
-          <h2 class="section-title section-title--small" data-i18n="areas.title"></h2>
-          <p class="areas__text" data-i18n="areas.text"></p>
-          <ul class="tags" data-i18n-list="areas.tags"></ul>
-          <p class="areas__after" data-i18n="areas.after"></p>
-        </div>
-        <div class="faq" id="faq">
-          <h2 class="section-title section-title--small" data-i18n="faq.title"></h2>
-          <div class="accordion" data-faq></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. RÉSERVATION -->
-    <section class="section book" id="book" aria-labelledby="book-title">
-      <div class="container book__grid">
-        <div class="book__intro">
-          <h2 class="section-title" id="book-title" data-i18n="book.title"></h2>
-          <p class="book__text" data-i18n="book.text"></p>
-          <ul class="book__contacts">
-            <li>
-              <a class="contact-link" href="#" data-phone-link>
-                <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-                <span data-phone-text></span>
-              </a>
-            </li>
-            <li>
-              <a class="contact-link" href="#" target="_blank" rel="noopener" data-whatsapp-link>
-                <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-                <span data-i18n="nav.whatsapp"></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="book__card">
-          <form class="booking" id="booking-form" action="https://formspree.io/f/mjgeappr" method="POST" novalidate data-i18n-attr="aria-label:book.formLabel">
+        <div class="book-card">
+          <form class="booking" id="booking-form" action="https://formspree.io/f/mjgeappr" method="POST" novalidate data-i18n-attr="aria-label:contact.formLabel">
             <div class="progress">
               <p class="progress__text" aria-live="polite">
                 <span data-progress-count></span>
@@ -395,7 +199,7 @@
               <p class="step__note" data-i18n="form.step1.note"></p>
 
               <fieldset class="field" data-field="service">
-                <legend class="label" data-i18n="form.step1.service"></legend>
+                <legend class="label-field" data-i18n="form.step1.service"></legend>
                 <div class="options options--cards">
                   <label class="option-card">
                     <input class="option-card__input" type="radio" name="service" value="Regular" data-service="regular">
@@ -435,7 +239,7 @@
 
               <div class="cond" data-when="residential" hidden>
                 <div class="field" data-field="home_size">
-                  <label class="label" for="home_size" data-i18n="form.step1.size"></label>
+                  <label class="label-field" for="home_size" data-i18n="form.step1.size"></label>
                   <div class="select">
                     <select id="home_size" name="home_size" data-size-select></select>
                   </div>
@@ -443,7 +247,7 @@
                 </div>
 
                 <fieldset class="field">
-                  <legend class="label" data-i18n="form.step1.type"></legend>
+                  <legend class="label-field" data-i18n="form.step1.type"></legend>
                   <div class="options">
                     <label class="pill"><input type="radio" name="property_type" value="Condo or apartment" checked><span data-i18n="form.step1.types.0"></span></label>
                     <label class="pill"><input type="radio" name="property_type" value="Townhouse"><span data-i18n="form.step1.types.1"></span></label>
@@ -454,7 +258,7 @@
 
               <div class="cond" data-when="regular" hidden>
                 <fieldset class="field">
-                  <legend class="label" data-i18n="form.step1.frequency"></legend>
+                  <legend class="label-field" data-i18n="form.step1.frequency"></legend>
                   <div class="options">
                     <label class="pill"><input type="radio" name="frequency" value="One time" data-freq="once" checked><span data-freq-label="once"></span></label>
                     <label class="pill"><input type="radio" name="frequency" value="Weekly" data-freq="weekly"><span data-freq-label="weekly"></span></label>
@@ -467,7 +271,7 @@
 
               <div class="cond" data-when="pro" hidden>
                 <fieldset class="field" data-field="pro_type">
-                  <legend class="label" data-i18n="form.step1.proType"></legend>
+                  <legend class="label-field" data-i18n="form.step1.proType"></legend>
                   <div class="options">
                     <label class="pill"><input type="radio" name="pro_type" value="Property manager"><span data-i18n="form.step1.proTypes.0"></span></label>
                     <label class="pill"><input type="radio" name="pro_type" value="Realtor"><span data-i18n="form.step1.proTypes.1"></span></label>
@@ -477,7 +281,7 @@
                   <p class="field__error" id="err-pro_type" data-error></p>
                 </fieldset>
                 <div class="field">
-                  <label class="label" for="units_or_size" data-i18n="form.step1.units"></label>
+                  <label class="label-field" for="units_or_size" data-i18n="form.step1.units"></label>
                   <input class="input" type="text" id="units_or_size" name="units_or_size" data-i18n-attr="placeholder:form.step1.unitsExample">
                 </div>
               </div>
@@ -491,14 +295,14 @@
                 <fieldset class="field">
                   <legend class="visually-hidden" data-i18n="form.step2.title"></legend>
                   <ul class="checks">
-                    <li><label class="check"><input type="checkbox" name="addons" value="Inside the oven" data-addon="oven"><span class="check__box" aria-hidden="true"><svg><use href="#i-check"/></svg></span><span class="check__label" data-i18n="included.addons.oven"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="oven"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Inside the fridge" data-addon="fridge"><span class="check__box" aria-hidden="true"><svg><use href="#i-check"/></svg></span><span class="check__label" data-i18n="included.addons.fridge"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="fridge"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Inside cabinets" data-addon="cabinets"><span class="check__box" aria-hidden="true"><svg><use href="#i-check"/></svg></span><span class="check__label" data-i18n="included.addons.cabinets"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="cabinets"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Interior windows and tracks" data-addon="windows"><span class="check__box" aria-hidden="true"><svg><use href="#i-check"/></svg></span><span class="check__label" data-i18n="form.step2.windows"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="windows"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Pet hair" data-addon="pets"><span class="check__box" aria-hidden="true"><svg><use href="#i-check"/></svg></span><span class="check__label" data-i18n="included.addons.pets"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="pets"></span></label></li>
+                    <li><label class="check"><input type="checkbox" name="addons" value="Inside the oven" data-addon="oven"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.oven"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="oven"></span></label></li>
+                    <li><label class="check"><input type="checkbox" name="addons" value="Inside the fridge" data-addon="fridge"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.fridge"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="fridge"></span></label></li>
+                    <li><label class="check"><input type="checkbox" name="addons" value="Inside cabinets" data-addon="cabinets"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.cabinets"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="cabinets"></span></label></li>
+                    <li><label class="check"><input type="checkbox" name="addons" value="Interior windows and tracks" data-addon="windows"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.windows"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="windows"></span></label></li>
+                    <li><label class="check"><input type="checkbox" name="addons" value="Pet hair" data-addon="pets"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.pets"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="pets"></span></label></li>
                   </ul>
                 </fieldset>
-                <label class="check check--plain"><input type="checkbox" name="fragrance_free" value="Yes"><span class="check__box" aria-hidden="true"><svg><use href="#i-check"/></svg></span><span class="check__label" data-i18n="form.step2.fragrance"></span></label>
+                <label class="check check--plain"><input type="checkbox" name="fragrance_free" value="Yes"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.fragrance"></span></label>
               </div>
             </div>
 
@@ -507,44 +311,44 @@
               <h3 class="step__title" tabindex="-1" data-i18n="form.step3.title"></h3>
               <div class="grid-fields">
                 <div class="field field--full" data-field="address">
-                  <label class="label" for="address" data-i18n="form.step3.address"></label>
-                  <input class="input" type="text" id="address" name="address" autocomplete="street-address" data-req="residential">
+                  <label class="label-field" for="address" data-i18n="form.step3.address"></label>
+                  <input class="input" type="text" id="address" name="address" autocomplete="street-address">
                   <p class="field__error" id="err-address" data-error></p>
                 </div>
                 <div class="field" data-field="unit">
-                  <label class="label" for="unit" data-i18n="form.step3.unit"></label>
+                  <label class="label-field" for="unit" data-i18n="form.step3.unit"></label>
                   <input class="input" type="text" id="unit" name="unit" autocomplete="address-line2">
                 </div>
                 <div class="field" data-field="postal_code">
-                  <label class="label" for="postal_code" data-i18n="form.step3.postal"></label>
-                  <input class="input" type="text" id="postal_code" name="postal_code" autocomplete="postal-code" autocapitalize="characters" maxlength="10" spellcheck="false" data-req="all" data-check="postal">
+                  <label class="label-field" for="postal_code" data-i18n="form.step3.postal"></label>
+                  <input class="input" type="text" id="postal_code" name="postal_code" autocomplete="postal-code" autocapitalize="characters" maxlength="10" spellcheck="false">
                   <p class="field__error" id="err-postal_code" data-error></p>
                 </div>
                 <div class="field" data-field="city">
-                  <label class="label" for="city" data-i18n="form.step3.city"></label>
-                  <input class="input" type="text" id="city" name="city" autocomplete="address-level2" value="Toronto" data-req="all">
+                  <label class="label-field" for="city" data-i18n="form.step3.city"></label>
+                  <input class="input" type="text" id="city" name="city" autocomplete="address-level2" value="Toronto">
                   <p class="field__error" id="err-city" data-error></p>
                 </div>
                 <div class="field" data-field="date">
-                  <label class="label" for="date" data-i18n="form.step3.date"></label>
-                  <input class="input" type="date" id="date" name="date" data-req="residential" data-check="date">
+                  <label class="label-field" for="date" data-i18n="form.step3.date"></label>
+                  <input class="input" type="date" id="date" name="date">
                   <p class="field__error" id="err-date" data-error></p>
                 </div>
               </div>
 
               <fieldset class="field" data-field="arrival_window">
-                <legend class="label" data-i18n="form.step3.arrival"></legend>
+                <legend class="label-field" data-i18n="form.step3.arrival"></legend>
                 <div class="options">
-                  <label class="pill"><input type="radio" name="arrival_window" value="Morning, 8 to 10 am" data-req="residential"><span data-i18n="form.step3.windows.0"></span></label>
-                  <label class="pill"><input type="radio" name="arrival_window" value="Midday, 11 am to 1 pm" data-req="residential"><span data-i18n="form.step3.windows.1"></span></label>
-                  <label class="pill"><input type="radio" name="arrival_window" value="Afternoon, 2 to 4 pm" data-req="residential"><span data-i18n="form.step3.windows.2"></span></label>
+                  <label class="pill"><input type="radio" name="arrival_window" value="Morning, 8 to 10 am"><span data-i18n="form.step3.windows.0"></span></label>
+                  <label class="pill"><input type="radio" name="arrival_window" value="Midday, 11 am to 1 pm"><span data-i18n="form.step3.windows.1"></span></label>
+                  <label class="pill"><input type="radio" name="arrival_window" value="Afternoon, 2 to 4 pm"><span data-i18n="form.step3.windows.2"></span></label>
                 </div>
                 <p class="field__note" data-i18n="form.step3.arrivalNote"></p>
                 <p class="field__error" id="err-arrival_window" data-error></p>
               </fieldset>
 
               <fieldset class="field">
-                <legend class="label" data-i18n="form.step3.flexibility"></legend>
+                <legend class="label-field" data-i18n="form.step3.flexibility"></legend>
                 <div class="options">
                   <label class="pill"><input type="radio" name="flexibility" value="Only this date"><span data-i18n="form.step3.flexibilities.0"></span></label>
                   <label class="pill"><input type="radio" name="flexibility" value="Day before or after"><span data-i18n="form.step3.flexibilities.1"></span></label>
@@ -553,7 +357,7 @@
               </fieldset>
 
               <fieldset class="field">
-                <legend class="label" data-i18n="form.step3.access"></legend>
+                <legend class="label-field" data-i18n="form.step3.access"></legend>
                 <div class="options">
                   <label class="pill"><input type="radio" name="access" value="I'll be home"><span data-i18n="form.step3.accesses.0"></span></label>
                   <label class="pill"><input type="radio" name="access" value="Concierge or front desk"><span data-i18n="form.step3.accesses.1"></span></label>
@@ -565,7 +369,7 @@
 
               <div class="cond" data-when="move" hidden>
                 <fieldset class="field">
-                  <legend class="label" data-i18n="form.step3.elevator"></legend>
+                  <legend class="label-field" data-i18n="form.step3.elevator"></legend>
                   <div class="options">
                     <label class="pill"><input type="radio" name="elevator_booking" value="Not sure" checked><span data-i18n="form.step3.elevators.0"></span></label>
                     <label class="pill"><input type="radio" name="elevator_booking" value="Yes, I'll book it"><span data-i18n="form.step3.elevators.1"></span></label>
@@ -575,7 +379,7 @@
               </div>
 
               <div class="field">
-                <label class="label" for="message" data-i18n="form.step3.details"></label>
+                <label class="label-field" for="message" data-i18n="form.step3.details"></label>
                 <textarea class="input input--area" id="message" name="message" rows="3" data-i18n-attr="placeholder:form.step3.detailsExample"></textarea>
               </div>
             </div>
@@ -585,24 +389,24 @@
               <h3 class="step__title" tabindex="-1" data-i18n="form.step4.title"></h3>
               <div class="grid-fields">
                 <div class="field field--full" data-field="name">
-                  <label class="label" for="name" data-i18n="form.step4.name"></label>
-                  <input class="input" type="text" id="name" name="name" autocomplete="name" data-req="all">
+                  <label class="label-field" for="name" data-i18n="form.step4.name"></label>
+                  <input class="input" type="text" id="name" name="name" autocomplete="name">
                   <p class="field__error" id="err-name" data-error></p>
                 </div>
                 <div class="field" data-field="phone">
-                  <label class="label" for="phone" data-i18n="form.step4.phone"></label>
-                  <input class="input" type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" data-req="all" data-check="phone">
+                  <label class="label-field" for="phone" data-i18n="form.step4.phone"></label>
+                  <input class="input" type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel">
                   <p class="field__error" id="err-phone" data-error></p>
                 </div>
                 <div class="field" data-field="email">
-                  <label class="label" for="email" data-i18n="form.step4.email"></label>
-                  <input class="input" type="email" id="email" name="email" autocomplete="email" spellcheck="false" data-check="email">
+                  <label class="label-field" for="email" data-i18n="form.step4.email"></label>
+                  <input class="input" type="email" id="email" name="email" autocomplete="email" spellcheck="false">
                   <p class="field__error" id="err-email" data-error></p>
                 </div>
               </div>
 
               <fieldset class="field">
-                <legend class="label" data-i18n="form.step4.confirm"></legend>
+                <legend class="label-field" data-i18n="form.step4.confirm"></legend>
                 <div class="options">
                   <label class="pill"><input type="radio" name="preferred_contact" value="WhatsApp" checked><span data-i18n="form.step4.confirms.0"></span></label>
                   <label class="pill"><input type="radio" name="preferred_contact" value="Text message"><span data-i18n="form.step4.confirms.1"></span></label>
@@ -612,7 +416,7 @@
               </fieldset>
 
               <div class="field">
-                <label class="label" for="heard_about_us" data-i18n="form.step4.source"></label>
+                <label class="label-field" for="heard_about_us" data-i18n="form.step4.source"></label>
                 <div class="select">
                   <select id="heard_about_us" name="heard_about_us">
                     <option value="" data-i18n="form.choose"></option>
@@ -640,9 +444,9 @@
             </div>
 
             <div class="form-nav">
-              <button type="button" class="btn btn--secondary" data-back data-i18n="form.back"></button>
-              <button type="button" class="btn btn--primary" data-next data-i18n="form.next"></button>
-              <button type="submit" class="btn btn--primary" data-submit hidden data-i18n="form.submit"></button>
+              <button type="button" class="btn btn-secondary" data-back data-i18n="form.back"></button>
+              <button type="button" class="btn btn-primary" data-next data-i18n="form.next"></button>
+              <button type="submit" class="btn btn-primary" data-submit hidden data-i18n="form.submit"></button>
             </div>
             <p class="form-error" role="alert" data-send-error></p>
             <p class="form-privacy" data-i18n="form.privacy"></p>
@@ -652,40 +456,33 @@
     </section>
   </main>
 
-  <!-- 11. PIED DE PAGE -->
+  <!-- PIED DE PAGE -->
   <footer class="footer">
-    <div class="container footer__inner">
-      <a class="brand brand--light" href="#top" data-i18n-attr="aria-label:brand.home">
-        <!-- IMAGE : images/logo.png (voir docs/images.md, n° 5) -->
-        <img class="brand__logo" src="images/logo.png" alt="" width="94" height="80" loading="lazy" onerror="this.remove()">
-        <span class="brand__words" aria-hidden="true">
-          <span class="brand__name" data-i18n="brand.name"></span>
-          <span class="brand__tag" data-i18n="brand.tag"></span>
-        </span>
-      </a>
-      <ul class="footer__links">
-        <li><a class="link link--light" href="#" data-phone-link><span data-phone-text></span></a></li>
-        <li><a class="link link--light" href="#" target="_blank" rel="noopener" data-whatsapp-link><span data-i18n="nav.whatsapp"></span></a></li>
-        <li><a class="link link--light" href="#top" data-i18n="footer.top"></a></li>
-      </ul>
-      <p class="footer__legal" data-i18n="footer.legal"></p>
-    </div>
+    <img src="images/logo.png" alt="" width="94" height="80" loading="lazy" onerror="this.remove()">
+    <p class="footer-name" aria-hidden="true"><span class="n-white" data-i18n="brand.word1"></span> <span class="n-orange" data-i18n="brand.word2"></span> <span class="n-blue" data-i18n="brand.word3"></span></p>
+    <p data-i18n="footer.line"></p>
+    <p class="footer-links">
+      <a href="#" data-phone-link><span data-phone-text></span></a>
+      <a href="#" target="_blank" rel="noopener" data-whatsapp-link data-i18n="contact.whatsapp"></a>
+      <button type="button" class="footer-link-btn" data-open-privacy data-i18n="footer.privacy"></button>
+    </p>
+    <p class="footer-legal" data-i18n="footer.legal"></p>
   </footer>
-
-  <!-- 12. BARRE FIXE (mobile uniquement) -->
-  <nav class="mobile-bar" data-mobile-bar data-i18n-attr="aria-label:nav.book">
-    <a class="btn btn--outline" href="#" target="_blank" rel="noopener" data-whatsapp-link>
-      <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-      <span data-i18n="nav.whatsapp"></span>
-    </a>
-    <a class="btn btn--accent" href="#book" data-i18n="nav.book"></a>
-  </nav>
 
   <!-- Fenêtre de succès -->
   <dialog class="dialog" id="success-dialog" aria-labelledby="success-title" data-success-dialog>
+    <p class="dialog__icon" aria-hidden="true" data-icon="✅"></p>
     <h2 class="dialog__title" id="success-title" data-i18n="form.success.title"></h2>
     <p class="dialog__text" data-i18n="form.success.text"></p>
-    <button type="button" class="btn btn--primary" data-close-dialog data-i18n="form.success.close"></button>
+    <button type="button" class="btn btn-primary" data-close-dialog data-i18n="form.success.close"></button>
+  </dialog>
+
+  <!-- Politique de confidentialité -->
+  <dialog class="dialog dialog--privacy" id="privacy-dialog" aria-labelledby="privacy-title" data-privacy-dialog>
+    <h2 class="dialog__title" id="privacy-title" data-i18n="privacy.title"></h2>
+    <p class="dialog__meta" data-i18n="privacy.updated"></p>
+    <div class="dialog__body" data-privacy-sections></div>
+    <button type="button" class="btn btn-primary" data-close-privacy data-i18n="privacy.close"></button>
   </dialog>
 
   <script src="js/config.js"></script>

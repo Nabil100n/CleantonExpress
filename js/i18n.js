@@ -1,208 +1,89 @@
 /*
  * Cleanton Express Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
- * Règles : pas de tiret cadratin ; aucun prix écrit en dur.
+ * Règles : pas de tiret cadratin ; aucun prix écrit en dur ; pas de faux avis.
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
  *   {price}  un prix formaté ($165 / 165 $)
- *   {weekly} {biweekly} {monthly}  les remises récurrentes (15% / 15 %)
- *   {launch} {clients}  l'offre de lancement (15% / 15 %, 20 clients)
- *   {d}      une remise, {i} {n} les numéros d'étape
+ *   {phone}  le téléphone de config.js, (437) 717-8009
+ *   {d}      une remise, {i} {n} les numéros d'étape du formulaire
  */
 const I18N = {
   en: {
     meta: {
-      title: "Cleanton Express Cleaning | Condo & apartment cleaning in Toronto, prices upfront",
-      description: "Move-in/move-out, regular and deep cleaning for Toronto condos and apartments. Prices upfront from {price}, eco-friendly products included, service in English and French."
+      title: "Cleanton Express Cleaning | 24/7 cleaning services in Toronto",
+      description: "24/7 professional cleaning in Toronto for condos, apartments, homes and businesses. Prices from {price}, eco-friendly products, service in English and French."
     },
     skip: "Skip to content",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
-    brand: { name: "Cleanton Express", tag: "Cleaning", home: "Cleanton Express Cleaning, back to top" },
-    banner: "Launch offer: {launch} off your first clean, for our first {clients} clients.",
+    brand: { word1: "Cleanton", word2: "Express", word3: "Cleaning", home: "Cleanton Express Cleaning, back to top" },
     nav: {
       label: "Main",
-      prices: "Prices",
+      why: "Why Us",
       services: "Services",
-      checklist: "Checklist",
-      faq: "FAQ",
-      pros: "Property managers and realtors",
-      book: "Book a cleaning",
-      whatsapp: "WhatsApp",
+      contact: "Contact",
+      quote: "Free Quote →",
       menuOpen: "Open menu",
       menuClose: "Close menu",
       language: "Language",
       call: "Call {phone}"
     },
     hero: {
-      eyebrow: "Condo and apartment cleaning, Toronto",
-      title1: "Impeccable homes.",
-      title2: "Prices upfront.",
-      subtitle: "Move-in and move-out, regular and deep cleaning. Eco-friendly products included, service in English and French."
+      badge: "✦ Available 24/7 in Toronto",
+      title1: "We clean.",
+      title2: "That’s it.",
+      sub: "Reliable, fast and professional cleaning for homes and businesses, whenever you need us.",
+      cta: "Get a Free Quote",
+      whatsapp: "WhatsApp available",
+      quick: "Quick response"
     },
-    card: {
-      title: "Our prices",
-      note: "CAD, before tax",
-      tabsLabel: "Prices by service",
-      tabs: { regular: "Regular", deep: "Deep", move: "Move-in/out", recurring: "Recurring" },
-      sizes: ["Studio or 1 bed, 1 bath", "2 bed, 1 bath", "2 bed, 2 bath", "3 bed, 2 bath", "4 bed or more"],
-      onQuote: "On quote",
-      desc: {
-        regular: "Kitchen, bathrooms, dusting and floors, done properly.",
-        deep: "Everything in Regular, plus baseboards, doors, switches and built-up grime.",
-        move: "Empty home, inside the oven, fridge and cabinets. Dated photo report included.",
-        recurring: "Bi-weekly price (−{biweekly}), from your 2nd visit. Weekly saves {weekly}, monthly {monthly}."
-      },
-      foot: "Eco-friendly products and supplies included.",
-      footLink: "See what’s included"
-    },
-    pledges: [
-      { title: "Eco products included", text: "No extra charge." },
-      { title: "Price agreed before we start", text: "Flat rates, no surprise on the bill." },
-      { title: "Photo report on move-outs", text: "Dated photos for you and your landlord." },
-      { title: "English or French", text: "By phone or WhatsApp." }
-    ],
-    services: {
-      title: "What we clean",
-      intro: "Flat prices for homes in normal condition. If yours needs more work, you get the new price before we start, never after.",
-      from: "from {price}",
-      regularAlt: "or {price} bi-weekly",
-      book: "Book a cleaning",
-      move: {
-        name: "Move-in / move-out",
-        text: "Moving in or out? We clean the empty unit top to bottom, inside the oven, fridge and cabinets included, and send you dated photos for a smooth key handover."
-      },
-      regular: {
-        name: "Regular cleaning",
-        text: "One-time or recurring: weekly, bi-weekly or monthly, with the same cleaner whenever possible and up to {weekly} off."
-      },
-      deep: {
-        name: "Deep cleaning",
-        text: "For a first visit, after a busy season or before guests arrive. Everything in Regular, plus baseboards, doors, switches and built-up grime."
-      },
-      note: "Offices, studios and shops: on quote."
-    },
-    how: {
-      title: "How it works",
-      steps: [
-        { title: "Find your price", text: "Pick your home size in the price list. That’s your price for a home in normal condition." },
-        { title: "Send your request", text: "Use the form or WhatsApp. We confirm the date, access and price within 2 hours (8 am to 8 pm)." },
-        { title: "We clean, you pay after", text: "You pay once the job is done. Move-outs come with a dated photo report." }
+    ticker: ["24/7 cleaning", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
+    why: {
+      label: "Why choose Cleanton Express Cleaning",
+      title1: "Every space.",
+      title2: "Spotless.",
+      p1: "Designed for responsiveness. Guided by exacting standards. We know that a clean space reflects your image, and that your home or business can’t wait.",
+      p2: "That’s why we step in with precision, professionalism and high standards, 24/7. Fast, structured and professional cleaning, tailored to your needs.",
+      pillars: [
+        { title: "24/7 availability", text: "Day, night, weekends and holidays: we’re always on." },
+        { title: "Eco-friendly products", text: "Included at no extra charge." },
+        { title: "Pro equipment", text: "Professional-grade tools for an impeccable result every time." },
+        { title: "Reliable & punctual", text: "On time, careful and committed to quality." },
+        { title: "Competitive pricing", text: "Professional quality, with prices shown upfront." }
       ]
     },
-    included: {
-      title: "What’s included",
-      intro: "Each clean builds on the one before. Same checklist every time, so you know what you’re paying for.",
-      regular: {
-        title: "Regular",
-        items: [
-          "Counters, sink and backsplash",
-          "Stovetop and appliance fronts",
-          "Cabinet fronts",
-          "Inside the microwave",
-          "Toilet, sink, tub and shower",
-          "Mirrors and fixtures",
-          "Dusting",
-          "Vacuum and mop",
-          "Garbage and recycling"
-        ]
+    services: {
+      label: "Our services",
+      labelBrand: "at Cleanton",
+      title: "What we do",
+      hint: "Tap a card to discover more",
+      more: "↺ Tap to discover more",
+      back: "↺ Flip back",
+      cta: "Get a Quote →",
+      commercial: {
+        tag: "✔ Commercial cleaning",
+        name: "Commercial",
+        title: "Offices, shops & more",
+        desc: "We adapt to your schedule and deliver spotless results, every time.",
+        items: ["Offices & corporate spaces", "Retail stores", "Gyms & fitness studios", "Bars & restaurants", "After-event cleaning", "Unit turnovers for property managers & realtors"]
       },
-      deep: {
-        title: "Deep",
-        lead: "Everything in Regular, plus:",
-        items: [
-          "Baseboards, doors and frames",
-          "Switches and door handles",
-          "Windowsills",
-          "Limescale and soap scum"
-        ]
-      },
-      move: {
-        title: "Move-in/out",
-        lead: "Everything in Deep, plus:",
-        items: [
-          "Inside the oven",
-          "Inside the fridge",
-          "Inside cabinets and drawers",
-          "Inside closets",
-          "Window tracks",
-          "Dated photo report"
-        ]
-      },
-      addons: {
-        title: "Add-ons, à la carte",
-        oven: "Inside the oven",
-        fridge: "Inside the fridge",
-        cabinets: "Inside cabinets",
-        windows: "Interior windows and tracks, from",
-        pets: "Pet hair",
-        price: "+{price}",
-        note: "Oven, fridge and cabinets are already included in move-in/out cleaning."
-      },
-      notIncluded: "Not included: exterior windows, moving heavy furniture, mould, biohazards."
-    },
-    checklist: {
-      toggle: "See the full checklist, room by room",
-      cols: { task: "Task", regular: "Regular", deep: "Deep", move: "Move-in/out" },
-      legend: { Y: "Included", O: "Add-on", N: "Not included" },
-      groups: {
-        kitchen: "Kitchen",
-        bathrooms: "Bathrooms",
-        whole: "Whole home"
-      },
-      rows: {
-        counters: "Counters, sink and backsplash",
-        stovetop: "Stovetop and outside of appliances",
-        cabinetFronts: "Cabinet fronts and handles",
-        microwave: "Inside the microwave",
-        oven: "Inside the oven",
-        fridge: "Inside the fridge",
-        cabinetsInside: "Inside cabinets and drawers",
-        toilet: "Toilet, sink, tub and shower",
-        mirrors: "Mirrors and fixtures shined",
-        limescale: "Limescale and soap scum on tiles and grout",
-        dust: "Dust all reachable surfaces",
-        floors: "Vacuum and mop floors",
-        garbage: "Empty garbage and recycling",
-        baseboards: "Baseboards, doors and frames",
-        switches: "Light switches and door handles",
-        sills: "Windowsills",
-        tracks: "Window tracks",
-        closets: "Inside closets",
-        photos: "Dated photo report"
+      residential: {
+        tag: "✔ Residential cleaning",
+        name: "Residential",
+        title: "Your home, spotless",
+        desc: "Regular cleans, deep cleans, move-ins and move-outs: we bring your home back to its best.",
+        items: ["Regular home cleaning", "Deep cleaning", "Move-in / move-out cleaning", "Condos, apartments & townhouses"]
       }
     },
-    pros: {
-      title: "Property managers and realtors",
-      text: "Units turned over between tenants, homes ready for listing photos. One contact, and a photo report and invoice for every job.",
-      points: [
-        "Turnover and pre-listing cleans",
-        "Photo report and invoice per unit",
-        "Volume pricing for regular work"
-      ],
-      cta: "Ask for volume pricing"
-    },
     areas: {
-      title: "Where we clean",
-      text: "Downtown Toronto and nearby neighbourhoods, with no travel fee:",
-      tags: [
-        "King West", "Liberty Village", "CityPlace", "Fort York", "Entertainment District",
-        "Financial District", "St. Lawrence", "Kensington Market", "Chinatown", "The Annex",
-        "Yorkville", "Little Italy", "Trinity Bellwoods", "Parkdale", "Leslieville", "Midtown"
-      ],
-      after: "Somewhere else in Toronto? Ask us and we’ll tell you right away."
+      label: "Areas covered",
+      tags: ["Downtown Toronto", "King West", "Liberty Village", "CityPlace", "Fort York", "Entertainment District", "Financial District", "St. Lawrence", "Kensington Market", "Chinatown", "The Annex", "Yorkville", "Little Italy", "Trinity Bellwoods", "Parkdale", "Leslieville", "Midtown"],
+      more: "and more across the GTA"
     },
-    faq: {
-      title: "Questions",
-      items: [
-        { q: "Do you bring the products and equipment?", a: "Yes. We bring eco-friendly products and all the supplies. If you’d rather we use your vacuum or your own products, just tell us." },
-        { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." },
-        { q: "Are the prices final?", a: "Yes, for a home in normal condition. If the home is very dirty or you add tasks, you get the new price before we start, never after." },
-        { q: "When and how do I pay?", a: "After the clean, by Interac e-Transfer. Prices are in Canadian dollars, before tax." },
-        { q: "What if something was missed?", a: "Tell us within 24 hours and we come back to fix it, free of charge." },
-        { q: "Can I cancel or reschedule?", a: "Yes, free of charge up to 24 hours before your clean." }
-      ]
-    },
-    book: {
-      title: "Book your cleaning",
-      text: "Tell us about your home in about 2 minutes. We confirm your date and final price within 2 hours, from 8 am to 8 pm. Nothing to pay now: you pay after the clean.",
+    contact: {
+      label: "Contact",
+      title: "Get Your Free Quote",
+      intro: "Fill in the form or contact us directly. We respond quickly.",
+      whatsapp: "WhatsApp available 24/7",
+      area: "Toronto & GTA",
       formLabel: "Booking request"
     },
     form: {
@@ -222,7 +103,9 @@ const I18N = {
           move: { name: "Move-in / move-out", desc: "Empty home, oven, fridge and cabinets included." },
           pro: { name: "Property manager, realtor or office", desc: "Turnovers, listings, offices.", price: "On quote" }
         },
+        from: "from {price}",
         size: "Home size",
+        sizes: ["Studio or 1 bed, 1 bath", "2 bed, 1 bath", "2 bed, 2 bath", "3 bed, 2 bath", "4 bed or more"],
         sizeChoose: "Choose a size",
         type: "Type of home",
         types: ["Condo or apartment", "Townhouse", "House"],
@@ -238,6 +121,7 @@ const I18N = {
       step2: {
         title: "Add-ons",
         note: "Everything here is optional.",
+        addons: { oven: "Inside the oven", fridge: "Inside the fridge", cabinets: "Inside cabinets", pets: "Pet hair" },
         windows: "Interior windows and tracks",
         price: "+{price}",
         priceFrom: "from +{price}",
@@ -313,206 +197,100 @@ const I18N = {
     },
     whatsapp: "Hi Cleanton! I’d like to book a cleaning.\nHome size: \nPreferred date: ",
     footer: {
-      legal: "© 2026 Cleanton Express Cleaning, Toronto, Ontario. Prices in Canadian dollars, before tax.",
-      top: "Back to top"
+      line: "© 2026 Cleanton Express · 24/7 professional cleaning · Toronto",
+      privacy: "Privacy Policy",
+      legal: "Cleanton Express Cleaning · Toronto, Ontario, Canada. Prices in Canadian dollars, before tax. Services subject to availability."
+    },
+    privacy: {
+      title: "Privacy Policy",
+      updated: "Last updated: October 2026",
+      close: "Close",
+      sections: [
+        { title: "1. Information we collect", text: "When you send a request through our website, we collect your name, phone number, email address (if you give one), address and the details of your request. We use this information only to answer your request and provide our cleaning services." },
+        { title: "2. How we use your information", text: "We use your information to contact you about your request, confirm your booking and provide our services. We do not sell, trade or share it with third parties for marketing." },
+        { title: "3. Data security", text: "We take reasonable steps to protect your personal information from misuse, loss and unauthorized access. Our booking form is processed securely by Formspree." },
+        { title: "4. Contact us", text: "To ask a question about this policy, or to access, update or delete your personal information, call us or message us on WhatsApp at {phone}." },
+        { title: "5. Compliance", text: "This policy follows Canada’s Personal Information Protection and Electronic Documents Act (PIPEDA)." }
+      ]
     }
   },
-
   fr: {
     meta: {
-      title: "Cleanton Express Cleaning | Ménage de condos et d’appartements à Toronto, prix affichés",
-      description: "Déménagement, ménage régulier ou en profondeur pour condos et appartements à Toronto. Prix affichés dès {price}, produits écologiques inclus, service en français et en anglais."
+      title: "Cleanton Express Cleaning | Ménage 24/7 à Toronto",
+      description: "Ménage professionnel 24/7 à Toronto pour condos, appartements, maisons et entreprises. Prix dès {price}, produits écologiques, service en français et en anglais."
     },
     skip: "Aller au contenu",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
-    brand: { name: "Cleanton Express", tag: "Cleaning", home: "Cleanton Express Cleaning, haut de page" },
-    banner: "Offre de lancement : {launch} de rabais sur votre premier ménage, pour nos {clients} premiers clients.",
+    brand: { word1: "Cleanton", word2: "Express", word3: "Cleaning", home: "Cleanton Express Cleaning, haut de page" },
     nav: {
       label: "Navigation principale",
-      prices: "Tarifs",
+      why: "Pourquoi nous",
       services: "Services",
-      checklist: "Checklist",
-      faq: "FAQ",
-      pros: "Gestionnaires et agents immobiliers",
-      book: "Réserver un ménage",
-      whatsapp: "WhatsApp",
+      contact: "Contact",
+      quote: "Devis gratuit →",
       menuOpen: "Ouvrir le menu",
       menuClose: "Fermer le menu",
       language: "Langue",
       call: "Appeler le {phone}"
     },
     hero: {
-      eyebrow: "Ménage de condos et d’appartements, Toronto",
-      title1: "Un intérieur impeccable.",
-      title2: "Des prix affichés.",
-      subtitle: "Déménagement, ménage régulier ou en profondeur. Produits écologiques inclus, service en français et en anglais."
+      badge: "✦ Disponible 24/7 à Toronto",
+      title1: "On nettoie.",
+      title2: "C’est tout.",
+      sub: "Un ménage fiable, rapide et professionnel pour les logements et les entreprises, quand vous en avez besoin.",
+      cta: "Obtenir un devis gratuit",
+      whatsapp: "WhatsApp disponible",
+      quick: "Réponse rapide"
     },
-    card: {
-      title: "Nos prix",
-      note: "En $ CA, avant taxes",
-      tabsLabel: "Prix par service",
-      tabs: { regular: "Régulier", deep: "En profondeur", move: "Déménagement", recurring: "Récurrent" },
-      sizes: ["Studio ou 1 chambre, 1 salle de bain", "2 chambres, 1 salle de bain", "2 chambres, 2 salles de bain", "3 chambres, 2 salles de bain", "4 chambres ou plus"],
-      onQuote: "Sur devis",
-      desc: {
-        regular: "Cuisine, salles de bain, poussière et sols, faits dans les règles.",
-        deep: "Tout le ménage régulier, plus plinthes, portes, interrupteurs et saleté incrustée.",
-        move: "Logement vide, intérieur du four, du frigo et des armoires. Rapport photo daté inclus.",
-        recurring: "Prix aux deux semaines (−{biweekly}), dès la 2e visite. Hebdomadaire : −{weekly}, mensuel : −{monthly}."
-      },
-      foot: "Produits écologiques et matériel inclus.",
-      footLink: "Voir ce qui est inclus"
-    },
-    pledges: [
-      { title: "Produits écologiques inclus", text: "Sans supplément." },
-      { title: "Prix fixé avant de commencer", text: "Des forfaits, pas de surprise sur la facture." },
-      { title: "Rapport photo au déménagement", text: "Des photos datées pour vous et votre propriétaire." },
-      { title: "Français ou anglais", text: "Par téléphone ou WhatsApp." }
-    ],
-    services: {
-      title: "Ce qu’on nettoie",
-      intro: "Des forfaits pour un logement en état normal. S’il demande plus de travail, vous avez le nouveau prix avant qu’on commence, jamais après.",
-      from: "dès {price}",
-      regularAlt: "ou {price} aux deux semaines",
-      book: "Réserver un ménage",
-      move: {
-        name: "Déménagement",
-        text: "Vous arrivez ou vous partez ? On nettoie le logement vide de fond en comble, intérieur du four, du frigo et des armoires compris, et on vous envoie des photos datées pour une remise des clés sans accroc."
-      },
-      regular: {
-        name: "Ménage régulier",
-        text: "Ponctuel ou récurrent : chaque semaine, aux deux semaines ou chaque mois, avec la même personne autant que possible et jusqu’à {weekly} de rabais."
-      },
-      deep: {
-        name: "Ménage en profondeur",
-        text: "Pour une première visite, après une période chargée ou avant de recevoir. Tout le ménage régulier, plus plinthes, portes, interrupteurs et saleté incrustée."
-      },
-      note: "Bureaux, studios et commerces : sur devis."
-    },
-    how: {
-      title: "Comment ça marche",
-      steps: [
-        { title: "Trouvez votre prix", text: "Choisissez la taille de votre logement dans la grille. C’est votre prix pour un logement en état normal." },
-        { title: "Envoyez votre demande", text: "Par le formulaire ou WhatsApp. On confirme la date, l’accès et le prix en moins de 2 h (de 8 h à 20 h)." },
-        { title: "On nettoie, vous payez après", text: "Vous payez une fois le travail fait. Les déménagements incluent un rapport photo daté." }
+    ticker: ["Ménage 24/7", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
+    why: {
+      label: "Pourquoi choisir Cleanton Express Cleaning",
+      title1: "Chaque espace.",
+      title2: "Impeccable.",
+      p1: "Pensé pour réagir vite. Guidé par des standards exigeants. Un espace propre reflète votre image, et votre logement ou votre entreprise ne peut pas attendre.",
+      p2: "C’est pourquoi nous intervenons avec précision, professionnalisme et exigence, 24/7. Un ménage rapide, structuré et professionnel, adapté à vos besoins.",
+      pillars: [
+        { title: "Disponible 24/7", text: "Jour, nuit, week-ends et jours fériés : on est toujours là." },
+        { title: "Produits écologiques", text: "Inclus, sans supplément." },
+        { title: "Équipement pro", text: "Du matériel professionnel pour un résultat impeccable, à chaque fois." },
+        { title: "Fiable et ponctuel", text: "À l’heure, soigneux et attaché à la qualité." },
+        { title: "Prix compétitifs", text: "Une qualité professionnelle, avec des prix affichés d’avance." }
       ]
     },
-    included: {
-      title: "Ce qui est inclus",
-      intro: "Chaque formule reprend la précédente. La même checklist à chaque fois, pour savoir ce que vous payez.",
-      regular: {
-        title: "Régulier",
-        items: [
-          "Comptoirs, évier et dosseret",
-          "Plaque de cuisson et façades d’électroménagers",
-          "Façades d’armoires",
-          "Intérieur du micro-ondes",
-          "Toilette, lavabo, baignoire et douche",
-          "Miroirs et robinetterie",
-          "Poussière",
-          "Aspirateur et lavage des sols",
-          "Poubelles et recyclage"
-        ]
+    services: {
+      label: "Nos services",
+      labelBrand: "chez Cleanton",
+      title: "Ce qu’on fait",
+      hint: "Touchez une carte pour en savoir plus",
+      more: "↺ Touchez pour en savoir plus",
+      back: "↺ Retourner la carte",
+      cta: "Demander un devis →",
+      commercial: {
+        tag: "✔ Ménage commercial",
+        name: "Commercial",
+        title: "Bureaux, commerces et plus",
+        desc: "On s’adapte à votre horaire, pour un résultat impeccable à chaque fois.",
+        items: ["Bureaux et espaces d’entreprise", "Commerces", "Gyms et studios de sport", "Bars et restaurants", "Ménage après un événement", "Remises en état pour gestionnaires et agents immobiliers"]
       },
-      deep: {
-        title: "En profondeur",
-        lead: "Tout le régulier, plus :",
-        items: [
-          "Plinthes, portes et cadres",
-          "Interrupteurs et poignées",
-          "Rebords de fenêtres",
-          "Calcaire et traces de savon"
-        ]
-      },
-      move: {
-        title: "Déménagement",
-        lead: "Tout le ménage en profondeur, plus :",
-        items: [
-          "Intérieur du four",
-          "Intérieur du frigo",
-          "Intérieur des armoires et tiroirs",
-          "Intérieur des placards",
-          "Rails de fenêtres",
-          "Rapport photo daté"
-        ]
-      },
-      addons: {
-        title: "Options à la carte",
-        oven: "Intérieur du four",
-        fridge: "Intérieur du frigo",
-        cabinets: "Intérieur des armoires",
-        windows: "Vitres intérieures et rails, dès",
-        pets: "Poils d’animaux",
-        price: "+{price}",
-        note: "Four, frigo et armoires sont déjà inclus dans le ménage de déménagement."
-      },
-      notIncluded: "Non inclus : vitres extérieures, déplacement de meubles lourds, moisissure, risques biologiques."
-    },
-    checklist: {
-      toggle: "Voir la checklist complète, pièce par pièce",
-      cols: { task: "Tâche", regular: "Régulier", deep: "En profondeur", move: "Déménagement" },
-      legend: { Y: "Inclus", O: "En option", N: "Non inclus" },
-      groups: {
-        kitchen: "Cuisine",
-        bathrooms: "Salles de bain",
-        whole: "Tout le logement"
-      },
-      rows: {
-        counters: "Comptoirs, évier et dosseret",
-        stovetop: "Plaque de cuisson et extérieur des électroménagers",
-        cabinetFronts: "Façades et poignées d’armoires",
-        microwave: "Intérieur du micro-ondes",
-        oven: "Intérieur du four",
-        fridge: "Intérieur du frigo",
-        cabinetsInside: "Intérieur des armoires et tiroirs",
-        toilet: "Toilette, lavabo, baignoire et douche",
-        mirrors: "Miroirs et robinetterie lustrés",
-        limescale: "Calcaire et traces de savon sur carreaux et joints",
-        dust: "Poussière sur toutes les surfaces accessibles",
-        floors: "Aspirateur et lavage des sols",
-        garbage: "Poubelles et recyclage vidés",
-        baseboards: "Plinthes, portes et cadres",
-        switches: "Interrupteurs et poignées de porte",
-        sills: "Rebords de fenêtres",
-        tracks: "Rails de fenêtres",
-        closets: "Intérieur des placards",
-        photos: "Rapport photo daté"
+      residential: {
+        tag: "✔ Ménage résidentiel",
+        name: "Résidentiel",
+        title: "Votre logement, impeccable",
+        desc: "Ménage régulier, ménage en profondeur, emménagement ou déménagement : on redonne à votre logement son meilleur visage.",
+        items: ["Ménage régulier", "Ménage en profondeur", "Ménage d’emménagement ou de déménagement", "Condos, appartements et maisons en rangée"]
       }
     },
-    pros: {
-      title: "Gestionnaires et agents immobiliers",
-      text: "Logements remis en état entre deux locataires, prêts pour les photos de mise en vente. Un seul interlocuteur, avec un rapport photo et une facture à chaque mission.",
-      points: [
-        "Remise en état et préparation à la vente",
-        "Rapport photo et facture par logement",
-        "Tarifs volume pour un travail régulier"
-      ],
-      cta: "Demander les tarifs volume"
-    },
     areas: {
-      title: "Où on intervient",
-      text: "Centre-ville de Toronto et quartiers voisins, sans frais de déplacement :",
-      tags: [
-        "King West", "Liberty Village", "CityPlace", "Fort York", "Entertainment District",
-        "Financial District", "St. Lawrence", "Kensington Market", "Chinatown", "The Annex",
-        "Yorkville", "Little Italy", "Trinity Bellwoods", "Parkdale", "Leslieville", "Midtown"
-      ],
-      after: "Ailleurs à Toronto ? Demandez-nous, on vous répond tout de suite."
+      label: "Zones desservies",
+      tags: ["Centre-ville de Toronto", "King West", "Liberty Village", "CityPlace", "Fort York", "Entertainment District", "Financial District", "St. Lawrence", "Kensington Market", "Chinatown", "The Annex", "Yorkville", "Little Italy", "Trinity Bellwoods", "Parkdale", "Leslieville", "Midtown"],
+      more: "et ailleurs dans la région de Toronto (GTA)"
     },
-    faq: {
-      title: "Questions",
-      items: [
-        { q: "Apportez-vous les produits et le matériel ?", a: "Oui. On apporte des produits écologiques et tout le matériel. Vous préférez qu’on utilise votre aspirateur ou vos produits ? Dites-le-nous." },
-        { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." },
-        { q: "Les prix sont-ils définitifs ?", a: "Oui, pour un logement en état normal. S’il est très sale ou si vous ajoutez des tâches, vous avez le nouveau prix avant qu’on commence, jamais après." },
-        { q: "Quand et comment je paie ?", a: "Après le ménage, par virement Interac. Les prix sont en dollars canadiens, avant taxes." },
-        { q: "Et si quelque chose a été oublié ?", a: "Prévenez-nous dans les 24 h : on revient le faire, sans frais." },
-        { q: "Puis-je annuler ou déplacer le ménage ?", a: "Oui, sans frais jusqu’à 24 h avant le ménage." }
-      ]
-    },
-    book: {
-      title: "Réservez votre ménage",
-      text: "Décrivez votre logement en 2 minutes environ. On confirme la date et le prix final en moins de 2 h, de 8 h à 20 h. Rien à payer maintenant : vous payez après le ménage.",
+    contact: {
+      label: "Contact",
+      title: "Obtenez votre devis gratuit",
+      intro: "Remplissez le formulaire ou contactez-nous directement. On répond rapidement.",
+      whatsapp: "WhatsApp disponible 24/7",
+      area: "Toronto et GTA",
       formLabel: "Demande de réservation"
     },
     form: {
@@ -532,7 +310,9 @@ const I18N = {
           move: { name: "Déménagement", desc: "Logement vide, four, frigo et armoires inclus." },
           pro: { name: "Gestionnaire, agent ou bureau", desc: "Remises en état, mises en vente, bureaux.", price: "Sur devis" }
         },
+        from: "dès {price}",
         size: "Taille du logement",
+        sizes: ["Studio ou 1 chambre, 1 salle de bain", "2 chambres, 1 salle de bain", "2 chambres, 2 salles de bain", "3 chambres, 2 salles de bain", "4 chambres ou plus"],
         sizeChoose: "Choisissez une taille",
         type: "Type de logement",
         types: ["Condo ou appartement", "Maison en rangée", "Maison"],
@@ -548,6 +328,7 @@ const I18N = {
       step2: {
         title: "Options",
         note: "Tout est facultatif.",
+        addons: { oven: "Intérieur du four", fridge: "Intérieur du frigo", cabinets: "Intérieur des armoires", pets: "Poils d’animaux" },
         windows: "Vitres intérieures et rails",
         price: "+{price}",
         priceFrom: "dès +{price}",
@@ -623,27 +404,21 @@ const I18N = {
     },
     whatsapp: "Bonjour Cleanton ! J’aimerais réserver un ménage.\nTaille du logement : \nDate souhaitée : ",
     footer: {
-      legal: "© 2026 Cleanton Express Cleaning, Toronto (Ontario). Prix en dollars canadiens, avant taxes.",
-      top: "Haut de page"
+      line: "© 2026 Cleanton Express · Ménage professionnel 24/7 · Toronto",
+      privacy: "Politique de confidentialité",
+      legal: "Cleanton Express Cleaning · Toronto (Ontario), Canada. Prix en dollars canadiens, avant taxes. Services selon les disponibilités."
+    },
+    privacy: {
+      title: "Politique de confidentialité",
+      updated: "Dernière mise à jour : octobre 2026",
+      close: "Fermer",
+      sections: [
+        { title: "1. Renseignements recueillis", text: "Quand vous envoyez une demande par notre site, nous recueillons votre nom, votre numéro de téléphone, votre courriel (si vous l’indiquez), votre adresse et les détails de votre demande. Nous les utilisons uniquement pour répondre à votre demande et fournir nos services de ménage." },
+        { title: "2. Utilisation de vos renseignements", text: "Nous utilisons vos renseignements pour vous contacter au sujet de votre demande, confirmer votre réservation et fournir nos services. Nous ne les vendons pas, ne les échangeons pas et ne les partageons pas avec des tiers à des fins de marketing." },
+        { title: "3. Sécurité des données", text: "Nous prenons des mesures raisonnables pour protéger vos renseignements personnels contre la perte, l’utilisation abusive et l’accès non autorisé. Notre formulaire est traité de façon sécurisée par Formspree." },
+        { title: "4. Nous joindre", text: "Pour toute question sur cette politique, ou pour consulter, corriger ou supprimer vos renseignements personnels, appelez-nous ou écrivez-nous sur WhatsApp au {phone}." },
+        { title: "5. Conformité", text: "Cette politique respecte la Loi sur la protection des renseignements personnels et les documents électroniques (LPRPDE) du Canada." }
+      ]
     }
   }
 };
-
-/*
- * Structure de la checklist, commune aux deux langues.
- * Colonnes : Régulier, En profondeur, Déménagement.
- * Y = inclus (coche), O = en option (plus), N = non inclus (moins).
- */
-const CHECKLIST = [
-  { group: "kitchen", rows: [
-    ["counters", "YYY"], ["stovetop", "YYY"], ["cabinetFronts", "YYY"], ["microwave", "YYY"],
-    ["oven", "OOY"], ["fridge", "OOY"], ["cabinetsInside", "OOY"]
-  ] },
-  { group: "bathrooms", rows: [
-    ["toilet", "YYY"], ["mirrors", "YYY"], ["limescale", "NYY"]
-  ] },
-  { group: "whole", rows: [
-    ["dust", "YYY"], ["floors", "YYY"], ["garbage", "YYY"], ["baseboards", "NYY"],
-    ["switches", "NYY"], ["sills", "NYY"], ["tracks", "OOY"], ["closets", "NNY"], ["photos", "NNY"]
-  ] }
-];

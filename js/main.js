@@ -1,7 +1,7 @@
 /*
  * Cleanton Express Cleaning : comportements de la page.
- * Langue, prix (lus dans CONFIG), onglets de prix, tiroir mobile,
- * liens ?service= et réservation en plusieurs étapes.
+ * Langue, menu mobile, bandeau défilant, cartes Services à retourner,
+ * liens ?service=, réservation en plusieurs étapes et politique de confidentialité.
  * Aucun texte ni prix ici : les textes viennent de js/i18n.js, les prix de js/config.js.
  */
 (function () {
@@ -9,23 +9,17 @@
 
   const LANGS = ["en", "fr"];
   const STORAGE_KEY = "cleanton-lang";
-  const TABS = ["regular", "deep", "move", "recurring"];
   const ADDONS = ["oven", "fridge", "cabinets", "windows", "pets"];
   const FREQ_VALUES = { weekly: "Weekly", biweekly: "Bi-weekly", monthly: "Monthly" };
   const LINK_TO_SERVICE = { regular: "regular", deep: "deep", move: "move", recurring: "regular", pro: "pro" };
   const POSTAL_CODE = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  const SVG_NS = "http://www.w3.org/2000/svg";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   let lang = "en";
-  let currentTab = "regular";
   let currentStep = 1;
   let sending = false;
   let sendFailed = false;
-  let tabChosen = false;        // le client a choisi un onglet de prix lui-même
-  let serviceSetByUser = false; // le client a coché un service lui-même dans le formulaire
-  const openFaq = new Set();
   const fieldErrors = new Map();
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -71,15 +65,6 @@
     return (l || lang) === "fr" ? value + " %" : value + "%";
   }
 
-  function discounted(price, rate) {
-    return Math.round(price * (1 - rate) + 1e-9);
-  }
-
-  function tabPrices(tab) {
-    if (tab === "recurring") return CONFIG.prices.regular.map((p) => discounted(p, CONFIG.recurring.biweekly));
-    return CONFIG.prices[tab];
-  }
-
   function rateVars(l) {
     return {
       weekly: percent(CONFIG.recurring.weekly, l),
@@ -117,23 +102,6 @@
     if (className) node.className = className;
     if (text != null) node.textContent = text;
     return node;
-  }
-
-  function icon(name, className) {
-    const svg = document.createElementNS(SVG_NS, "svg");
-    svg.setAttribute("class", className);
-    svg.setAttribute("aria-hidden", "true");
-    svg.setAttribute("focusable", "false");
-    const use = document.createElementNS(SVG_NS, "use");
-    use.setAttribute("href", "#i-" + name);
-    svg.appendChild(use);
-    return svg;
-  }
-
-  function leader(className) {
-    const span = el("span", className);
-    span.setAttribute("aria-hidden", "true");
-    return span;
   }
 
   function setMeta(selector, value) {
@@ -194,19 +162,13 @@
     $$("[data-phone-link]").forEach((node) => { node.href = "tel:+" + phoneDigits; });
     $$("[data-whatsapp-link]").forEach((node) => { node.href = whatsappHref(); });
     $$("[data-from-price]").forEach((node) => {
-      node.textContent = t("services.from", { price: money(CONFIG.prices[node.dataset.fromPrice][0]) });
-    });
-    $$("[data-regular-alt]").forEach((node) => {
-      node.textContent = t("services.regularAlt", { price: money(discounted(CONFIG.prices.regular[0], CONFIG.recurring.biweekly)) });
+      node.textContent = t("form.step1.from", { price: money(CONFIG.prices[node.dataset.fromPrice][0]) });
     });
 
-    const banner = $("[data-launch-offer]");
-    if (banner) banner.hidden = !CONFIG.launchOffer;
     syncMenuLabel();
-    renderPriceCard(false);
-    renderAddonsList();
-    renderChecklist();
-    renderFaq();
+    renderTicker();
+    renderAreas();
+    renderPrivacy();
     renderFormLabels();
     refreshForm();
     fieldErrors.forEach((key, name) => setError(name, key));
@@ -215,178 +177,68 @@
     if (sending) $("[data-submit]", form).textContent = t("form.sending");
   }
 
-  /* ---------- Carte des prix ---------- */
+  /* ---------- Bandeau défilant, zones, politique de confidentialité ---------- */
 
-  function renderPriceCard(animate) {
-    const rows = $("[data-price-rows]");
-    if (!rows) return;
-    const prices = tabPrices(currentTab);
-    rows.replaceChildren(...t("card.sizes").map((label, i) => {
-      const onQuote = i >= prices.length;
-      const row = el("li", "price-row");
-      row.append(
-        el("span", "price-row__label", label),
-        leader("price-row__leader"),
-        el("span", "price-row__price" + (onQuote ? " price-row__price--quote" : ""), onQuote ? t("card.onQuote") : money(prices[i]))
-      );
-      return row;
-    }));
-    $("[data-price-desc]").textContent = t("card.desc." + currentTab, rateVars());
-
-    $$("[data-tab]").forEach((tab) => {
-      const selected = tab.dataset.tab === currentTab;
-      tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-    });
-    const panel = $("[data-price-panel]");
-    panel.setAttribute("aria-labelledby", "tab-" + currentTab);
-    fitTabs();
-    if (animate && !reduceMotion.matches && panel.animate) {
-      panel.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, easing: "ease-out" });
-    }
+  // Le bandeau est décoratif (aria-hidden) ; la liste est répétée pour défiler sans couture
+  function renderTicker() {
+    const track = $("[data-ticker]");
+    if (!track) return;
+    const items = t("ticker");
+    track.replaceChildren(...items.concat(items).map((text) => el("span", "", text)));
   }
 
-  // Les 4 onglets passent en grille 2 × 2 quand ils ne tiennent pas sur une ligne
-  function fitTabs() {
-    const tabs = $("[data-price-tabs]");
-    if (!tabs) return;
-    tabs.classList.remove("tabs--grid");
-    if (tabs.scrollWidth > tabs.clientWidth + 1) tabs.classList.add("tabs--grid");
+  function renderAreas() {
+    const node = $("[data-areas]");
+    if (node) node.textContent = t("areas.tags").concat(t("areas.more")).join(" · ");
   }
 
-  function selectTab(tab, animate) {
-    if (!TABS.includes(tab) || tab === currentTab) return;
-    currentTab = tab;
-    renderPriceCard(animate);
-  }
-
-  function initTabs() {
-    const list = $("[data-price-tabs]");
-    if (!list) return;
-    list.addEventListener("click", (event) => {
-      const tab = event.target.closest("[data-tab]");
-      if (!tab) return;
-      tabChosen = true;
-      selectTab(tab.dataset.tab, true);
-    });
-    list.addEventListener("keydown", (event) => {
-      const tabs = $$("[data-tab]", list);
-      const index = tabs.indexOf(document.activeElement);
-      if (index < 0) return;
-      let next = null;
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") next = tabs[(index + 1) % tabs.length];
-      else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = tabs[(index - 1 + tabs.length) % tabs.length];
-      else if (event.key === "Home") next = tabs[0];
-      else if (event.key === "End") next = tabs[tabs.length - 1];
-      if (!next) return;
-      event.preventDefault();
-      tabChosen = true;
-      selectTab(next.dataset.tab, true);
-      next.focus();
-    });
-  }
-
-  /* ---------- Options à la carte, checklist, FAQ ---------- */
-
-  function renderAddonsList() {
-    const list = $("[data-addons-list]");
-    if (!list) return;
-    list.replaceChildren(...ADDONS.map((key) => {
-      const item = el("li");
-      item.append(
-        el("span", "menu-list__label", t("included.addons." + key)),
-        leader("menu-list__leader"),
-        el("span", "menu-list__price", t("included.addons.price", { price: money(CONFIG.addons[key]) }))
-      );
-      return item;
-    }));
-  }
-
-  function renderChecklist() {
-    const table = $("[data-checklist-table]");
-    if (!table) return;
-    const cols = ["regular", "deep", "move"];
-    const marks = { Y: "check", O: "plus", N: "minus" };
-
-    const head = el("thead");
-    const headRow = el("tr");
-    [["task"]].concat(cols.map((c) => [c])).forEach(([key]) => {
-      const th = el("th", "", t("checklist.cols." + key));
-      th.scope = "col";
-      headRow.appendChild(th);
-    });
-    head.appendChild(headRow);
-
-    const bodies = CHECKLIST.map((group) => {
-      const body = el("tbody");
-      const groupRow = el("tr", "group-row");
-      const groupCell = el("th", "", t("checklist.groups." + group.group));
-      groupCell.scope = "rowgroup";
-      groupCell.colSpan = 4;
-      groupRow.appendChild(groupCell);
-      body.appendChild(groupRow);
-      group.rows.forEach(([key, values]) => {
-        const row = el("tr");
-        const label = el("th", "", t("checklist.rows." + key));
-        label.scope = "row";
-        row.appendChild(label);
-        values.split("").forEach((mark) => {
-          const cell = el("td");
-          cell.append(icon(marks[mark], "mark mark--" + mark), el("span", "visually-hidden", t("checklist.legend." + mark)));
-          row.appendChild(cell);
-        });
-        body.appendChild(row);
-      });
-      return body;
-    });
-
-    table.replaceChildren(head, ...bodies);
-  }
-
-  function renderFaq() {
-    const wrap = $("[data-faq]");
+  function renderPrivacy() {
+    const wrap = $("[data-privacy-sections]");
     if (!wrap) return;
-    const count = (lookup(I18N[lang], "faq.items") || []).length;
-    const items = [];
+    const count = (lookup(I18N[lang], "privacy.sections") || []).length;
+    const nodes = [];
     for (let i = 0; i < count; i++) {
-      const open = openFaq.has(i);
-      const item = el("div", "qa");
-      const heading = el("h3", "qa__q");
-      const button = el("button", "qa__btn");
-      button.type = "button";
-      button.id = "faq-q-" + i;
-      button.dataset.faq = String(i);
-      button.setAttribute("aria-expanded", String(open));
-      button.setAttribute("aria-controls", "faq-a-" + i);
-      button.append(el("span", "", t("faq.items." + i + ".q")), icon("plus", "qa__icon"));
-      heading.appendChild(button);
-      const answer = el("div", "qa__a");
-      answer.id = "faq-a-" + i;
-      answer.hidden = !open;
-      answer.appendChild(el("p", "", t("faq.items." + i + ".a")));
-      item.append(heading, answer);
-      items.push(item);
+      nodes.push(el("h3", "", t("privacy.sections." + i + ".title")));
+      nodes.push(el("p", "", t("privacy.sections." + i + ".text", commonVars())));
     }
-    wrap.replaceChildren(...items);
+    wrap.replaceChildren(...nodes);
   }
 
-  function initFaq() {
-    const wrap = $("[data-faq]");
-    if (!wrap) return;
-    wrap.addEventListener("click", (event) => {
-      const button = event.target.closest("button[data-faq]");
-      if (!button) return;
-      const i = Number(button.dataset.faq);
-      const open = button.getAttribute("aria-expanded") !== "true";
-      button.setAttribute("aria-expanded", String(open));
-      $("#faq-a-" + i).hidden = !open;
-      if (open) openFaq.add(i); else openFaq.delete(i);
+  /* ---------- Cartes Services à retourner ---------- */
+
+  // La face cachée est inerte : ni lue, ni atteignable au clavier
+  function setFlipped(card, flipped, moveFocus) {
+    card.classList.toggle("flipped", flipped);
+    const front = $(".flip-front", card);
+    const back = $(".flip-back", card);
+    front.setAttribute("aria-expanded", String(flipped));
+    front.inert = flipped;
+    back.inert = !flipped;
+    if (moveFocus) (flipped ? back : front).focus({ preventScroll: true });
+  }
+
+  function initFlipCards() {
+    $$("[data-flip-card]").forEach((card) => {
+      setFlipped(card, false, false);
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
+        const flipped = !card.classList.contains("flipped");
+        setFlipped(card, flipped, event.detail === 0 || Boolean(event.target.closest("button")));
+      });
     });
   }
 
-  function openChecklist() {
-    const details = $("#checklist");
-    if (details) details.open = true;
+  function initPrivacy() {
+    const privacy = $("[data-privacy-dialog]");
+    if (!privacy) return;
+    $$("[data-open-privacy]").forEach((button) => button.addEventListener("click", () => {
+      if (typeof privacy.showModal === "function") privacy.showModal();
+      else privacy.setAttribute("open", "");
+    }));
+    $("[data-close-privacy]", privacy).addEventListener("click", () => {
+      if (typeof privacy.close === "function" && privacy.open) privacy.close();
+      else privacy.removeAttribute("open");
+    });
   }
 
   /* ---------- En-tête et tiroir mobile ---------- */
@@ -394,8 +246,6 @@
   const header = $("[data-header]");
   const drawer = $("[data-drawer]");
   const menuToggle = $("[data-menu-toggle]");
-  const mobileBar = $("[data-mobile-bar]");
-  let bookingInView = false;
 
   function drawerOpen() {
     return drawer && !drawer.hidden;
@@ -403,13 +253,6 @@
 
   function syncMenuLabel() {
     if (menuToggle) menuToggle.setAttribute("aria-label", t(drawerOpen() ? "nav.menuClose" : "nav.menuOpen"));
-  }
-
-  function syncMobileBar() {
-    if (!mobileBar) return;
-    const hidden = bookingInView || drawerOpen();
-    mobileBar.classList.toggle("is-hidden", hidden);
-    mobileBar.inert = hidden;
   }
 
   function setDrawer(open) {
@@ -423,7 +266,6 @@
     menuToggle.setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("has-drawer", open);
     syncMenuLabel();
-    syncMobileBar();
   }
 
   function initHeader() {
@@ -445,18 +287,6 @@
       if (event.matches && drawerOpen()) setDrawer(false);
     });
 
-    $$("[data-open-checklist]").forEach((link) => link.addEventListener("click", openChecklist));
-    window.addEventListener("hashchange", () => {
-      if (location.hash === "#checklist") openChecklist();
-    });
-
-    const booking = $("#book");
-    if (mobileBar && booking && "IntersectionObserver" in window) {
-      new IntersectionObserver((entries) => {
-        entries.forEach((entry) => { bookingInView = entry.isIntersecting; });
-        syncMobileBar();
-      }, { rootMargin: "0px 0px -25% 0px" }).observe(booking);
-    }
   }
 
   /* ---------- Réservation ---------- */
@@ -484,7 +314,7 @@
     const selected = select.selectedIndex;
     select.replaceChildren(
       new Option(t("form.step1.sizeChoose"), ""),
-      ...t("card.sizes").map((label, i) => new Option(label, I18N.en.card.sizes[i]))
+      ...t("form.step1.sizes").map((label, i) => new Option(label, I18N.en.form.step1.sizes[i]))
     );
     select.selectedIndex = selected > 0 ? selected : 0;
 
@@ -863,7 +693,6 @@
       input.closest(".check").classList.remove("is-included");
     });
     Array.from(fieldErrors.keys()).forEach((name) => setError(name, null));
-    serviceSetByUser = false;
     renderFormLabels();
     refreshForm();
     showStep(1, false);
@@ -896,7 +725,7 @@
     }
   }
 
-  // Liens « Réserver » des services, bouton pros et ?service= : onglet + service présélectionné
+  // Bouton « Get a Quote » de la carte Commercial et liens ?service= : service présélectionné
   function preselect(key) {
     const svc = LINK_TO_SERVICE[key];
     if (!svc) return false;
@@ -909,7 +738,6 @@
     refreshForm();
     clearStaleErrors();
     if (currentStep !== 1) showStep(1, false);
-    if (TABS.includes(key)) selectTab(key, false);
     return true;
   }
 
@@ -919,7 +747,6 @@
     form.addEventListener("change", (event) => {
       const name = event.target.name;
       if (name === "service") {
-        if (event.isTrusted) serviceSetByUser = true;
         setError("service", null);
         refreshForm();
         clearStaleErrors();
@@ -958,14 +785,6 @@
     });
 
     document.addEventListener("click", (event) => {
-      // Boutons « Réserver » génériques : si le client a choisi un onglet de prix et n'a pas encore
-      // choisi de service dans le formulaire, on présélectionne le service de cet onglet
-      const plainBook = event.target.closest('a[href="#book"]:not([data-book-service])');
-      if (plainBook) {
-        if (tabChosen && !serviceSetByUser && currentStep === 1) preselect(currentTab);
-        return;
-      }
-
       const link = event.target.closest("[data-book-service]");
       if (!link) return;
       event.preventDefault();
@@ -984,35 +803,16 @@
     });
   }
 
-  /* ---------- Images absentes : le cadre reste lin, sans icône cassée ---------- */
-
-  function hideMissingImages() {
-    $$(".frame img").forEach((img) => {
-      if (img.complete && img.naturalWidth > 0) img.classList.add("is-loaded");
-      else if (img.complete) img.remove();
-    });
-  }
-
   /* ---------- Démarrage ---------- */
 
   lang = detectLang();
   render();
-  initTabs();
-  initFaq();
   initHeader();
+  initFlipCards();
+  initPrivacy();
   initForm();
   showStep(1, false);
 
   const serviceParam = (new URLSearchParams(location.search).get("service") || "").toLowerCase();
   if (serviceParam) preselect(serviceParam);
-  if (location.hash === "#checklist") openChecklist();
-
-  hideMissingImages();
-
-  let resizeFrame = 0;
-  window.addEventListener("resize", () => {
-    cancelAnimationFrame(resizeFrame);
-    resizeFrame = requestAnimationFrame(fitTabs);
-  });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTabs);
 })();
