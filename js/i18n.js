@@ -4,6 +4,7 @@
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
  *   {price}  un prix formaté ($165 / 165 $)
  *   {weekly} {biweekly} {monthly}  les remises récurrentes (15% / 15 %)
+ *   {launch} {clients}  l'offre de lancement (15% / 15 %, 20 clients)
  *   {d}      une remise, {i} {n} les numéros d'étape
  */
 const I18N = {
@@ -13,9 +14,9 @@ const I18N = {
       description: "Move-in/move-out, regular and deep cleaning for Toronto condos and apartments. Prices upfront from {price}, eco-friendly products included, service in English and French."
     },
     skip: "Skip to content",
-    lang: { en: "EN", fr: "FR", enName: "English", frName: "French" },
+    lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
     brand: { name: "Cleanton Express", tag: "Cleaning", home: "Cleanton Express Cleaning, back to top" },
-    banner: "Launch offer: 15% off your first clean, for our first 20 clients.",
+    banner: "Launch offer: {launch} off your first clean, for our first {clients} clients.",
     nav: {
       label: "Main",
       prices: "Prices",
@@ -267,6 +268,7 @@ const I18N = {
         name: "Name",
         phone: "Phone",
         email: "Email (optional)",
+        emailRequired: "Email",
         confirm: "How should we confirm?",
         confirms: ["WhatsApp", "Text message", "Phone call", "Email"],
         source: "How did you hear about us? (optional)",
@@ -319,9 +321,9 @@ const I18N = {
       description: "Déménagement, ménage régulier ou en profondeur pour condos et appartements à Toronto. Prix affichés dès {price}, produits écologiques inclus, service en français et en anglais."
     },
     skip: "Aller au contenu",
-    lang: { en: "EN", fr: "FR", enName: "Anglais", frName: "Français" },
+    lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
     brand: { name: "Cleanton Express", tag: "Cleaning", home: "Cleanton Express Cleaning, haut de page" },
-    banner: "Offre de lancement : 15 % de rabais sur votre premier ménage, pour nos 20 premiers clients.",
+    banner: "Offre de lancement : {launch} de rabais sur votre premier ménage, pour nos {clients} premiers clients.",
     nav: {
       label: "Navigation principale",
       prices: "Tarifs",
@@ -573,6 +575,7 @@ const I18N = {
         name: "Nom",
         phone: "Téléphone",
         email: "Courriel (facultatif)",
+        emailRequired: "Courriel",
         confirm: "Comment préférez-vous qu’on vous confirme ?",
         confirms: ["WhatsApp", "Texto", "Appel", "Courriel"],
         source: "Comment nous avez-vous connus ? (facultatif)",

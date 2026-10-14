@@ -17,7 +17,7 @@
   <meta name="theme-color" content="#0B1628">
   <!-- IMAGE : images/favicon.png (voir docs/images.md, n° 6) -->
   <link rel="icon" type="image/png" href="images/favicon.png">
-  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Jost:wght@400;500&amp;display=swap">
@@ -40,9 +40,10 @@
 
   <a class="skip-link" href="#main" data-i18n="skip"></a>
 
-  <div class="announce" id="top">
+  <div id="top"></div>
+  <aside class="announce" data-launch-offer>
     <p class="announce__text" data-i18n="banner"></p>
-  </div>
+  </aside>
 
   <header class="header" data-header>
     <div class="container header__inner">
@@ -82,6 +83,7 @@
 
     <div class="drawer" id="drawer" hidden data-drawer>
       <div class="container drawer__inner">
+        <nav data-i18n-attr="aria-label:nav.label">
         <ul class="drawer__list">
           <li><a class="drawer__link" href="#prices" data-i18n="nav.prices"></a></li>
           <li><a class="drawer__link" href="#services" data-i18n="nav.services"></a></li>
@@ -89,6 +91,7 @@
           <li><a class="drawer__link" href="#faq" data-i18n="nav.faq"></a></li>
           <li><a class="drawer__link drawer__link--small" href="#pros" data-i18n="nav.pros"></a></li>
         </ul>
+        </nav>
         <div class="drawer__foot">
           <div class="lang-switch lang-switch--large" role="group" data-i18n-attr="aria-label:nav.language">
             <button type="button" class="lang-switch__btn" data-set-lang="en" lang="en" data-i18n="lang.en" data-i18n-attr="aria-label:lang.enName"></button>
@@ -121,7 +124,7 @@
         <div class="hero__media">
           <div class="frame frame--hero">
             <!-- IMAGE : images/hero.jpg (voir docs/images.md, n° 1) -->
-            <img src="images/hero.jpg" alt="" width="1600" height="2000" fetchpriority="high" decoding="async" onerror="this.style.visibility='hidden'">
+            <img src="images/hero.jpg" alt="" width="1600" height="2000" fetchpriority="high" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
           </div>
 
           <div class="price-card" id="prices">
@@ -234,7 +237,7 @@
       <div class="container how__grid">
         <div class="frame frame--how">
           <!-- IMAGE : images/how.jpg (voir docs/images.md, n° 2) -->
-          <img src="images/how.jpg" alt="" width="1600" height="1200" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
+          <img src="images/how.jpg" alt="" width="1600" height="1200" loading="lazy" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
         </div>
         <div class="how__content">
           <h2 class="section-title" id="how-title" data-i18n="how.title"></h2>
@@ -292,7 +295,7 @@
           </div>
           <div class="frame frame--included">
             <!-- IMAGE : images/included.jpg (voir docs/images.md, n° 3) -->
-            <img src="images/included.jpg" alt="" width="1200" height="1500" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
+            <img src="images/included.jpg" alt="" width="1200" height="1500" loading="lazy" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
           </div>
         </div>
 
@@ -318,7 +321,7 @@
       <div class="pros__grid">
         <div class="frame frame--pros">
           <!-- IMAGE : images/pros.jpg (voir docs/images.md, n° 4) -->
-          <img src="images/pros.jpg" alt="" width="1800" height="1200" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">
+          <img src="images/pros.jpg" alt="" width="1800" height="1200" loading="lazy" decoding="async" onload="this.classList.add('is-loaded')" onerror="this.remove()">
         </div>
         <div class="pros__content">
           <h2 class="section-title" id="pros-title" data-i18n="pros.title"></h2>
@@ -514,7 +517,7 @@
                 </div>
                 <div class="field" data-field="postal_code">
                   <label class="label" for="postal_code" data-i18n="form.step3.postal"></label>
-                  <input class="input" type="text" id="postal_code" name="postal_code" autocomplete="postal-code" autocapitalize="characters" maxlength="7" spellcheck="false" data-req="all" data-check="postal">
+                  <input class="input" type="text" id="postal_code" name="postal_code" autocomplete="postal-code" autocapitalize="characters" maxlength="10" spellcheck="false" data-req="all" data-check="postal">
                   <p class="field__error" id="err-postal_code" data-error></p>
                 </div>
                 <div class="field" data-field="city">
@@ -670,13 +673,13 @@
   </footer>
 
   <!-- 12. BARRE FIXE (mobile uniquement) -->
-  <div class="mobile-bar" data-mobile-bar>
+  <nav class="mobile-bar" data-mobile-bar data-i18n-attr="aria-label:nav.book">
     <a class="btn btn--outline" href="#" target="_blank" rel="noopener" data-whatsapp-link>
       <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
       <span data-i18n="nav.whatsapp"></span>
     </a>
     <a class="btn btn--accent" href="#book" data-i18n="nav.book"></a>
-  </div>
+  </nav>
 
   <!-- Fenêtre de succès -->
   <dialog class="dialog" id="success-dialog" aria-labelledby="success-title" data-success-dialog>

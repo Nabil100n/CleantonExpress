@@ -21,5 +21,8 @@ const CONFIG = {
 
   // L'onglet « Récurrent » affiche le prix aux deux semaines, arrondi au dollar : 149, 176, 203, 239
   addons: { oven: 30, fridge: 30, cabinets: 40, windows: 40, pets: 25 }, // windows = « dès »
-  includedInMove: ["oven", "fridge", "cabinets"]
+  includedInMove: ["oven", "fridge", "cabinets"],
+
+  // Offre de lancement du bandeau d'annonce. Quand elle se termine, remplacer par : launchOffer: null
+  launchOffer: { discount: 0.15, clients: 20 }
 };

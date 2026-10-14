@@ -22,6 +22,7 @@
   let currentTab = "regular";
   let currentStep = 1;
   let sending = false;
+  let sendFailed = false;
   const openFaq = new Set();
   const fieldErrors = new Map();
 
@@ -93,7 +94,13 @@
   }
 
   function commonVars(l) {
-    return Object.assign(rateVars(l), { phone: phoneDisplay(), price: money(CONFIG.prices.regular[0], l) });
+    const offer = CONFIG.launchOffer || {};
+    return Object.assign(rateVars(l), {
+      phone: phoneDisplay(),
+      price: money(CONFIG.prices.regular[0], l),
+      launch: percent(offer.discount || 0, l),
+      clients: offer.clients || ""
+    });
   }
 
   function whatsappHref() {
@@ -191,6 +198,8 @@
       node.textContent = t("services.regularAlt", { price: money(discounted(CONFIG.prices.regular[0], CONFIG.recurring.biweekly)) });
     });
 
+    const banner = $("[data-launch-offer]");
+    if (banner) banner.hidden = !CONFIG.launchOffer;
     syncMenuLabel();
     renderPriceCard(false);
     renderAddonsList();
@@ -199,6 +208,9 @@
     renderFormLabels();
     refreshForm();
     fieldErrors.forEach((key, name) => setError(name, key));
+    updateEmailLabel();
+    if (sendFailed) showSendError(true);
+    if (sending) $("[data-submit]", form).textContent = t("form.sending");
   }
 
   /* ---------- Carte des prix ---------- */
@@ -357,7 +369,7 @@
     const wrap = $("[data-faq]");
     if (!wrap) return;
     wrap.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-faq]");
+      const button = event.target.closest("button[data-faq]");
       if (!button) return;
       const i = Number(button.dataset.faq);
       const open = button.getAttribute("aria-expanded") !== "true";
@@ -389,13 +401,20 @@
   }
 
   function syncMobileBar() {
-    if (mobileBar) mobileBar.classList.toggle("is-hidden", bookingInView || drawerOpen());
+    if (!mobileBar) return;
+    const hidden = bookingInView || drawerOpen();
+    mobileBar.classList.toggle("is-hidden", hidden);
+    mobileBar.inert = hidden;
   }
 
   function setDrawer(open) {
     if (!drawer || !menuToggle) return;
     if (open) drawer.style.setProperty("--drawer-top", Math.max(0, header.getBoundingClientRect().bottom) + "px");
     drawer.hidden = !open;
+    ["main", ".footer"].forEach((selector) => {
+      const node = $(selector);
+      if (node) node.inert = open;
+    });
     menuToggle.setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("has-drawer", open);
     syncMenuLabel();
@@ -591,7 +610,7 @@
     if (step === 4) {
       if (!value("name")) errors.push(["name", "required"]);
       const digits = value("phone").replace(/\D/g, "");
-      if (!digits) errors.push(["phone", "required"]);
+      if (!value("phone")) errors.push(["phone", "required"]);
       else if (digits.length < 10) errors.push(["phone", "phone"]);
       const email = value("email");
       const wantsEmail = (checked("preferred_contact") || {}).value === "Email";
@@ -630,8 +649,9 @@
   function optionLabel(input) {
     if (!input) return "";
     const label = input.closest("label");
-    const text = label && label.querySelector(".option-card__name, .check__label, span");
-    return text ? text.textContent : input.value;
+    if (!label) return input.value;
+    const text = label.querySelector(".option-card__name") || label.querySelector(".check__label") || label.querySelector("span");
+    return text ? text.textContent.trim() : input.value;
   }
 
   function formatDate(iso, l) {
@@ -774,8 +794,8 @@
   /* Envoi */
 
   function showSendError(show) {
-    const node = $("[data-send-error]", form);
-    node.textContent = show ? t("form.errors.send") : "";
+    sendFailed = show;
+    $("[data-send-error]", form).textContent = show ? t("form.errors.send") : "";
   }
 
   function setSending(state) {
@@ -784,6 +804,24 @@
     submit.disabled = state;
     submit.setAttribute("aria-busy", String(state));
     submit.textContent = t(state ? "form.sending" : "form.submit");
+    $("[data-back]", form).disabled = state;
+  }
+
+  // Le courriel devient obligatoire si le client choisit d'être confirmé par courriel
+  function updateEmailLabel() {
+    const wantsEmail = (checked("preferred_contact") || {}).value === "Email";
+    $('label[for="email"]', form).textContent = t(wantsEmail ? "form.step4.emailRequired" : "form.step4.email");
+    field("email").setAttribute("aria-required", String(wantsEmail));
+  }
+
+  // Après un changement de service, retire les erreurs des champs devenus masqués ou facultatifs
+  function clearStaleErrors() {
+    const pro = serviceKey() === "pro";
+    Array.from(fieldErrors.keys()).forEach((name) => {
+      const enabled = form.querySelector('[name="' + name + '"]:not(:disabled)');
+      const residentialOnly = ["address", "date", "arrival_window"].includes(name) && fieldErrors.get(name) === "required";
+      if (!enabled || (pro && residentialOnly)) setError(name, null);
+    });
   }
 
   const dialog = $("[data-success-dialog]");
@@ -834,6 +872,7 @@
     } catch (error) {
       setSending(false);
       showSendError(true);
+      $("[data-submit]", form).focus();
     }
   }
 
@@ -847,6 +886,7 @@
     if (key === "recurring") form.querySelector('input[data-freq="biweekly"]').checked = true;
     setError("service", null);
     refreshForm();
+    clearStaleErrors();
     if (currentStep !== 1) showStep(1, false);
     if (TABS.includes(key)) selectTab(key, false);
     return true;
@@ -860,8 +900,12 @@
       if (name === "service") {
         setError("service", null);
         refreshForm();
+        clearStaleErrors();
       }
-      if (name === "preferred_contact" && fieldErrors.get("email") === "required") setError("email", null);
+      if (name === "preferred_contact") {
+        updateEmailLabel();
+        if (fieldErrors.get("email") === "required") setError("email", null);
+      }
       if (fieldErrors.has(name)) setError(name, null);
       if (currentStep === 4) updateSummary();
     });
@@ -887,6 +931,7 @@
 
     $("[data-close-dialog]", dialog).addEventListener("click", closeDialog);
     dialog.addEventListener("close", () => {
+      form.scrollIntoView({ behavior: "auto", block: "start" });
       $('.step[data-step="1"] .step__title', form).focus({ preventScroll: true });
     });
 
@@ -895,7 +940,9 @@
       if (!link) return;
       event.preventDefault();
       preselect(link.dataset.bookService);
-      $("#book").scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
+      // Sur ordinateur, on montre la section ; sur mobile, directement le formulaire et le service coché
+      const target = window.matchMedia("(min-width: 1000px)").matches ? $("#book") : form;
+      target.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
       $('.step[data-step="1"] .step__title', form).focus({ preventScroll: true });
     });
   }
@@ -904,7 +951,8 @@
 
   function hideMissingImages() {
     $$(".frame img").forEach((img) => {
-      if (img.complete && img.naturalWidth === 0) img.style.visibility = "hidden";
+      if (img.complete && img.naturalWidth > 0) img.classList.add("is-loaded");
+      else if (img.complete) img.remove();
     });
   }
 

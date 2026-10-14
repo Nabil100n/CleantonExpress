@@ -17,7 +17,7 @@
   /* Dérivées */
   --rule-strong: rgba(11, 22, 40, 0.3);
   --line-input: #858B96;          /* bord des champs : contraste 3:1 sur blanc */
-  --placeholder: #737985;         /* texte d'exemple : contraste 4.5:1 sur blanc */
+  --placeholder: #6E7480;         /* texte d'exemple : contraste 4.7:1 sur blanc */
   --frame: #EFEBE3;               /* fond lin des cadres photo (docs/images.md) */
   --error: #B3401A;               /* orange profond, lisible sur blanc et lin */
   --on-dark: #F7F5F0;
@@ -47,6 +47,11 @@ html {
   text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 20px);
+}
+
+/* Sous 1000 px, la barre fixe du bas ne doit pas cacher l'élément qui reçoit le focus */
+@media (max-width: 999px) {
+  html { scroll-padding-bottom: 90px; }
 }
 
 body {
@@ -128,6 +133,7 @@ main:focus { outline: none; }
   line-height: 1.5;
   text-transform: uppercase;
   color: var(--muted);
+  text-wrap: balance;
 }
 
 .section { padding-block: clamp(80px, 10vw, 144px); }
@@ -298,11 +304,18 @@ main:focus { outline: none; }
   transition: color var(--fast);
 }
 .lang-switch__btn + .lang-switch__btn {
-  border-left: 1px solid var(--rule-strong);
-  min-height: 14px;
+  position: relative;
   margin-left: 2px;
   padding-left: 9px;
-  line-height: 14px;
+}
+.lang-switch__btn + .lang-switch__btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 14px;
+  margin-top: -7px;
+  border-left: 1px solid var(--rule-strong);
 }
 .lang-switch__btn:hover { color: var(--navy); }
 .lang-switch__btn[aria-pressed="true"] {
@@ -354,11 +367,12 @@ main:focus { outline: none; }
   }
   .header__phone:hover { color: var(--muted); }
   .header__phone-number { display: none; }
-  .header__book { display: inline-flex; height: 46px; padding: 0 22px; }
+  .header__book { display: inline-flex; padding: 0 22px; }
   .menu-toggle { display: none; }
 }
 
-@media (min-width: 1240px) {
+/* Le numéro s'affiche en toutes lettres dès qu'il tient sur la ligne, en anglais comme en français */
+@media (min-width: 1150px) {
   .header__phone-number { display: inline; }
 }
 
@@ -419,6 +433,8 @@ body.has-drawer { overflow: hidden; }
   height: 100%;
   object-fit: cover;
 }
+/* La photo n'apparaît qu'une fois chargée : jamais d'icône d'image cassée */
+.frame img:not(.is-loaded) { visibility: hidden; }
 
 /* ---------- Hero ---------- */
 
@@ -448,7 +464,7 @@ body.has-drawer { overflow: hidden; }
   line-height: 1.02;
   letter-spacing: -0.015em;
 }
-.hero__title:lang(fr) { font-size: clamp(26px, 9.6cqi, 52px); }
+.hero__title:lang(fr) { font-size: clamp(26px, 10.2cqi, 52px); }
 .hero__line { display: block; white-space: nowrap; }
 .hero__line--italic { font-style: italic; }
 
@@ -476,6 +492,7 @@ body.has-drawer { overflow: hidden; }
 
 @media (min-width: 480px) {
   .hero__ctas { display: flex; flex-wrap: wrap; }
+  .price-card { padding: 32px; }
 }
 
 @media (min-width: 640px) and (max-width: 999px) {
@@ -491,33 +508,45 @@ body.has-drawer { overflow: hidden; }
   .hero__subtitle { font-size: 18px; }
   .hero__ctas { margin-top: 36px; }
   .frame--hero { margin: 0; }
-  .price-card { padding: 28px 30px 24px; }
 }
 
-/* 1000 à 1199 px : la carte passe sous le texte et chevauche le coin bas gauche de la photo */
+/* 1000 à 1199 px : le titre prend toute la largeur ; dessous, le texte et la carte à gauche,
+   la photo à droite. La carte chevauche le coin bas gauche de la photo. */
 @media (min-width: 1000px) and (max-width: 1199px) {
   .hero__grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto auto 1fr;
     grid-template-areas:
-      "text  photo"
-      "ctas  photo"
-      "card  photo";
+      "eyebrow eyebrow"
+      "title   title"
+      "sub     photo"
+      "ctas    photo"
+      "card    photo";
   }
-  .hero__media { display: contents; }
+  .hero__text, .hero__media { display: contents; }
+  .hero__text > .eyebrow { grid-area: eyebrow; }
+  .hero__title,
+  .hero__title:lang(fr) {
+    grid-area: title;
+    margin-bottom: 36px;
+    font-size: min(96px, 9.2vw);
+  }
+  .hero__subtitle { grid-area: sub; margin-top: 0; }
+  .hero__ctas { margin-top: 32px; }
   .frame--hero {
     grid-area: photo;
     aspect-ratio: auto;
     min-height: 100%;
     margin-bottom: 96px;
-    animation: rise 800ms var(--ease) 120ms both;
   }
   .price-card {
     grid-area: card;
     align-self: end;
     margin: 40px calc(-1 * clamp(40px, 5vw, 96px) - 72px) 0 0;
-    animation: rise 800ms var(--ease) 160ms both;
   }
+  .hero__text > *, .frame--hero, .price-card { animation: rise 800ms var(--ease) both; }
+  .frame--hero { animation-delay: 120ms; }
+  .price-card { animation-delay: 160ms; }
 }
 
 /* 1200 px et plus : la carte chevauche le coin bas gauche de la photo ; le cadre lui réserve sa place */
@@ -539,7 +568,7 @@ body.has-drawer { overflow: hidden; }
   .frame--hero {
     width: 100%;
     aspect-ratio: 4 / 5;
-    max-height: clamp(560px, calc(100svh - 252px), 780px);
+    max-height: clamp(480px, calc(100svh - 252px), 780px);
   }
   .price-card {
     position: absolute;
@@ -547,6 +576,11 @@ body.has-drawer { overflow: hidden; }
     bottom: 0;
     width: min(440px, 100%);
   }
+}
+
+/* Écrans d'ordinateur peu hauts (1366 × 650, 1280 × 720) : la carte descend moins sous la photo */
+@media (min-width: 1200px) and (max-height: 820px) {
+  .hero__media { --card-drop: 48px; }
 }
 
 @keyframes rise {
@@ -634,7 +668,7 @@ body.has-drawer { overflow: hidden; }
   min-height: 46px;
   padding-top: 8px;
 }
-.price-row__label { font-size: 15px; line-height: 1.35; }
+.price-row__label { font-size: 15px; line-height: 1.35; text-wrap: balance; }
 .price-row__leader {
   flex: 1 1 auto;
   min-width: 18px;
@@ -1085,7 +1119,7 @@ body.has-drawer { overflow: hidden; }
 /* ---------- Où on intervient + FAQ ---------- */
 
 .areas-faq__grid { display: grid; gap: 72px; }
-.areas__text { margin-top: 20px; color: var(--muted); }
+.areas__text { margin-top: 20px; color: var(--muted); text-wrap: balance; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .tags li {
   padding: 6px 12px;
@@ -1135,7 +1169,7 @@ body.has-drawer { overflow: hidden; }
 /* ---------- Réservation ---------- */
 
 .book { border-top: 1px solid var(--rule); }
-.book__grid { display: grid; gap: 48px; }
+.book__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
 .book__text { max-width: 30em; margin-top: 24px; color: var(--muted); }
 .book__contacts { display: grid; gap: 2px; margin-top: 28px; }
 
@@ -1499,7 +1533,7 @@ body.has-drawer { overflow: hidden; }
 .form-nav [data-next],
 .form-nav [data-submit] { margin-left: auto; }
 @media (max-width: 479px) {
-  .form-nav .btn { flex: 1 1 auto; padding: 0 14px; letter-spacing: 0.1em; }
+  .form-nav .btn { flex: 1 1 auto; padding: 0 14px; }
 }
 
 .form-error { margin-top: 16px; font-size: 15px; line-height: 1.5; color: var(--error); }
@@ -1573,6 +1607,29 @@ body.has-drawer { overflow: hidden; }
 @media (min-width: 1000px) {
   .mobile-bar { display: none; }
   .footer { padding-bottom: 40px; }
+}
+
+/* ---------- Chiffres des prix : alignés et à hauteur de capitale ---------- */
+
+.price-row__price,
+.menu-list__price,
+.service__price,
+.option-card__price,
+.check__price,
+.summary__price-value { font-variant-numeric: lining-nums tabular-nums; }
+.step-item::before { font-variant-numeric: lining-nums; }
+
+/* ---------- Petits téléphones (moins de 380 px) ---------- */
+
+@media (max-width: 379px) {
+  .header__inner { gap: 10px; }
+  .header__actions { gap: 4px; }
+  .brand { gap: 8px; }
+  .brand__logo { height: 28px; }
+  .brand__name { font-size: 19px; }
+  .brand__tag { letter-spacing: 0.24em; }
+  .mobile-bar .btn { padding: 0 12px; letter-spacing: 0.06em; }
+  .form-nav .btn { padding: 0 10px; letter-spacing: 0.06em; }
 }
 
 /* ---------- Mouvement réduit ---------- */
