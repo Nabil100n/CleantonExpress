@@ -2,9 +2,9 @@
  * Cleanton Express Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
  * Règles : pas de tiret cadratin ; aucun prix écrit en dur ; pas de faux avis.
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
- *   {price}  un prix formaté ($165 / 165 $)
+ *   {price}  un prix formaté ($89 / 89 $)
  *   {phone}  le téléphone de config.js, (437) 717-8009
- *   {d}      une remise, {i} {n} les numéros d'étape du formulaire
+ *   {d}      une remise, {n} un nombre, {i} {n} les numéros d'étape du formulaire
  */
 const I18N = {
   en: {
@@ -19,6 +19,8 @@ const I18N = {
       label: "Main",
       why: "Why Us",
       services: "Services",
+      details: "What’s Included",
+      faq: "FAQ",
       contact: "Contact",
       quote: "Free Quote →",
       menuOpen: "Open menu",
@@ -78,6 +80,58 @@ const I18N = {
       tags: ["Downtown Toronto", "King West", "Liberty Village", "CityPlace", "Fort York", "Entertainment District", "Financial District", "St. Lawrence", "Kensington Market", "Chinatown", "The Annex", "Yorkville", "Little Italy", "Trinity Bellwoods", "Parkdale", "Leslieville", "Midtown"],
       more: "and more across the GTA"
     },
+    details: {
+      label: "What’s included",
+      title: "Service details",
+      intro: "Same checklist every time. Deep clean includes everything in Standard, and Move-in / out includes everything in Deep.",
+      levels: { standard: "✓ Standard cleaning", deep: "+ Deep clean", move: "+ Move-in / out", addons: "Available add-ons" },
+      tasks: "{n} tasks",
+      options: "{n} options",
+      rooms: {
+        title: "Bedrooms & living areas",
+        standard: ["Dust and wipe table-top surfaces", "Sweep and mop floors", "Vacuum carpets", "Clean mirrors", "Dust furniture", "Clean hallways and staircases", "Clean glass on patio door and front door", "Empty bins"],
+        deep: ["Clean baseboards", "Clean under furniture", "Wipe window sills", "Clean window frames", "Wipe door frames"],
+        move: ["Spot clean walls", "Clean and wipe vents", "Dust the ceiling", "Wipe fans"]
+      },
+      kitchen: {
+        title: "Kitchen",
+        standard: ["Dust and wipe table-top surfaces", "Clean and shine sink", "Sweep and mop floors", "Clean and wipe appliances (exterior)", "Clean stovetop", "Clean microwave inside and out", "Empty bins"],
+        deep: ["Clean kitchen baseboards", "Wipe and clean cabinets (exterior)", "Wipe and clean backsplash"],
+        move: ["Spot clean walls", "Clean behind appliances", "Clean range hood", "Clean and wipe vents", "Dust the ceiling"]
+      },
+      bathroom: {
+        title: "Bathroom",
+        standard: ["Wipe and sanitize all surfaces", "Clean and shine sink", "Clean mirrors", "Clean and sanitize toilets", "Sweep and mop floors", "Clean shower faucets", "Clean and scrub tub", "Empty bins"],
+        deep: ["Clean bathroom baseboards", "Clean doors and cabinet exteriors"],
+        move: ["Spot clean walls", "Clean and wipe vents", "Dust the ceiling"]
+      },
+      extras: {
+        title: "Additional areas & extras",
+        addons: ["Basement area", "Extra kitchen", "Inside cabinets", "Inside fridge", "Inside oven", "Windows & tracks", "Blinds cleaning", "Load dishwasher", "Change bed sheets", "Load laundry", "Pets in home"]
+      },
+      notOffered: {
+        title: "Services not offered",
+        intro: "To ensure our cleaners can work safely and effectively, we are unable to provide the following:",
+        items: ["Cleaning of animal feces", "Mold", "Exterior of the home (garage, patio, balcony)", "Moving heavy furniture or fragile items", "Crawl spaces", "Bodily fluids", "Pest removal or infestations", "Dishes", "Full wash of ceilings and walls"]
+      }
+    },
+    faq: {
+      label: "FAQ",
+      title: "Questions",
+      items: [
+        {
+          q: "What happens after I request a quote?",
+          steps: [
+            { title: "Step 1: Confirmation.", text: "Once you submit your request, our team will review it and contact you shortly via SMS or phone call to confirm the details." },
+            { title: "Step 2: Securing your booking.", text: "You will receive a secure payment link to place a hold on your credit card. No funds are deducted at this stage. You also have the option to pay upfront via Interac e-Transfer." },
+            { title: "Step 3: The cleaning & final payment.", text: "Our professional team arrives and makes your space spotless. Your card is only charged after the service is completed." }
+          ]
+        },
+        { q: "Is the price shown final?", a: "It’s an estimate based on what you tell us. We confirm the final price with you before the cleaning, never after." },
+        { q: "Do you bring the products and equipment?", a: "Yes. We bring eco-friendly products and all the supplies. If you’d rather we use your vacuum or your own products, just tell us." },
+        { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." }
+      ]
+    },
     contact: {
       label: "Contact",
       title: "Get Your Free Quote",
@@ -95,18 +149,33 @@ const I18N = {
       choose: "Choose an option",
       step1: {
         title: "Your cleaning",
-        note: "Prices for a home in normal condition, before tax.",
+        note: "Estimated prices before tax, for a home in normal condition.",
         service: "Which service?",
         services: {
-          regular: { name: "Regular cleaning", desc: "One-time or recurring." },
-          deep: { name: "Deep cleaning", desc: "Best for a first visit." },
-          move: { name: "Move-in / move-out", desc: "Empty home, oven, fridge and cabinets included." },
-          pro: { name: "Property manager, realtor or office", desc: "Turnovers, listings, offices.", price: "On quote" }
+          regular: {
+            name: "Regular cleaning",
+            desc: "One-time or recurring.",
+            tipLabel: "What’s included in Regular cleaning",
+            tip: "Dusting, floors, kitchen surfaces, stovetop, microwave, sinks, toilets, tub, mirrors and bins."
+          },
+          deep: {
+            name: "Deep cleaning",
+            desc: "Best for a first visit.",
+            tipLabel: "What’s included in Deep cleaning",
+            tip: "Everything in Regular, plus baseboards, under furniture, window sills and frames, door frames, cabinet fronts and backsplash."
+          },
+          move: { name: "Move-in / move-out", desc: "Empty home. Deep clean plus walls, vents and range hood." },
+          pro: { name: "Commercial / Office", desc: "Offices, shops, property managers and realtors." }
         },
         from: "from {price}",
-        size: "Home size",
-        sizes: ["Studio or 1 bed, 1 bath", "2 bed, 1 bath", "2 bed, 2 bath", "3 bed, 2 bath", "4 bed or more"],
-        sizeChoose: "Choose a size",
+        perSqft: "{price} / sq ft",
+        bedrooms: "Bedrooms",
+        bedroomsLess: "One bedroom less",
+        bedroomsMore: "One more bedroom",
+        studioNote: "A studio counts as 1 bedroom.",
+        bathrooms: "Bathrooms",
+        bathroomsLess: "One bathroom less",
+        bathroomsMore: "One more bathroom",
         type: "Type of home",
         types: ["Condo or apartment", "Townhouse", "House"],
         frequency: "How often?",
@@ -114,19 +183,26 @@ const I18N = {
         discount: "−{d}",
         frequencyNote: "The discount starts with your 2nd visit.",
         proType: "You are",
-        proTypes: ["A property manager", "A realtor", "An office or shop", "Other"],
-        units: "Units or size (optional)",
-        unitsExample: "e.g. 3 units, or 1,200 sq ft"
+        proTypes: ["An office or shop", "A property manager", "A realtor", "Other"],
+        sqft: "Square footage",
+        sqftExample: "e.g. 1200",
+        proClean: "Type of cleaning",
+        proCleans: ["Standard", "Deep clean"],
+        kitchens: "Kitchens",
+        kitchensLess: "One kitchen less",
+        kitchensMore: "One more kitchen",
+        proBathrooms: "Bathrooms"
       },
       step2: {
         title: "Add-ons",
-        note: "Everything here is optional.",
-        addons: { oven: "Inside the oven", fridge: "Inside the fridge", cabinets: "Inside cabinets", pets: "Pet hair" },
-        windows: "Interior windows and tracks",
-        price: "+{price}",
-        priceFrom: "from +{price}",
-        included: "Included",
-        fragrance: "Fragrance-free products, at no extra cost (allergies, baby at home)"
+        note: "Everything here is optional. Tap a tile to add it.",
+        extras: "Extras",
+        addons: { kitchen: "Extra kitchen", fridge: "Inside fridge", oven: "Inside oven", cabinets: "Inside cabinets", blinds: "Blinds cleaning", pets: "Pets in home" },
+        windows: "Inside windows & tracks",
+        windowsName: "Inside windows",
+        windowUpTo: "up to {n}",
+        windowsNote: "Pick one. Tap it again to remove it.",
+        price: "+{price}"
       },
       step3: {
         title: "Where and when?",
@@ -139,7 +215,10 @@ const I18N = {
         dateOptional: "Preferred date (optional)",
         arrival: "Arrival time",
         arrivalOptional: "Arrival time (optional)",
-        windows: ["Morning, 8 to 10 am", "Midday, 11 am to 1 pm", "Afternoon, 2 to 4 pm"],
+        windows: ["Morning, 8 to 10 am", "Midday, 11 am to 1 pm", "Afternoon, 2 to 4 pm", "4 to 6 pm"],
+        late: "After 6 pm (+{price} extra charge)",
+        exact: "Exact time request",
+        exactLabel: "Exact arrival time",
         arrivalNote: "This is when we arrive, not how long it takes. A clean lasts 2 to 6 hours depending on the home and the service.",
         flexibility: "If that date is taken?",
         flexibilities: ["Only this date", "Day before or after", "Any day that week"],
@@ -147,8 +226,8 @@ const I18N = {
         accesses: ["I’ll be home", "Concierge or front desk", "Key in a lockbox", "Buzzer code", "Other"],
         elevator: "Elevator booking needed?",
         elevators: ["Not sure", "Yes, I’ll book it", "No"],
-        details: "Details (optional)",
-        detailsExample: "Buzzer code, pets, priorities"
+        instructions: "Cleaning Instructions / Priorities (optional)",
+        instructionsExample: "e.g. Focus on the kitchen, skip the office, buzzer code 1234"
       },
       step4: {
         title: "Your details",
@@ -165,24 +244,39 @@ const I18N = {
         title: "Your request",
         service: "Service",
         home: "Home",
+        business: "Space",
         frequency: "Frequency",
         addons: "Add-ons",
         when: "When",
         address: "Address",
         access: "Access",
-        included: "included",
-        fragrance: "Fragrance-free products",
         elevator: "Elevator booking",
-        price: "Price from our grid, before tax",
-        onQuote: "On quote",
-        then: "Then {d} from your 2nd visit.",
-        plusAddons: "Plus the add-ons you picked.",
-        final: "We confirm your final price by message before we start. Nothing to pay now: you pay after the clean."
+        instructions: "Instructions"
+      },
+      units: {
+        bedroom: ["{n} bedroom", "{n} bedrooms"],
+        bathroom: ["{n} bathroom", "{n} bathrooms"],
+        kitchen: ["{n} kitchen", "{n} kitchens"],
+        sqft: "{n} sq ft"
+      },
+      estimate: {
+        label: "Estimated total, before tax",
+        note: "We confirm your final price by message before the cleaning. Nothing to pay now.",
+        then: "Then {price} per visit from your 2nd visit ({d}).",
+        proLabel: "Estimate Only",
+        proNote: "This is a rough estimate. We will call you shortly to discuss your needs and confirm the final quote.",
+        proEmpty: "Enter your square footage",
+        rate: "{sqft} × {price}",
+        late: "Arrival after 6 pm",
+        deep: "Deep clean",
+        move: "Move-in / move-out"
       },
       privacy: "We only use your details to answer your request.",
       errors: {
         service: "Choose a service.",
         required: "This field is required.",
+        sqft: "Enter the square footage, like 1200.",
+        count: "Enter a number from {min} to {max}.",
         postal: "Enter a valid postal code, like M5V 2T6.",
         phone: "Enter a 10-digit phone number.",
         email: "Check your email address.",
@@ -195,7 +289,7 @@ const I18N = {
         close: "Close"
       }
     },
-    whatsapp: "Hi Cleanton! I’d like to book a cleaning.\nHome size: \nPreferred date: ",
+    whatsapp: "Hi Cleanton! I’d like to book a cleaning.\nBedrooms and bathrooms: \nPreferred date: ",
     footer: {
       line: "© 2026 Cleanton Express · 24/7 professional cleaning · Toronto",
       privacy: "Privacy Policy",
@@ -226,6 +320,8 @@ const I18N = {
       label: "Navigation principale",
       why: "Pourquoi nous",
       services: "Services",
+      details: "Ce qui est inclus",
+      faq: "FAQ",
       contact: "Contact",
       quote: "Devis gratuit →",
       menuOpen: "Ouvrir le menu",
@@ -285,6 +381,58 @@ const I18N = {
       tags: ["Centre-ville de Toronto", "King West", "Liberty Village", "CityPlace", "Fort York", "Entertainment District", "Financial District", "St. Lawrence", "Kensington Market", "Chinatown", "The Annex", "Yorkville", "Little Italy", "Trinity Bellwoods", "Parkdale", "Leslieville", "Midtown"],
       more: "et ailleurs dans la région de Toronto (GTA)"
     },
+    details: {
+      label: "Ce qui est inclus",
+      title: "Détail des services",
+      intro: "La même checklist à chaque fois. Le ménage en profondeur comprend tout le ménage standard, et le déménagement comprend tout le ménage en profondeur.",
+      levels: { standard: "✓ Ménage standard", deep: "+ Ménage en profondeur", move: "+ Déménagement", addons: "Extras disponibles" },
+      tasks: "{n} tâches",
+      options: "{n} options",
+      rooms: {
+        title: "Chambres et pièces de vie",
+        standard: ["Dépoussiérer et essuyer les surfaces", "Balayer et laver les sols", "Passer l’aspirateur sur les tapis", "Nettoyer les miroirs", "Dépoussiérer les meubles", "Nettoyer les couloirs et les escaliers", "Nettoyer la vitre de la porte-fenêtre et de la porte d’entrée", "Vider les poubelles"],
+        deep: ["Nettoyer les plinthes", "Nettoyer sous les meubles", "Essuyer les rebords de fenêtres", "Nettoyer les cadres de fenêtres", "Essuyer les cadres de portes"],
+        move: ["Détacher les murs", "Nettoyer les bouches d’aération", "Dépoussiérer le plafond", "Essuyer les ventilateurs"]
+      },
+      kitchen: {
+        title: "Cuisine",
+        standard: ["Dépoussiérer et essuyer les surfaces", "Nettoyer et faire briller l’évier", "Balayer et laver les sols", "Nettoyer l’extérieur des électroménagers", "Nettoyer la plaque de cuisson", "Nettoyer le micro-ondes, dedans et dehors", "Vider les poubelles"],
+        deep: ["Nettoyer les plinthes de la cuisine", "Nettoyer les façades d’armoires", "Nettoyer le dosseret"],
+        move: ["Détacher les murs", "Nettoyer derrière les électroménagers", "Nettoyer la hotte", "Nettoyer les bouches d’aération", "Dépoussiérer le plafond"]
+      },
+      bathroom: {
+        title: "Salle de bain",
+        standard: ["Essuyer et désinfecter toutes les surfaces", "Nettoyer et faire briller le lavabo", "Nettoyer les miroirs", "Nettoyer et désinfecter les toilettes", "Balayer et laver les sols", "Nettoyer la robinetterie de douche", "Nettoyer et frotter la baignoire", "Vider les poubelles"],
+        deep: ["Nettoyer les plinthes de la salle de bain", "Nettoyer les portes et l’extérieur des meubles"],
+        move: ["Détacher les murs", "Nettoyer les bouches d’aération", "Dépoussiérer le plafond"]
+      },
+      extras: {
+        title: "Autres espaces et extras",
+        addons: ["Sous-sol", "Cuisine supplémentaire", "Intérieur des armoires", "Intérieur du frigo", "Intérieur du four", "Fenêtres et rails", "Nettoyage des stores", "Remplir le lave-vaisselle", "Changer les draps", "Lancer une lessive", "Animaux à la maison"]
+      },
+      notOffered: {
+        title: "Services non offerts",
+        intro: "Pour que nos agents d’entretien travaillent en sécurité et efficacement, nous ne pouvons pas offrir les services suivants :",
+        items: ["Nettoyage d’excréments d’animaux", "Moisissure", "Extérieur du logement (garage, terrasse, balcon)", "Déplacement de meubles lourds ou d’objets fragiles", "Vides sanitaires", "Fluides corporels", "Extermination ou infestation de nuisibles", "Vaisselle", "Lavage complet des plafonds et des murs"]
+      }
+    },
+    faq: {
+      label: "FAQ",
+      title: "Questions",
+      items: [
+        {
+          q: "Que se passe-t-il après ma demande de devis ?",
+          steps: [
+            { title: "Étape 1 : Confirmation.", text: "Une fois votre demande envoyée, notre équipe l’examine et vous contacte rapidement par texto ou par téléphone pour confirmer les détails." },
+            { title: "Étape 2 : Garantir votre réservation.", text: "Vous recevez un lien de paiement sécurisé pour bloquer un montant sur votre carte de crédit. Aucun montant n’est prélevé à cette étape. Vous pouvez aussi payer d’avance par virement Interac." },
+            { title: "Étape 3 : Le ménage et le paiement final.", text: "Notre équipe professionnelle arrive et rend votre espace impeccable. Votre carte n’est débitée qu’une fois le service terminé." }
+          ]
+        },
+        { q: "Le prix affiché est-il définitif ?", a: "C’est une estimation selon ce que vous nous indiquez. On vous confirme le prix final avant le ménage, jamais après." },
+        { q: "Apportez-vous les produits et le matériel ?", a: "Oui. On apporte des produits écologiques et tout le matériel. Vous préférez qu’on utilise votre aspirateur ou vos produits ? Dites-le-nous." },
+        { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." }
+      ]
+    },
     contact: {
       label: "Contact",
       title: "Obtenez votre devis gratuit",
@@ -302,18 +450,33 @@ const I18N = {
       choose: "Choisissez une option",
       step1: {
         title: "Votre ménage",
-        note: "Prix pour un logement en état normal, avant taxes.",
+        note: "Prix estimés avant taxes, pour un logement en état normal.",
         service: "Quel service ?",
         services: {
-          regular: { name: "Ménage régulier", desc: "Ponctuel ou récurrent." },
-          deep: { name: "Ménage en profondeur", desc: "Idéal pour une première visite." },
-          move: { name: "Déménagement", desc: "Logement vide, four, frigo et armoires inclus." },
-          pro: { name: "Gestionnaire, agent ou bureau", desc: "Remises en état, mises en vente, bureaux.", price: "Sur devis" }
+          regular: {
+            name: "Ménage régulier",
+            desc: "Ponctuel ou récurrent.",
+            tipLabel: "Ce que comprend le ménage régulier",
+            tip: "Poussière, sols, surfaces de cuisine, plaque de cuisson, micro-ondes, éviers, toilettes, baignoire, miroirs et poubelles."
+          },
+          deep: {
+            name: "Ménage en profondeur",
+            desc: "Idéal pour une première visite.",
+            tipLabel: "Ce que comprend le ménage en profondeur",
+            tip: "Tout le ménage régulier, plus plinthes, dessous des meubles, rebords et cadres de fenêtres, cadres de portes, façades d’armoires et dosseret."
+          },
+          move: { name: "Déménagement", desc: "Logement vide. Ménage en profondeur, plus murs, bouches d’aération et hotte." },
+          pro: { name: "Commercial / bureau", desc: "Bureaux, commerces, gestionnaires et agents immobiliers." }
         },
         from: "dès {price}",
-        size: "Taille du logement",
-        sizes: ["Studio ou 1 chambre, 1 salle de bain", "2 chambres, 1 salle de bain", "2 chambres, 2 salles de bain", "3 chambres, 2 salles de bain", "4 chambres ou plus"],
-        sizeChoose: "Choisissez une taille",
+        perSqft: "{price} / pi²",
+        bedrooms: "Chambres",
+        bedroomsLess: "Une chambre de moins",
+        bedroomsMore: "Une chambre de plus",
+        studioNote: "Un studio compte comme 1 chambre.",
+        bathrooms: "Salles de bain",
+        bathroomsLess: "Une salle de bain de moins",
+        bathroomsMore: "Une salle de bain de plus",
         type: "Type de logement",
         types: ["Condo ou appartement", "Maison en rangée", "Maison"],
         frequency: "À quelle fréquence ?",
@@ -321,19 +484,26 @@ const I18N = {
         discount: "−{d}",
         frequencyNote: "Le rabais s’applique dès votre 2e visite.",
         proType: "Vous êtes",
-        proTypes: ["Gestionnaire immobilier", "Agent immobilier", "Bureau ou commerce", "Autre"],
-        units: "Logements ou superficie (facultatif)",
-        unitsExample: "ex. 3 logements, ou 1 200 pi²"
+        proTypes: ["Bureau ou commerce", "Gestionnaire immobilier", "Agent immobilier", "Autre"],
+        sqft: "Superficie (pi²)",
+        sqftExample: "ex. 1200",
+        proClean: "Type de ménage",
+        proCleans: ["Standard", "En profondeur"],
+        kitchens: "Cuisines",
+        kitchensLess: "Une cuisine de moins",
+        kitchensMore: "Une cuisine de plus",
+        proBathrooms: "Salles de bain"
       },
       step2: {
-        title: "Options",
-        note: "Tout est facultatif.",
-        addons: { oven: "Intérieur du four", fridge: "Intérieur du frigo", cabinets: "Intérieur des armoires", pets: "Poils d’animaux" },
+        title: "Extras",
+        note: "Tout est facultatif. Touchez une tuile pour l’ajouter.",
+        extras: "Extras",
+        addons: { kitchen: "Cuisine supplémentaire", fridge: "Intérieur du frigo", oven: "Intérieur du four", cabinets: "Intérieur des armoires", blinds: "Nettoyage des stores", pets: "Animaux à la maison" },
         windows: "Vitres intérieures et rails",
-        price: "+{price}",
-        priceFrom: "dès +{price}",
-        included: "Inclus",
-        fragrance: "Produits sans parfum, sans supplément (allergies, bébé à la maison)"
+        windowsName: "Vitres intérieures",
+        windowUpTo: "jusqu’à {n}",
+        windowsNote: "Choisissez-en une. Touchez-la de nouveau pour la retirer.",
+        price: "+{price}"
       },
       step3: {
         title: "Où et quand ?",
@@ -346,7 +516,10 @@ const I18N = {
         dateOptional: "Date souhaitée (facultative)",
         arrival: "Heure d’arrivée",
         arrivalOptional: "Heure d’arrivée (facultative)",
-        windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h"],
+        windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h", "De 16 h à 18 h"],
+        late: "Après 18 h (supplément de {price})",
+        exact: "Heure précise",
+        exactLabel: "Heure d’arrivée précise",
         arrivalNote: "C’est l’heure à laquelle on arrive, pas la durée. Un ménage dure de 2 à 6 h selon le logement et le service.",
         flexibility: "Si cette date est prise ?",
         flexibilities: ["Seulement cette date", "La veille ou le lendemain", "N’importe quel jour de la semaine"],
@@ -354,8 +527,8 @@ const I18N = {
         accesses: ["Je serai là", "Concierge ou réception", "Clé dans une boîte à clé", "Code d’interphone", "Autre"],
         elevator: "Réservation d’ascenseur ?",
         elevators: ["Je ne sais pas", "Oui, je la réserve", "Non"],
-        details: "Détails (facultatif)",
-        detailsExample: "Code d’interphone, animaux, priorités"
+        instructions: "Consignes de ménage / priorités (facultatif)",
+        instructionsExample: "ex. Insister sur la cuisine, ne pas faire le bureau, code d’interphone 1234"
       },
       step4: {
         title: "Vos coordonnées",
@@ -372,24 +545,39 @@ const I18N = {
         title: "Votre demande",
         service: "Service",
         home: "Logement",
+        business: "Local",
         frequency: "Fréquence",
-        addons: "Options",
+        addons: "Extras",
         when: "Quand",
         address: "Adresse",
         access: "Accès",
-        included: "inclus",
-        fragrance: "Produits sans parfum",
         elevator: "Réservation d’ascenseur",
-        price: "Prix de notre grille, avant taxes",
-        onQuote: "Sur devis",
-        then: "Puis {d} dès votre 2e visite.",
-        plusAddons: "Plus les options choisies.",
-        final: "On vous confirme le prix final par message avant de commencer. Rien à payer maintenant : vous payez après le ménage."
+        instructions: "Consignes"
+      },
+      units: {
+        bedroom: ["{n} chambre", "{n} chambres"],
+        bathroom: ["{n} salle de bain", "{n} salles de bain"],
+        kitchen: ["{n} cuisine", "{n} cuisines"],
+        sqft: "{n} pi²"
+      },
+      estimate: {
+        label: "Total estimé, avant taxes",
+        note: "On vous confirme le prix final par message avant le ménage. Rien à payer maintenant.",
+        then: "Puis {price} par visite dès votre 2e visite ({d}).",
+        proLabel: "Prix indicatif",
+        proNote: "Ceci est une estimation approximative. Nous vous appellerons rapidement pour discuter de vos besoins et confirmer le prix final.",
+        proEmpty: "Indiquez la superficie",
+        rate: "{sqft} × {price}",
+        late: "Arrivée après 18 h",
+        deep: "Ménage en profondeur",
+        move: "Déménagement"
       },
       privacy: "Vos coordonnées servent uniquement à répondre à votre demande.",
       errors: {
         service: "Choisissez un service.",
         required: "Ce champ est obligatoire.",
+        sqft: "Indiquez la superficie, par exemple 1200.",
+        count: "Entrez un nombre de {min} à {max}.",
         postal: "Entrez un code postal valide, comme M5V 2T6.",
         phone: "Entrez un numéro à 10 chiffres.",
         email: "Vérifiez votre courriel.",
@@ -402,7 +590,7 @@ const I18N = {
         close: "Fermer"
       }
     },
-    whatsapp: "Bonjour Cleanton ! J’aimerais réserver un ménage.\nTaille du logement : \nDate souhaitée : ",
+    whatsapp: "Bonjour Cleanton ! J’aimerais réserver un ménage.\nChambres et salles de bain : \nDate souhaitée : ",
     footer: {
       line: "© 2026 Cleanton Express · Ménage professionnel 24/7 · Toronto",
       privacy: "Politique de confidentialité",

@@ -25,6 +25,20 @@
 <body>
   <a class="skip-link" href="#main" data-i18n="skip"></a>
 
+  <!-- Icônes (dessins, sans texte) réutilisées par <use> -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-kitchen" viewBox="0 0 24 24"><path d="M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5z"/><path d="M2 11h20"/><path d="M9 4.5c-.6.8.6 1.7 0 2.5M12 3.5c-.6.8.6 1.7 0 2.5M15 4.5c-.6.8.6 1.7 0 2.5"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="5.5" cy="10" r="1.8"/><circle cx="9.5" cy="5.8" r="1.8"/><circle cx="14.5" cy="5.8" r="1.8"/><circle cx="18.5" cy="10" r="1.8"/><path d="M12 11.5c-2.9 0-5.5 3.6-5.5 5.9 0 1.6 1.2 2.6 2.7 2.6 1.2 0 1.9-.7 2.8-.7s1.6.7 2.8.7c1.5 0 2.7-1 2.7-2.6 0-2.3-2.6-5.9-5.5-5.9z"/></symbol>
+    <symbol id="i-fridge" viewBox="0 0 24 24"><rect x="5.5" y="2.5" width="13" height="19" rx="2"/><path d="M5.5 10h13M8.5 5.5v2M8.5 13v3"/></symbol>
+    <symbol id="i-oven" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 8h18"/><rect x="6.5" y="11" width="11" height="7" rx="1"/><path d="M6.5 5.5h.01M9.5 5.5h.01M17.5 5.5h-3"/></symbol>
+    <symbol id="i-cabinet" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M12 4v16M9.5 10.5v3M14.5 10.5v3"/></symbol>
+    <symbol id="i-blinds" viewBox="0 0 24 24"><path d="M3 3.5h18M5 7h14M5 10.5h14M5 14h14M5 17.5h14M12 17.5v2.5"/><circle cx="12" cy="21" r=".8"/></symbol>
+    <symbol id="i-window" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M12 3v18M4 12h16"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 14h18v5M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="10.5" r="1.8"/></symbol>
+    <symbol id="i-bath" viewBox="0 0 24 24"><path d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-2z"/><path d="M6 12V5.5a2 2 0 0 1 2-2c1 0 1.7.6 2 1.5"/><path d="M7 19l-1 2M17 19l1 2"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l1.8 4.9L18 9.5l-5.2 1.6L11 16l-1.8-4.9L4 9.5l5.2-1.6z"/><path d="M18.5 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
+  </svg>
+
   <!-- NAVIGATION -->
   <header class="nav" id="top" data-header>
     <a class="nav-brand" href="#top" data-i18n-attr="aria-label:brand.home">
@@ -32,8 +46,10 @@
       <span class="nav-brand-name" aria-hidden="true"><span class="n-white" data-i18n="brand.word1"></span> <span class="n-orange" data-i18n="brand.word2"></span> <span class="n-blue" data-i18n="brand.word3"></span></span>
     </a>
     <nav class="nav-links" data-i18n-attr="aria-label:nav.label">
-      <a href="#why" data-i18n="nav.why"></a>
       <a href="#services" data-i18n="nav.services"></a>
+      <a href="#why" data-i18n="nav.why"></a>
+      <a href="#details" data-i18n="nav.details"></a>
+      <a href="#faq" data-i18n="nav.faq"></a>
       <a href="#book" data-i18n="nav.contact"></a>
     </nav>
     <div class="nav-actions">
@@ -50,8 +66,10 @@
     <!-- Menu mobile -->
     <div class="mobile-menu" id="drawer" hidden data-drawer>
       <nav data-i18n-attr="aria-label:nav.label">
-        <a href="#why" data-i18n="nav.why"></a>
         <a href="#services" data-i18n="nav.services"></a>
+        <a href="#why" data-i18n="nav.why"></a>
+        <a href="#details" data-i18n="nav.details"></a>
+        <a href="#faq" data-i18n="nav.faq"></a>
         <a href="#book" data-i18n="nav.contact"></a>
         <a href="#book" class="mobile-cta" data-i18n="nav.quote"></a>
       </nav>
@@ -82,23 +100,6 @@
       <div class="ticker" data-ticker></div>
     </div>
 
-    <!-- POURQUOI NOUS -->
-    <section class="section" id="why" aria-labelledby="why-title">
-      <p class="label" data-i18n="why.label"></p>
-      <h2 id="why-title"><span data-i18n="why.title1"></span><br><span data-i18n="why.title2"></span></h2>
-      <div class="intro-text">
-        <p data-i18n="why.p1"></p>
-        <p data-i18n="why.p2"></p>
-      </div>
-      <ul class="pillars">
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⚡"></span><h3 data-i18n="why.pillars.0.title"></h3><p data-i18n="why.pillars.0.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🌿"></span><h3 data-i18n="why.pillars.1.title"></h3><p data-i18n="why.pillars.1.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧹"></span><h3 data-i18n="why.pillars.2.title"></h3><p data-i18n="why.pillars.2.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🤝"></span><h3 data-i18n="why.pillars.3.title"></h3><p data-i18n="why.pillars.3.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="💰"></span><h3 data-i18n="why.pillars.4.title"></h3><p data-i18n="why.pillars.4.text"></p></li>
-      </ul>
-    </section>
-
     <!-- SERVICES (fond blanc) -->
     <section class="services-outer" id="services" aria-labelledby="services-title">
       <div class="services-inner">
@@ -107,29 +108,6 @@
         <p class="services-hint" data-i18n="services.hint"></p>
 
         <div class="services-grid">
-          <!-- Commercial : carte à retourner -->
-          <div class="flip-card" data-flip-card>
-            <div class="flip-card-inner">
-              <button type="button" class="flip-front flip-front--commercial" aria-controls="back-commercial">
-                <span class="flip-front-overlay" aria-hidden="true"></span>
-                <span class="flip-front-content">
-                  <span class="flip-tag" data-i18n="services.commercial.tag"></span>
-                  <span class="flip-title" data-icon="🏢"><span data-i18n="services.commercial.name"></span></span>
-                  <span class="flip-hint-front" data-i18n="services.more"></span>
-                </span>
-              </button>
-              <div class="flip-back" id="back-commercial" tabindex="-1">
-                <h3 data-i18n="services.commercial.title"></h3>
-                <p class="flip-back-desc" data-i18n="services.commercial.desc"></p>
-                <ul class="service-list" data-i18n-list="services.commercial.items"></ul>
-                <div class="flip-back-bottom">
-                  <a href="#book" class="btn btn-primary btn-small" data-book-service="pro" data-i18n="services.cta"></a>
-                  <button type="button" class="flip-hint-back" data-i18n="services.back"></button>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Résidentiel : carte à retourner -->
           <div class="flip-card" data-flip-card>
             <div class="flip-card-inner">
@@ -152,6 +130,29 @@
               </div>
             </div>
           </div>
+
+          <!-- Commercial : carte à retourner -->
+          <div class="flip-card" data-flip-card>
+            <div class="flip-card-inner">
+              <button type="button" class="flip-front flip-front--commercial" aria-controls="back-commercial">
+                <span class="flip-front-overlay" aria-hidden="true"></span>
+                <span class="flip-front-content">
+                  <span class="flip-tag" data-i18n="services.commercial.tag"></span>
+                  <span class="flip-title" data-icon="🏢"><span data-i18n="services.commercial.name"></span></span>
+                  <span class="flip-hint-front" data-i18n="services.more"></span>
+                </span>
+              </button>
+              <div class="flip-back" id="back-commercial" tabindex="-1">
+                <h3 data-i18n="services.commercial.title"></h3>
+                <p class="flip-back-desc" data-i18n="services.commercial.desc"></p>
+                <ul class="service-list" data-i18n-list="services.commercial.items"></ul>
+                <div class="flip-back-bottom">
+                  <a href="#book" class="btn btn-primary btn-small" data-book-service="pro" data-i18n="services.cta"></a>
+                  <button type="button" class="flip-hint-back" data-i18n="services.back"></button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Zones desservies -->
@@ -162,16 +163,139 @@
       </div>
     </section>
 
+    <!-- POURQUOI NOUS -->
+    <section class="section" id="why" aria-labelledby="why-title">
+      <p class="label" data-i18n="why.label"></p>
+      <h2 id="why-title"><span data-i18n="why.title1"></span><br><span data-i18n="why.title2"></span></h2>
+      <div class="intro-text">
+        <p data-i18n="why.p1"></p>
+        <p data-i18n="why.p2"></p>
+      </div>
+      <ul class="pillars">
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⚡"></span><h3 data-i18n="why.pillars.0.title"></h3><p data-i18n="why.pillars.0.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🌿"></span><h3 data-i18n="why.pillars.1.title"></h3><p data-i18n="why.pillars.1.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧹"></span><h3 data-i18n="why.pillars.2.title"></h3><p data-i18n="why.pillars.2.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🤝"></span><h3 data-i18n="why.pillars.3.title"></h3><p data-i18n="why.pillars.3.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="💰"></span><h3 data-i18n="why.pillars.4.title"></h3><p data-i18n="why.pillars.4.text"></p></li>
+      </ul>
+    </section>
+
+    <!-- DÉTAILS DES SERVICES (fond blanc) -->
+    <section class="details-outer" id="details" aria-labelledby="details-title">
+      <div class="details-inner">
+        <p class="label" data-i18n="details.label"></p>
+        <h2 id="details-title" data-i18n="details.title"></h2>
+        <p class="details-intro" data-i18n="details.intro"></p>
+        <ul class="details-legend">
+          <li class="details-legend__item details-legend__item--standard" data-i18n="details.levels.standard"></li>
+          <li class="details-legend__item details-legend__item--deep" data-i18n="details.levels.deep"></li>
+          <li class="details-legend__item details-legend__item--move" data-i18n="details.levels.move"></li>
+        </ul>
+        <div class="details-grid">
+        <article class="detail-card">
+          <header class="detail-card__head">
+            <svg class="detail-card__icon" aria-hidden="true" focusable="false"><use href="#i-bed"/></svg>
+            <div>
+              <h3 class="detail-card__title" data-i18n="details.rooms.title"></h3>
+              <p class="detail-card__count" data-detail-count="rooms"></p>
+            </div>
+          </header>
+          <div class="detail-group detail-group--standard">
+            <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
+            <ul class="detail-list" data-i18n-list="details.rooms.standard"></ul>
+          </div>
+          <div class="detail-group detail-group--deep">
+            <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
+            <ul class="detail-list" data-i18n-list="details.rooms.deep"></ul>
+          </div>
+          <div class="detail-group detail-group--move">
+            <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
+            <ul class="detail-list" data-i18n-list="details.rooms.move"></ul>
+          </div>
+        </article>
+        <article class="detail-card">
+          <header class="detail-card__head">
+            <svg class="detail-card__icon" aria-hidden="true" focusable="false"><use href="#i-kitchen"/></svg>
+            <div>
+              <h3 class="detail-card__title" data-i18n="details.kitchen.title"></h3>
+              <p class="detail-card__count" data-detail-count="kitchen"></p>
+            </div>
+          </header>
+          <div class="detail-group detail-group--standard">
+            <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
+            <ul class="detail-list" data-i18n-list="details.kitchen.standard"></ul>
+          </div>
+          <div class="detail-group detail-group--deep">
+            <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
+            <ul class="detail-list" data-i18n-list="details.kitchen.deep"></ul>
+          </div>
+          <div class="detail-group detail-group--move">
+            <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
+            <ul class="detail-list" data-i18n-list="details.kitchen.move"></ul>
+          </div>
+        </article>
+        <article class="detail-card">
+          <header class="detail-card__head">
+            <svg class="detail-card__icon" aria-hidden="true" focusable="false"><use href="#i-bath"/></svg>
+            <div>
+              <h3 class="detail-card__title" data-i18n="details.bathroom.title"></h3>
+              <p class="detail-card__count" data-detail-count="bathroom"></p>
+            </div>
+          </header>
+          <div class="detail-group detail-group--standard">
+            <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
+            <ul class="detail-list" data-i18n-list="details.bathroom.standard"></ul>
+          </div>
+          <div class="detail-group detail-group--deep">
+            <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
+            <ul class="detail-list" data-i18n-list="details.bathroom.deep"></ul>
+          </div>
+          <div class="detail-group detail-group--move">
+            <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
+            <ul class="detail-list" data-i18n-list="details.bathroom.move"></ul>
+          </div>
+        </article>
+        <article class="detail-card">
+          <header class="detail-card__head">
+            <svg class="detail-card__icon" aria-hidden="true" focusable="false"><use href="#i-sparkle"/></svg>
+            <div>
+              <h3 class="detail-card__title" data-i18n="details.extras.title"></h3>
+              <p class="detail-card__count" data-detail-count="extras"></p>
+            </div>
+          </header>
+          <div class="detail-group detail-group--addons">
+            <h4 class="detail-group__title" data-i18n="details.levels.addons"></h4>
+            <ul class="detail-list" data-i18n-list="details.extras.addons"></ul>
+          </div>
+        </article>
+        </div>
+
+        <div class="not-offered">
+          <h3 class="not-offered__title" data-i18n="details.notOffered.title"></h3>
+          <p class="not-offered__intro" data-i18n="details.notOffered.intro"></p>
+          <ul class="not-offered__list" data-i18n-list="details.notOffered.items"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--faq" id="faq" aria-labelledby="faq-title">
+      <p class="label" data-i18n="faq.label"></p>
+      <h2 id="faq-title" data-i18n="faq.title"></h2>
+      <div class="faq" data-faq></div>
+    </section>
+
     <!-- CONTACT ET RÉSERVATION -->
     <section class="section" id="book" aria-labelledby="book-title">
-      <p class="label" data-i18n="contact.label"></p>
-      <h2 id="book-title" data-i18n="contact.title"></h2>
       <div class="contact-grid">
         <div class="contact-info">
-          <p data-i18n="contact.intro"></p>
+          <p class="label" data-i18n="contact.label"></p>
+          <h2 id="book-title" data-i18n="contact.title"></h2>
+          <p class="contact-intro" data-i18n="contact.intro"></p>
           <a href="#" class="contact-item" data-icon="📞" data-phone-link><span data-phone-text></span></a>
           <a href="#" class="contact-item" data-icon="💬" target="_blank" rel="noopener" data-whatsapp-link><span data-i18n="contact.whatsapp"></span></a>
           <a href="https://maps.google.com/?q=Toronto,+ON" class="contact-item" data-icon="📍" target="_blank" rel="noopener"><span data-i18n="contact.area"></span></a>
+          <a href="#" class="contact-item" data-icon="✉️" data-email-link><span data-email-text></span></a>
         </div>
 
         <div class="book-card">
@@ -188,7 +312,7 @@
             <input type="hidden" name="_subject" value="">
             <input type="hidden" name="lang" value="">
             <input type="hidden" name="summary" value="">
-            <input type="hidden" name="grid_price" value="">
+            <input type="hidden" name="estimated_price" value="">
             <div class="hp" aria-hidden="true">
               <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
             </div>
@@ -201,49 +325,75 @@
               <fieldset class="field" data-field="service">
                 <legend class="label-field" data-i18n="form.step1.service"></legend>
                 <div class="options options--cards">
-                  <label class="option-card">
-                    <input class="option-card__input" type="radio" name="service" value="Regular" data-service="regular">
-                    <span class="option-card__body">
-                      <span class="option-card__name" data-i18n="form.step1.services.regular.name"></span>
-                      <span class="option-card__desc" data-i18n="form.step1.services.regular.desc"></span>
-                      <span class="option-card__price" data-from-price="regular"></span>
-                    </span>
-                  </label>
-                  <label class="option-card">
-                    <input class="option-card__input" type="radio" name="service" value="Deep" data-service="deep">
-                    <span class="option-card__body">
-                      <span class="option-card__name" data-i18n="form.step1.services.deep.name"></span>
-                      <span class="option-card__desc" data-i18n="form.step1.services.deep.desc"></span>
-                      <span class="option-card__price" data-from-price="deep"></span>
-                    </span>
-                  </label>
-                  <label class="option-card">
-                    <input class="option-card__input" type="radio" name="service" value="Move-in/out" data-service="move">
-                    <span class="option-card__body">
-                      <span class="option-card__name" data-i18n="form.step1.services.move.name"></span>
-                      <span class="option-card__desc" data-i18n="form.step1.services.move.desc"></span>
-                      <span class="option-card__price" data-from-price="move"></span>
-                    </span>
-                  </label>
-                  <label class="option-card">
-                    <input class="option-card__input" type="radio" name="service" value="Property manager / realtor / office" data-service="pro">
-                    <span class="option-card__body">
-                      <span class="option-card__name" data-i18n="form.step1.services.pro.name"></span>
-                      <span class="option-card__desc" data-i18n="form.step1.services.pro.desc"></span>
-                      <span class="option-card__price option-card__price--quote" data-i18n="form.step1.services.pro.price"></span>
-                    </span>
-                  </label>
+                  <div class="option-wrap has-tip">
+                    <label class="option-card">
+                      <input class="option-card__input" type="radio" name="service" value="Regular" data-service="regular">
+                      <span class="option-card__body">
+                        <span class="option-card__name" data-i18n="form.step1.services.regular.name"></span>
+                        <span class="option-card__desc" data-i18n="form.step1.services.regular.desc"></span>
+                        <span class="option-card__price" data-from-price="regular"></span>
+                      </span>
+                    </label>
+                    <button type="button" class="tip" aria-expanded="false" aria-describedby="tip-regular" data-tip data-i18n-attr="aria-label:form.step1.services.regular.tipLabel"><span aria-hidden="true">?</span></button>
+                    <span class="tip__bubble" id="tip-regular" role="tooltip" data-i18n="form.step1.services.regular.tip"></span>
+                  </div>
+                  <div class="option-wrap has-tip">
+                    <label class="option-card">
+                      <input class="option-card__input" type="radio" name="service" value="Deep" data-service="deep">
+                      <span class="option-card__body">
+                        <span class="option-card__name" data-i18n="form.step1.services.deep.name"></span>
+                        <span class="option-card__desc" data-i18n="form.step1.services.deep.desc"></span>
+                        <span class="option-card__price" data-from-price="deep"></span>
+                      </span>
+                    </label>
+                    <button type="button" class="tip" aria-expanded="false" aria-describedby="tip-deep" data-tip data-i18n-attr="aria-label:form.step1.services.deep.tipLabel"><span aria-hidden="true">?</span></button>
+                    <span class="tip__bubble" id="tip-deep" role="tooltip" data-i18n="form.step1.services.deep.tip"></span>
+                  </div>
+                  <div class="option-wrap">
+                    <label class="option-card">
+                      <input class="option-card__input" type="radio" name="service" value="Move-in/out" data-service="move">
+                      <span class="option-card__body">
+                        <span class="option-card__name" data-i18n="form.step1.services.move.name"></span>
+                        <span class="option-card__desc" data-i18n="form.step1.services.move.desc"></span>
+                        <span class="option-card__price" data-from-price="move"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="option-wrap">
+                    <label class="option-card">
+                      <input class="option-card__input" type="radio" name="service" value="Commercial / Office" data-service="pro">
+                      <span class="option-card__body">
+                        <span class="option-card__name" data-i18n="form.step1.services.pro.name"></span>
+                        <span class="option-card__desc" data-i18n="form.step1.services.pro.desc"></span>
+                        <span class="option-card__price option-card__price--rate" data-from-price="pro"></span>
+                      </span>
+                    </label>
+                  </div>
                 </div>
                 <p class="field__error" id="err-service" data-error></p>
               </fieldset>
 
               <div class="cond" data-when="residential" hidden>
-                <div class="field" data-field="home_size">
-                  <label class="label-field" for="home_size" data-i18n="form.step1.size"></label>
-                  <div class="select">
-                    <select id="home_size" name="home_size" data-size-select></select>
+                <div class="counters">
+                  <div class="field counter" data-field="bedrooms">
+                    <label class="label-field" for="bedrooms" data-i18n="form.step1.bedrooms"></label>
+                    <div class="stepper">
+                      <button type="button" class="stepper__btn stepper__btn--less" data-stepper="bedrooms" data-delta="-1" data-i18n-attr="aria-label:form.step1.bedroomsLess"></button>
+                      <input class="stepper__input" type="number" id="bedrooms" name="bedrooms" value="1" min="1" step="1" inputmode="numeric">
+                      <button type="button" class="stepper__btn stepper__btn--more" data-stepper="bedrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.bedroomsMore"></button>
+                    </div>
+                    <p class="field__note" data-i18n="form.step1.studioNote"></p>
+                    <p class="field__error" id="err-bedrooms" data-error></p>
                   </div>
-                  <p class="field__error" id="err-home_size" data-error></p>
+                  <div class="field counter" data-field="bathrooms">
+                    <label class="label-field" for="bathrooms" data-i18n="form.step1.bathrooms"></label>
+                    <div class="stepper">
+                      <button type="button" class="stepper__btn stepper__btn--less" data-stepper="bathrooms" data-delta="-1" data-i18n-attr="aria-label:form.step1.bathroomsLess"></button>
+                      <input class="stepper__input" type="number" id="bathrooms" name="bathrooms" value="1" min="1" step="1" inputmode="numeric">
+                      <button type="button" class="stepper__btn stepper__btn--more" data-stepper="bathrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.bathroomsMore"></button>
+                    </div>
+                    <p class="field__error" id="err-bathrooms" data-error></p>
+                  </div>
                 </div>
 
                 <fieldset class="field">
@@ -273,16 +423,44 @@
                 <fieldset class="field" data-field="pro_type">
                   <legend class="label-field" data-i18n="form.step1.proType"></legend>
                   <div class="options">
-                    <label class="pill"><input type="radio" name="pro_type" value="Property manager"><span data-i18n="form.step1.proTypes.0"></span></label>
-                    <label class="pill"><input type="radio" name="pro_type" value="Realtor"><span data-i18n="form.step1.proTypes.1"></span></label>
-                    <label class="pill"><input type="radio" name="pro_type" value="Office or shop"><span data-i18n="form.step1.proTypes.2"></span></label>
+                    <label class="pill"><input type="radio" name="pro_type" value="Office or shop"><span data-i18n="form.step1.proTypes.0"></span></label>
+                    <label class="pill"><input type="radio" name="pro_type" value="Property manager"><span data-i18n="form.step1.proTypes.1"></span></label>
+                    <label class="pill"><input type="radio" name="pro_type" value="Realtor"><span data-i18n="form.step1.proTypes.2"></span></label>
                     <label class="pill"><input type="radio" name="pro_type" value="Other"><span data-i18n="form.step1.proTypes.3"></span></label>
                   </div>
                   <p class="field__error" id="err-pro_type" data-error></p>
                 </fieldset>
-                <div class="field">
-                  <label class="label-field" for="units_or_size" data-i18n="form.step1.units"></label>
-                  <input class="input" type="text" id="units_or_size" name="units_or_size" data-i18n-attr="placeholder:form.step1.unitsExample">
+                <div class="field" data-field="square_feet">
+                  <label class="label-field" for="square_feet" data-i18n="form.step1.sqft"></label>
+                  <input class="input input--sqft" type="number" id="square_feet" name="square_feet" min="1" step="1" inputmode="numeric" data-i18n-attr="placeholder:form.step1.sqftExample">
+                  <p class="field__error" id="err-square_feet" data-error></p>
+                </div>
+                <fieldset class="field">
+                  <legend class="label-field" data-i18n="form.step1.proClean"></legend>
+                  <div class="options">
+                    <label class="pill"><input type="radio" name="pro_clean" value="Standard" checked><span data-i18n="form.step1.proCleans.0"></span></label>
+                    <label class="pill"><input type="radio" name="pro_clean" value="Deep clean" data-pro-deep><span data-i18n="form.step1.proCleans.1"></span></label>
+                  </div>
+                </fieldset>
+                <div class="counters">
+                  <div class="field counter" data-field="pro_kitchens">
+                    <label class="label-field" for="pro_kitchens" data-i18n="form.step1.kitchens"></label>
+                    <div class="stepper">
+                      <button type="button" class="stepper__btn stepper__btn--less" data-stepper="pro_kitchens" data-delta="-1" data-i18n-attr="aria-label:form.step1.kitchensLess"></button>
+                      <input class="stepper__input" type="number" id="pro_kitchens" name="pro_kitchens" value="1" min="0" step="1" inputmode="numeric">
+                      <button type="button" class="stepper__btn stepper__btn--more" data-stepper="pro_kitchens" data-delta="1" data-i18n-attr="aria-label:form.step1.kitchensMore"></button>
+                    </div>
+                    <p class="field__error" id="err-pro_kitchens" data-error></p>
+                  </div>
+                  <div class="field counter" data-field="pro_bathrooms">
+                    <label class="label-field" for="pro_bathrooms" data-i18n="form.step1.proBathrooms"></label>
+                    <div class="stepper">
+                      <button type="button" class="stepper__btn stepper__btn--less" data-stepper="pro_bathrooms" data-delta="-1" data-i18n-attr="aria-label:form.step1.bathroomsLess"></button>
+                      <input class="stepper__input" type="number" id="pro_bathrooms" name="pro_bathrooms" value="1" min="0" step="1" inputmode="numeric">
+                      <button type="button" class="stepper__btn stepper__btn--more" data-stepper="pro_bathrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.bathroomsMore"></button>
+                    </div>
+                    <p class="field__error" id="err-pro_bathrooms" data-error></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -293,16 +471,88 @@
               <p class="step__note" data-i18n="form.step2.note"></p>
               <div class="cond" data-when="residential" hidden>
                 <fieldset class="field">
-                  <legend class="visually-hidden" data-i18n="form.step2.title"></legend>
-                  <ul class="checks">
-                    <li><label class="check"><input type="checkbox" name="addons" value="Inside the oven" data-addon="oven"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.oven"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="oven"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Inside the fridge" data-addon="fridge"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.fridge"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="fridge"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Inside cabinets" data-addon="cabinets"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.cabinets"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="cabinets"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Interior windows and tracks" data-addon="windows"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.windows"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="windows"></span></label></li>
-                    <li><label class="check"><input type="checkbox" name="addons" value="Pet hair" data-addon="pets"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.addons.pets"></span><span class="check__leader" aria-hidden="true"></span><span class="check__price" data-addon-price="pets"></span></label></li>
+                  <legend class="label-field" data-i18n="form.step2.extras"></legend>
+                  <ul class="tiles">
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Extra kitchen" data-addon="kitchen">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-kitchen"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.kitchen"></span>
+                        <span class="tile__price" data-addon-price="kitchen"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Inside fridge" data-addon="fridge">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-fridge"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.fridge"></span>
+                        <span class="tile__price" data-addon-price="fridge"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Inside oven" data-addon="oven">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-oven"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.oven"></span>
+                        <span class="tile__price" data-addon-price="oven"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Inside cabinets" data-addon="cabinets">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-cabinet"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.cabinets"></span>
+                        <span class="tile__price" data-addon-price="cabinets"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Blinds cleaning" data-addon="blinds">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-blinds"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.blinds"></span>
+                        <span class="tile__price" data-addon-price="blinds"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Pets in home" data-addon="pets">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-paw"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.pets"></span>
+                        <span class="tile__price" data-addon-price="pets"></span>
+                      </span>
+                    </label></li>
                   </ul>
                 </fieldset>
-                <label class="check check--plain"><input type="checkbox" name="fragrance_free" value="Yes"><span class="check__box" aria-hidden="true"></span><span class="check__label" data-i18n="form.step2.fragrance"></span></label>
+                <fieldset class="field">
+                  <legend class="label-field" data-i18n="form.step2.windows"></legend>
+                  <ul class="tiles">
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Inside windows and tracks (up to 6)" data-addon="windows0" data-window="0">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-window"/></svg>
+                        <span class="tile__name"><span data-i18n="form.step2.windowsName"></span> <span class="tile__sub" data-window-label="0"></span></span>
+                        <span class="tile__price" data-addon-price="windows0"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Inside windows and tracks (up to 12)" data-addon="windows1" data-window="1">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-window"/></svg>
+                        <span class="tile__name"><span data-i18n="form.step2.windowsName"></span> <span class="tile__sub" data-window-label="1"></span></span>
+                        <span class="tile__price" data-addon-price="windows1"></span>
+                      </span>
+                    </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Inside windows and tracks (up to 24)" data-addon="windows2" data-window="2">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-window"/></svg>
+                        <span class="tile__name"><span data-i18n="form.step2.windowsName"></span> <span class="tile__sub" data-window-label="2"></span></span>
+                        <span class="tile__price" data-addon-price="windows2"></span>
+                      </span>
+                    </label></li>
+                  </ul>
+                  <p class="field__note" data-i18n="form.step2.windowsNote"></p>
+                </fieldset>
               </div>
             </div>
 
@@ -342,10 +592,19 @@
                   <label class="pill"><input type="radio" name="arrival_window" value="Morning, 8 to 10 am"><span data-i18n="form.step3.windows.0"></span></label>
                   <label class="pill"><input type="radio" name="arrival_window" value="Midday, 11 am to 1 pm"><span data-i18n="form.step3.windows.1"></span></label>
                   <label class="pill"><input type="radio" name="arrival_window" value="Afternoon, 2 to 4 pm"><span data-i18n="form.step3.windows.2"></span></label>
+                  <label class="pill"><input type="radio" name="arrival_window" value="Late afternoon, 4 to 6 pm"><span data-i18n="form.step3.windows.3"></span></label>
+                  <label class="pill"><input type="radio" name="arrival_window" value="After 6 pm" data-late><span data-late-label></span></label>
+                  <label class="pill"><input type="radio" name="arrival_window" value="Exact time request" data-exact><span data-i18n="form.step3.exact"></span></label>
                 </div>
                 <p class="field__note" data-i18n="form.step3.arrivalNote"></p>
                 <p class="field__error" id="err-arrival_window" data-error></p>
               </fieldset>
+
+              <div class="field" data-field="exact_time" data-exact-field hidden>
+                <label class="label-field" for="exact_time" data-i18n="form.step3.exactLabel"></label>
+                <input class="input input--time" type="time" id="exact_time" name="exact_time" step="900">
+                <p class="field__error" id="err-exact_time" data-error></p>
+              </div>
 
               <fieldset class="field">
                 <legend class="label-field" data-i18n="form.step3.flexibility"></legend>
@@ -379,8 +638,8 @@
               </div>
 
               <div class="field">
-                <label class="label-field" for="message" data-i18n="form.step3.details"></label>
-                <textarea class="input input--area" id="message" name="message" rows="3" data-i18n-attr="placeholder:form.step3.detailsExample"></textarea>
+                <label class="label-field" for="cleaning_instructions" data-i18n="form.step3.instructions"></label>
+                <textarea class="input input--area" id="cleaning_instructions" name="cleaning_instructions" rows="4" data-i18n-attr="placeholder:form.step3.instructionsExample"></textarea>
               </div>
             </div>
 
@@ -433,14 +692,18 @@
               <div class="summary">
                 <h4 class="summary__title" data-i18n="form.summary.title"></h4>
                 <dl class="summary__list" data-summary-list></dl>
-                <div class="summary__price">
-                  <span class="summary__price-label" data-i18n="form.summary.price"></span>
-                  <strong class="summary__price-value" data-summary-price></strong>
-                </div>
-                <p class="summary__line" data-summary-then hidden></p>
-                <p class="summary__line" data-summary-plus hidden></p>
-                <p class="summary__final" data-i18n="form.summary.final"></p>
               </div>
+            </div>
+
+            <!-- Estimation : mise à jour à chaque choix -->
+            <div class="estimate" data-estimate hidden>
+              <div class="estimate__row" aria-live="polite">
+                <span class="estimate__label" data-estimate-label></span>
+                <strong class="estimate__value" data-estimate-value></strong>
+              </div>
+              <ul class="estimate__breakdown" data-estimate-breakdown hidden></ul>
+              <p class="estimate__then" data-estimate-then hidden></p>
+              <p class="estimate__note" data-estimate-note></p>
             </div>
 
             <div class="form-nav">

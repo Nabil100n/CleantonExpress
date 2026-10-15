@@ -1,7 +1,7 @@
 /*
  * Cleanton Express Cleaning : comportements de la page.
- * Langue, menu mobile, bandeau défilant, cartes Services à retourner,
- * liens ?service=, réservation en plusieurs étapes et politique de confidentialité.
+ * Langue, menu mobile, bandeau défilant, cartes Services à retourner, détail des services, FAQ,
+ * liens ?service=, réservation en plusieurs étapes avec estimation du prix, politique de confidentialité.
  * Aucun texte ni prix ici : les textes viennent de js/i18n.js, les prix de js/config.js.
  */
 (function () {
@@ -9,7 +9,6 @@
 
   const LANGS = ["en", "fr"];
   const STORAGE_KEY = "cleanton-lang";
-  const ADDONS = ["oven", "fridge", "cabinets", "windows", "pets"];
   const FREQ_VALUES = { weekly: "Weekly", biweekly: "Bi-weekly", monthly: "Monthly" };
   const LINK_TO_SERVICE = { regular: "regular", deep: "deep", move: "move", recurring: "regular", pro: "pro" };
   const POSTAL_CODE = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
@@ -54,10 +53,23 @@
     return typeof value === "string" ? fill(value, vars, l) : value;
   }
 
-  /* ---------- Prix, pourcentages, téléphone ---------- */
+  /* ---------- Prix, nombres, pourcentages, téléphone, courriel ---------- */
 
+  function num(n, l) {
+    return new Intl.NumberFormat((l || lang) === "fr" ? "fr-CA" : "en-CA").format(n);
+  }
+
+  // « $165 » en anglais, « 165 $ » en français (espace insécable)
   function money(amount, l) {
-    return (l || lang) === "fr" ? amount + " $" : "$" + amount;
+    l = l || lang;
+    return l === "fr" ? num(amount, l) + " $" : "$" + num(amount, l);
+  }
+
+  // Tarif avec cents : « $0.20 » / « 0,20 $ »
+  function moneyRate(amount, l) {
+    l = l || lang;
+    const fixed = amount.toFixed(2);
+    return l === "fr" ? fixed.replace(".", ",") + " $" : "$" + fixed;
   }
 
   function percent(rate, l) {
@@ -73,6 +85,17 @@
     };
   }
 
+  // Prix des pièces : frais de base + 1re chambre + chambres en plus + 1re salle de bain + salles de bain en plus
+  function roomsPrice(bedrooms, bathrooms) {
+    const r = CONFIG.residential;
+    return r.base + r.firstBedroom + r.extraBedroom * (bedrooms - 1) + r.firstBathroom + r.extraBathroom * (bathrooms - 1);
+  }
+
+  // Prix de départ d'un service : 1 chambre, 1 salle de bain
+  function startingPrice(svc) {
+    return roomsPrice(1, 1) + (CONFIG.serviceSurcharge[svc] || 0);
+  }
+
   const phoneDigits = CONFIG.phone.replace(/\D/g, "");
 
   function phoneDisplay() {
@@ -84,7 +107,7 @@
     const offer = CONFIG.launchOffer || {};
     return Object.assign(rateVars(l), {
       phone: phoneDisplay(),
-      price: money(CONFIG.prices.regular[0], l),
+      price: money(startingPrice("regular"), l),
       launch: percent(offer.discount || 0, l),
       clients: offer.clients || ""
     });
@@ -93,6 +116,15 @@
   function whatsappHref() {
     const message = lookup(I18N[lang], "whatsapp") || lookup(I18N.en, "whatsapp");
     return "https://wa.me/" + phoneDigits + "?text=" + encodeURIComponent(message);
+  }
+
+  // « 1 bedroom », « 2 bedrooms » ; en français, 0 et 1 restent au singulier
+  function unit(key, n, l) {
+    l = l || lang;
+    const forms = t("form.units." + key, { n: num(n, l) }, l);
+    if (!Array.isArray(forms)) return forms;
+    const singular = l === "fr" ? n <= 1 : n === 1;
+    return singular ? forms[0] : forms[1];
   }
 
   /* ---------- Petits outils DOM ---------- */
@@ -161,13 +193,20 @@
     $$("[data-phone-text]").forEach((node) => { node.textContent = phoneDisplay(); });
     $$("[data-phone-link]").forEach((node) => { node.href = "tel:+" + phoneDigits; });
     $$("[data-whatsapp-link]").forEach((node) => { node.href = whatsappHref(); });
+    $$("[data-email-text]").forEach((node) => { node.textContent = CONFIG.email; });
+    $$("[data-email-link]").forEach((node) => { node.href = "mailto:" + CONFIG.email; });
     $$("[data-from-price]").forEach((node) => {
-      node.textContent = t("form.step1.from", { price: money(CONFIG.prices[node.dataset.fromPrice][0]) });
+      const svc = node.dataset.fromPrice;
+      node.textContent = svc === "pro"
+        ? t("form.step1.perSqft", { price: moneyRate(CONFIG.pro.perSqft) })
+        : t("form.step1.from", { price: money(startingPrice(svc)) });
     });
 
     syncMenuLabel();
     renderTicker();
     renderAreas();
+    renderDetailCounts();
+    renderFaq();
     renderPrivacy();
     renderFormLabels();
     refreshForm();
@@ -190,6 +229,47 @@
   function renderAreas() {
     const node = $("[data-areas]");
     if (node) node.textContent = t("areas.tags").concat(t("areas.more")).join(" · ");
+  }
+
+  // « 17 tasks » : le total des listes de chaque carte du détail des services
+  function renderDetailCounts() {
+    $$("[data-detail-count]").forEach((node) => {
+      const key = node.dataset.detailCount;
+      const card = lookup(I18N[lang], "details." + key) || {};
+      if (key === "extras") {
+        node.textContent = t("details.options", { n: (card.addons || []).length });
+      } else {
+        const n = ["standard", "deep", "move"].reduce((sum, level) => sum + (card[level] || []).length, 0);
+        node.textContent = t("details.tasks", { n });
+      }
+    });
+  }
+
+  // Questions en accordéon ; les questions ouvertes le restent quand on change de langue
+  function renderFaq() {
+    const wrap = $("[data-faq]");
+    if (!wrap) return;
+    const open = $$("details", wrap).map((node) => node.open);
+    const items = lookup(I18N[lang], "faq.items") || [];
+    wrap.replaceChildren(...items.map((item, i) => {
+      const details = el("details", "faq__item");
+      details.open = Boolean(open[i]);
+      const summary = el("summary", "faq__q", t("faq.items." + i + ".q"));
+      const answer = el("div", "faq__a");
+      if (item.steps) {
+        const list = el("ol", "faq__steps");
+        item.steps.forEach((step, j) => {
+          const li = el("li", "faq__step");
+          li.append(el("strong", "", t("faq.items." + i + ".steps." + j + ".title")), " ", t("faq.items." + i + ".steps." + j + ".text"));
+          list.append(li);
+        });
+        answer.append(list);
+      } else {
+        answer.append(el("p", "", t("faq.items." + i + ".a")));
+      }
+      details.append(summary, answer);
+      return details;
+    }));
   }
 
   function renderPrivacy() {
@@ -225,6 +305,39 @@
         const flipped = !card.classList.contains("flipped");
         setFlipped(card, flipped, event.detail === 0 || Boolean(event.target.closest("button")));
       });
+    });
+  }
+
+  /* ---------- Info-bulles (?) des cartes de service ---------- */
+
+  // Au survol sur ordinateur (CSS) ; au toucher ou au clavier, le bouton ouvre et ferme la bulle
+  function setTip(button, open) {
+    button.setAttribute("aria-expanded", String(open));
+  }
+
+  function closeTips(except) {
+    $$("[data-tip]").forEach((button) => { if (button !== except) setTip(button, false); });
+  }
+
+  function initTips() {
+    $$("[data-tip]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const open = button.getAttribute("aria-expanded") !== "true";
+        closeTips(button);
+        setTip(button, open);
+      });
+    });
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("[data-tip]")) closeTips();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const open = $('[data-tip][aria-expanded="true"]');
+      if (open) {
+        setTip(open, false);
+        open.focus();
+      }
     });
   }
 
@@ -283,7 +396,7 @@
         menuToggle.focus();
       }
     });
-    window.matchMedia("(min-width: 1000px)").addEventListener("change", (event) => {
+    window.matchMedia("(min-width: 1200px)").addEventListener("change", (event) => {
       if (event.matches && drawerOpen()) setDrawer(false);
     });
 
@@ -294,6 +407,12 @@
   const form = $("#booking-form");
   const field = (name) => form.elements.namedItem(name);
   const checked = (name) => form.querySelector('input[name="' + name + '"]:checked:not(:disabled)');
+  const COUNTERS = {
+    bedrooms: () => [1, CONFIG.residential.maxBedrooms],
+    bathrooms: () => [1, CONFIG.residential.maxBathrooms],
+    pro_kitchens: () => [0, 20],
+    pro_bathrooms: () => [0, 20]
+  };
 
   function serviceKey() {
     const radio = checked("service");
@@ -309,15 +428,54 @@
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
-  function renderFormLabels() {
-    const select = $("[data-size-select]");
-    const selected = select.selectedIndex;
-    select.replaceChildren(
-      new Option(t("form.step1.sizeChoose"), ""),
-      ...t("form.step1.sizes").map((label, i) => new Option(label, I18N.en.form.step1.sizes[i]))
-    );
-    select.selectedIndex = selected > 0 ? selected : 0;
+  /* Compteurs (chambres, salles de bain, cuisines) */
 
+  // Nombre entier saisi, ou null s'il est vide, décimal ou hors limites
+  function readCount(name) {
+    const raw = (field(name).value || "").trim();
+    if (!/^\d+$/.test(raw)) return null;
+    const n = Number(raw);
+    const [min, max] = COUNTERS[name]();
+    return n >= min && n <= max ? n : null;
+  }
+
+  function clampCount(name, n) {
+    const [min, max] = COUNTERS[name]();
+    return Math.min(max, Math.max(min, n));
+  }
+
+  // Pour l'estimation : la valeur saisie ramenée dans les limites
+  function countForPrice(name) {
+    const n = parseInt(field(name).value, 10);
+    return clampCount(name, Number.isNaN(n) ? COUNTERS[name]()[0] : n);
+  }
+
+  function initCounters() {
+    Object.keys(COUNTERS).forEach((name) => {
+      const [min, max] = COUNTERS[name]();
+      field(name).min = min;
+      field(name).max = max;
+    });
+    $$("[data-stepper]", form).forEach((button) => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.stepper;
+        const input = field(name);
+        const current = parseInt(input.value, 10);
+        const next = clampCount(name, (Number.isNaN(current) ? COUNTERS[name]()[0] : current) + Number(button.dataset.delta));
+        if (String(next) === input.value) return;
+        input.value = next;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    });
+  }
+
+  /* Libellés qui dépendent de config.js */
+
+  function windowTier(input) {
+    return CONFIG.windows[Number(input.dataset.window)];
+  }
+
+  function renderFormLabels() {
     $$("[data-freq-label]", form).forEach((span) => {
       const key = span.dataset.freqLabel;
       const name = t("form.step1.frequencies." + key);
@@ -328,38 +486,22 @@
       if (key !== "once") input.value = FREQ_VALUES[key] + " (-" + Math.round(CONFIG.recurring[key] * 100) + "%)";
     });
 
-    updateAddonPrices();
-  }
+    const late = form.querySelector("input[data-late]");
+    late.value = t("form.step3.late", { price: money(CONFIG.lateArrival, "en") }, "en");
+    $("[data-late-label]", form).textContent = t("form.step3.late", { price: money(CONFIG.lateArrival) });
 
-  function updateAddonPrices() {
-    const isMove = serviceKey() === "move";
+    $$("input[data-window]", form).forEach((input) => {
+      input.value = "Inside windows and tracks (up to " + windowTier(input).upTo + ")";
+    });
+    $$("[data-window-label]", form).forEach((span) => {
+      span.textContent = t("form.step2.windowUpTo", { n: CONFIG.windows[Number(span.dataset.windowLabel)].upTo });
+    });
+
     $$("[data-addon-price]", form).forEach((span) => {
       const key = span.dataset.addonPrice;
-      if (isMove && CONFIG.includedInMove.includes(key)) span.textContent = t("form.step2.included");
-      else span.textContent = t(key === "windows" ? "form.step2.priceFrom" : "form.step2.price", { price: money(CONFIG.addons[key]) });
+      const price = key.startsWith("windows") ? CONFIG.windows[Number(key.slice(7))].price : CONFIG.addons[key];
+      span.textContent = t("form.step2.price", { price: money(price) });
     });
-  }
-
-  // Pour un déménagement, four, frigo et armoires sont inclus : cochés et désactivés
-  function updateAddonState() {
-    const isMove = serviceKey() === "move";
-    ADDONS.forEach((key) => {
-      const input = form.querySelector('input[data-addon="' + key + '"]');
-      if (!input) return;
-      const row = input.closest(".check");
-      const included = isMove && CONFIG.includedInMove.includes(key);
-      if (included) {
-        if (!row.classList.contains("is-included")) input.dataset.wasChecked = input.checked ? "1" : "";
-        row.classList.add("is-included");
-        input.checked = true;
-        input.disabled = true;
-      } else if (row.classList.contains("is-included")) {
-        row.classList.remove("is-included");
-        input.checked = input.dataset.wasChecked === "1";
-        input.disabled = Boolean(input.closest("[data-when]").hidden);
-      }
-    });
-    updateAddonPrices();
   }
 
   // Affiche les blocs utiles au service choisi ; les champs des blocs masqués sont désactivés
@@ -371,17 +513,28 @@
       block.hidden = !show;
       $$("input, select, textarea", block).forEach((control) => { control.disabled = !show; });
     });
-    updateAddonState();
+    updateExactTime();
     updateOptionalLabels();
     updateEmailLabel();
     updateProgress();
+    updateEstimate();
     if (currentStep === 4) updateSummary();
+  }
+
+  // « Heure précise » ouvre un champ d'heure
+  function updateExactTime() {
+    const wrap = $("[data-exact-field]", form);
+    const arrival = checked("arrival_window");
+    const show = Boolean(arrival && arrival.hasAttribute("data-exact"));
+    wrap.hidden = !show;
+    field("exact_time").disabled = !show;
+    if (!show && fieldErrors.has("exact_time")) setError("exact_time", null);
   }
 
   // Pour les pros, adresse, date et heure d'arrivée sont facultatives : le libellé le dit
   function updateOptionalLabels() {
     const pro = serviceKey() === "pro";
-    [["label[for=\"address\"]", "address"], ["label[for=\"date\"]", "date"], ['[data-field="arrival_window"] .label', "arrival"]].forEach(([selector, key]) => {
+    [["label[for=\"address\"]", "address"], ["label[for=\"date\"]", "date"], ['[data-field="arrival_window"] .label-field', "arrival"]].forEach(([selector, key]) => {
       const node = $(selector, form);
       if (node) node.textContent = t("form.step3." + key + (pro ? "Optional" : ""));
     });
@@ -402,6 +555,7 @@
     currentStep = step;
     $$(".step", form).forEach((node) => { node.hidden = Number(node.dataset.step) !== step; });
     updateProgress();
+    updateEstimate();
     if (step === 4) updateSummary();
     showSendError(false);
     if (!focus) return;
@@ -415,11 +569,19 @@
 
   /* Erreurs sous les champs */
 
+  function errorText(name, key) {
+    if (key === "count") {
+      const [min, max] = COUNTERS[name]();
+      return t("form.errors.count", { min, max });
+    }
+    return t("form.errors." + key);
+  }
+
   function setError(name, key) {
     const wrap = form.querySelector('[data-field="' + name + '"]');
     const message = wrap && wrap.querySelector("[data-error]");
     if (key) fieldErrors.set(name, key); else fieldErrors.delete(name);
-    if (message) message.textContent = key ? t("form.errors." + key) : "";
+    if (message) message.textContent = key ? errorText(name, key) : "";
     if (wrap) wrap.classList.toggle("has-error", Boolean(key));
     $$('[name="' + name + '"]', form).forEach((control) => {
       if (key) {
@@ -434,14 +596,24 @@
 
   function validateStep(step) {
     const svc = serviceKey();
-    const residential = Boolean(svc) && svc !== "pro";
+    const pro = svc === "pro";
+    const residential = Boolean(svc) && !pro;
     const errors = [];
     const value = (name) => (field(name).value || "").trim();
 
     if (step === 1) {
       if (!svc) errors.push(["service", "service"]);
-      if (residential && !value("home_size")) errors.push(["home_size", "required"]);
-      if (svc === "pro" && !checked("pro_type")) errors.push(["pro_type", "required"]);
+      if (residential) {
+        if (readCount("bedrooms") == null) errors.push(["bedrooms", "count"]);
+        if (readCount("bathrooms") == null) errors.push(["bathrooms", "count"]);
+      }
+      if (pro) {
+        if (!checked("pro_type")) errors.push(["pro_type", "required"]);
+        const sqft = value("square_feet");
+        if (!/^\d+$/.test(sqft) || Number(sqft) < 1) errors.push(["square_feet", "sqft"]);
+        if (readCount("pro_kitchens") == null) errors.push(["pro_kitchens", "count"]);
+        if (readCount("pro_bathrooms") == null) errors.push(["pro_bathrooms", "count"]);
+      }
     }
     if (step === 3) {
       if (residential && !value("address")) errors.push(["address", "required"]);
@@ -453,6 +625,7 @@
       if (residential && !date) errors.push(["date", "required"]);
       else if (date && date < todayISO()) errors.push(["date", "date"]);
       if (residential && !checked("arrival_window")) errors.push(["arrival_window", "required"]);
+      if (!field("exact_time").disabled && !value("exact_time")) errors.push(["exact_time", "required"]);
     }
     if (step === 4) {
       if (!value("name")) errors.push(["name", "required"]);
@@ -491,13 +664,93 @@
     if (index > 0) showStep(order[index - 1], true);
   }
 
+  /* Estimation du prix */
+
+  function addonName(input, l) {
+    if (input.hasAttribute("data-window")) {
+      return t("form.step2.windowsName", null, l) + " (" + t("form.step2.windowUpTo", { n: windowTier(input).upTo }, l) + ")";
+    }
+    return t("form.step2.addons." + input.dataset.addon, null, l);
+  }
+
+  function addonPrice(input) {
+    return input.hasAttribute("data-window") ? windowTier(input).price : CONFIG.addons[input.dataset.addon];
+  }
+
+  function lateFee() {
+    const arrival = checked("arrival_window");
+    return arrival && arrival.hasAttribute("data-late") ? CONFIG.lateArrival : 0;
+  }
+
+  // Calcule l'estimation et son détail, dans la langue demandée
+  function estimate(l) {
+    const svc = serviceKey();
+    if (!svc) return null;
+    const lines = [];
+    const late = lateFee();
+
+    if (svc === "pro") {
+      const raw = (field("square_feet").value || "").trim();
+      const sqft = /^\d+$/.test(raw) ? Number(raw) : 0;
+      if (!sqft) return { pro: true, total: null, lines };
+      const base = Math.round(sqft * CONFIG.pro.perSqft);
+      lines.push([t("form.estimate.rate", { sqft: unit("sqft", sqft, l), price: moneyRate(CONFIG.pro.perSqft, l) }, l), base]);
+      const deep = checked("pro_clean") && checked("pro_clean").hasAttribute("data-pro-deep") ? CONFIG.pro.deep : 0;
+      if (deep) lines.push([t("form.estimate.deep", null, l), deep]);
+      if (late) lines.push([t("form.estimate.late", null, l), late]);
+      return { pro: true, total: lines.reduce((sum, line) => sum + line[1], 0), lines };
+    }
+
+    const bedrooms = countForPrice("bedrooms");
+    const bathrooms = countForPrice("bathrooms");
+    lines.push([unit("bedroom", bedrooms, l) + ", " + unit("bathroom", bathrooms, l), roomsPrice(bedrooms, bathrooms)]);
+    const surcharge = CONFIG.serviceSurcharge[svc] || 0;
+    if (surcharge) lines.push([t("form.estimate." + svc, null, l), surcharge]);
+    $$('input[name="addons"]:checked:not(:disabled)', form).forEach((input) => lines.push([addonName(input, l), addonPrice(input)]));
+    if (late) lines.push([t("form.estimate.late", null, l), late]);
+    const total = lines.reduce((sum, line) => sum + line[1], 0);
+
+    const freq = svc === "regular" ? checked("frequency") : null;
+    const freqKey = freq ? freq.dataset.freq : "once";
+    const then = freqKey === "once" ? null : { rate: CONFIG.recurring[freqKey], total: Math.round(total * (1 - CONFIG.recurring[freqKey])) };
+    return { pro: false, total, lines, then };
+  }
+
+  function updateEstimate() {
+    const box = $("[data-estimate]", form);
+    const data = estimate();
+    box.hidden = !data;
+    if (!data) return;
+    box.classList.toggle("estimate--pro", data.pro);
+
+    $("[data-estimate-label]", box).textContent = t(data.pro ? "form.estimate.proLabel" : "form.estimate.label");
+    const value = $("[data-estimate-value]", box);
+    value.textContent = data.total == null ? t("form.estimate.proEmpty") : money(data.total);
+    value.classList.toggle("is-empty", data.total == null);
+
+    const breakdown = $("[data-estimate-breakdown]", box);
+    const showLines = currentStep === 4 && data.lines.length > 1;
+    breakdown.hidden = !showLines;
+    breakdown.replaceChildren(...(showLines ? data.lines.map(([label, amount], i) => {
+      const li = el("li", "");
+      li.append(el("span", "", label), el("span", "estimate__amount", (i === 0 ? "" : "+") + money(amount)));
+      return li;
+    }) : []));
+
+    const then = $("[data-estimate-then]", box);
+    then.hidden = !data.then;
+    then.textContent = data.then ? t("form.estimate.then", { price: money(data.then.total), d: "−" + percent(data.then.rate) }) : "";
+
+    $("[data-estimate-note]", box).textContent = t(data.pro ? "form.estimate.proNote" : "form.estimate.note");
+  }
+
   /* Récapitulatif */
 
   function optionLabel(input) {
     if (!input) return "";
     const label = input.closest("label");
     if (!label) return input.value;
-    const text = label.querySelector(".option-card__name") || label.querySelector(".check__label") || label.querySelector("span");
+    const text = label.querySelector(".option-card__name") || label.querySelector(".tile__name") || label.querySelector("span");
     return text ? text.textContent.trim() : input.value;
   }
 
@@ -509,12 +762,10 @@
     }).format(new Date(y, m - 1, d));
   }
 
-  function gridPrice() {
-    const svc = serviceKey();
-    if (!svc || svc === "pro") return null;
-    const index = $("[data-size-select]").selectedIndex - 1;
-    const prices = CONFIG.prices[svc];
-    return index >= 0 && index < prices.length ? prices[index] : null;
+  function formatTime(value, l) {
+    if (!value) return "";
+    const [h, m] = value.split(":").map(Number);
+    return new Intl.DateTimeFormat(l === "fr" ? "fr-CA" : "en-CA", { hour: "numeric", minute: "2-digit" }).format(new Date(2000, 0, 1, h, m));
   }
 
   // Collecte la demande deux fois : libellés de la langue en cours (écran) et valeurs en anglais (e-mail)
@@ -538,17 +789,22 @@
 
     if (pro) {
       const type = checked("pro_type");
-      const units = value("units_or_size");
-      add("form.step1.proType",
-        [optionLabel(type), units].filter(Boolean).join(", "),
-        [type ? type.value : "", units].filter(Boolean).join(", "));
+      const sqft = /^\d+$/.test(value("square_feet")) ? Number(value("square_feet")) : 0;
+      const clean = checked("pro_clean");
+      const parts = (l) => [
+        sqft ? unit("sqft", sqft, l) : "",
+        unit("kitchen", countForPrice("pro_kitchens"), l),
+        unit("bathroom", countForPrice("pro_bathrooms"), l)
+      ];
+      add("form.summary.business",
+        [optionLabel(type)].concat(parts(lang), optionLabel(clean)).filter(Boolean).join(", "),
+        [type ? type.value : ""].concat(parts("en"), clean ? clean.value : "").filter(Boolean).join(", "));
     } else if (svc) {
-      const size = $("[data-size-select]");
       const type = checked("property_type");
-      const sizeText = size.selectedIndex > 0 ? size.options[size.selectedIndex].text : "";
+      const rooms = (l) => unit("bedroom", countForPrice("bedrooms"), l) + ", " + unit("bathroom", countForPrice("bathrooms"), l);
       add("form.summary.home",
-        [sizeText, optionLabel(type)].filter(Boolean).join(", "),
-        [size.value, type ? type.value : ""].filter(Boolean).join(", "));
+        [rooms(lang), optionLabel(type)].filter(Boolean).join(", "),
+        [rooms("en"), type ? type.value : ""].filter(Boolean).join(", "));
     }
 
     if (svc === "regular") {
@@ -557,39 +813,31 @@
     }
 
     if (svc && !pro) {
-      const shownAddons = [];
-      const plainAddons = [];
-      if (svc === "move") {
-        const included = CONFIG.includedInMove.map((key) => form.querySelector('input[data-addon="' + key + '"]'));
-        shownAddons.push(included.map(optionLabel).join(", ") + " (" + t("form.summary.included") + ")");
-        plainAddons.push(included.map((i) => i.value).join(", ") + " (" + t("form.summary.included", null, "en") + ")");
-      }
-      $$('input[name="addons"]:checked:not(:disabled)', form).forEach((input) => {
-        shownAddons.push(optionLabel(input));
-        plainAddons.push(input.value);
-      });
-      if (checked("fragrance_free")) {
-        shownAddons.push(t("form.summary.fragrance"));
-        plainAddons.push(t("form.summary.fragrance", null, "en"));
-      }
-      add("form.summary.addons", shownAddons.join(", "), plainAddons.join(", "));
+      const addons = $$('input[name="addons"]:checked:not(:disabled)', form);
+      add("form.summary.addons", addons.map((input) => addonName(input, lang)).join(", "), addons.map((input) => input.value).join(", "));
     }
 
     const date = value("date");
     const arrival = checked("arrival_window");
+    const exact = value("exact_time");
     const flex = checked("flexibility");
-    const when = [formatDate(date, lang), optionLabel(arrival)].filter(Boolean).join(", ");
-    const whenPlain = [date ? formatDate(date, "en") : "", arrival ? arrival.value : ""].filter(Boolean).join(", ");
+    const arrivalText = (l) => {
+      if (!arrival) return "";
+      if (arrival.hasAttribute("data-exact")) return exact ? formatTime(exact, l) : "";
+      return l === lang ? optionLabel(arrival) : arrival.value;
+    };
+    const when = [formatDate(date, lang), arrivalText(lang)].filter(Boolean).join(", ");
+    const whenPlain = [date ? formatDate(date, "en") : "", arrival && arrival.hasAttribute("data-exact") && exact ? "Exact time " + exact : arrivalText("en")].filter(Boolean).join(", ");
     add("form.summary.when",
       when ? when + (flex ? " (" + optionLabel(flex) + ")" : "") : "",
       whenPlain ? whenPlain + (flex ? " (" + flex.value + ")" : "") : "");
 
-    const unit = value("unit");
+    const unitNo = value("unit");
     const postalCode = value("postal_code").toUpperCase();
-    const addressParts = [value("address"), unit ? "#" + unit.replace(/^#/, "") : "", postalCode, value("city")];
+    const addressParts = [value("address"), unitNo ? "#" + unitNo.replace(/^#/, "") : "", postalCode, value("city")];
     const address = addressParts.filter(Boolean).join(", ");
     // À l'écran, le code postal ne se coupe pas en deux lignes
-    add("form.summary.address", postalCode ? address.replace(postalCode, postalCode.replace(" ", "\u00A0")) : address, address);
+    add("form.summary.address", postalCode ? address.replace(postalCode, postalCode.replace(" ", " ")) : address, address);
 
     const access = checked("access");
     const elevator = checked("elevator_booking");
@@ -598,46 +846,45 @@
       [optionLabel(access), elevator ? t("form.summary.elevator") + colon + optionLabel(elevator) : ""].filter(Boolean).join(" · "),
       [access ? access.value : "", elevator ? t("form.summary.elevator", null, "en") + ": " + elevator.value : ""].filter(Boolean).join(" · "));
 
-    const price = gridPrice();
-    const freq = svc === "regular" ? checked("frequency") : null;
-    const freqKey = freq ? freq.dataset.freq : "once";
-    const extras = $$('input[name="addons"]:checked:not(:disabled)', form).length > 0;
+    // L'estimation, en anglais, pour le courriel
+    const est = estimate("en");
+    if (est) {
+      if (est.total == null) {
+        english.push(t("form.estimate.proLabel", null, "en") + ": " + t("form.estimate.proEmpty", null, "en"));
+      } else {
+        english.push((est.pro ? t("form.estimate.proLabel", null, "en") : t("form.estimate.label", null, "en")) + ": " + money(est.total, "en"));
+        est.lines.forEach(([label, amount], i) => english.push("  " + (i === 0 ? "" : "+ ") + label + ": " + money(amount, "en")));
+        if (est.then) english.push(t("form.estimate.then", { price: money(est.then.total, "en"), d: "-" + percent(est.then.rate, "en") }, "en"));
+      }
+    }
 
-    english.push(t("form.summary.price", null, "en") + ": " + (price == null ? t("form.summary.onQuote", null, "en") : money(price, "en")));
-    if (freqKey !== "once") english.push(t("form.summary.then", { d: "-" + percent(CONFIG.recurring[freqKey], "en") }, "en"));
-    if (extras) english.push(t("form.summary.plusAddons", null, "en"));
-
-    return { svc, shown, english: english.join("\n"), price, freqKey, extras };
+    return { svc, shown, english: english.join("\n"), est };
   }
 
   function updateSummary() {
     const data = collect();
     const list = $("[data-summary-list]", form);
     list.replaceChildren(...data.shown.flatMap(([label, value]) => [el("dt", "", label), el("dd", "", value)]));
-
-    const priceNode = $("[data-summary-price]", form);
-    priceNode.textContent = data.price == null ? t("form.summary.onQuote") : money(data.price);
-    priceNode.classList.toggle("is-quote", data.price == null);
-
-    const thenNode = $("[data-summary-then]", form);
-    thenNode.hidden = data.freqKey === "once";
-    thenNode.textContent = data.freqKey === "once" ? "" : t("form.summary.then", { d: "−" + percent(CONFIG.recurring[data.freqKey]) });
-
-    const plusNode = $("[data-summary-plus]", form);
-    plusNode.hidden = !data.extras;
-    plusNode.textContent = data.extras ? t("form.summary.plusAddons") : "";
   }
 
   function fillHiddenFields() {
     const data = collect();
     const serviceInput = checked("service");
-    const detail = data.svc === "pro"
-      ? ((checked("pro_type") || {}).value || "")
-      : (field("home_size").value || "");
+    const est = data.est;
+    let detail;
+    if (data.svc === "pro") {
+      const sqft = (field("square_feet").value || "").trim();
+      detail = [((checked("pro_type") || {}).value || ""), sqft ? unit("sqft", Number(sqft), "en") : ""].filter(Boolean).join(", ");
+    } else {
+      detail = unit("bedroom", countForPrice("bedrooms"), "en") + ", " + unit("bathroom", countForPrice("bathrooms"), "en");
+    }
     field("lang").value = lang;
     field("summary").value = data.english;
-    field("grid_price").value = data.price == null ? "On quote" : money(data.price, "en");
-    field("_subject").value = "New booking request: " + (serviceInput ? serviceInput.value : "") + ", " + detail + " (" + field("name").value.trim() + ")";
+    field("estimated_price").value = !est || est.total == null
+      ? "Not calculated"
+      : money(est.total, "en") + (est.pro ? " (estimate only, to confirm by phone)" : " (estimate, before tax)");
+    field("_subject").value = (data.svc === "pro" ? "New quote request: " : "New booking request: ")
+      + (serviceInput ? serviceInput.value : "") + ", " + detail + " (" + field("name").value.trim() + ")";
   }
 
   /* Envoi */
@@ -688,10 +935,6 @@
 
   function resetForm() {
     form.reset();
-    $$("input[data-addon]", form).forEach((input) => {
-      delete input.dataset.wasChecked;
-      input.closest(".check").classList.remove("is-included");
-    });
     Array.from(fieldErrors.keys()).forEach((name) => setError(name, null));
     renderFormLabels();
     refreshForm();
@@ -743,24 +986,36 @@
 
   function initForm() {
     field("date").min = todayISO();
+    initCounters();
 
     form.addEventListener("change", (event) => {
-      const name = event.target.name;
+      const target = event.target;
+      const name = target.name;
       if (name === "service") {
         setError("service", null);
         refreshForm();
         clearStaleErrors();
+      }
+      // Fenêtres : un seul palier coché à la fois
+      if (target.hasAttribute("data-window") && target.checked) {
+        $$("input[data-window]", form).forEach((input) => { if (input !== target) input.checked = false; });
+      }
+      if (name === "arrival_window") updateExactTime();
+      if (name in COUNTERS && target.value !== "" && /^\d+$/.test(target.value)) {
+        target.value = clampCount(name, Number(target.value));
       }
       if (name === "preferred_contact") {
         updateEmailLabel();
         if (fieldErrors.get("email") === "required") setError("email", null);
       }
       if (fieldErrors.has(name)) setError(name, null);
+      updateEstimate();
       if (currentStep === 4) updateSummary();
     });
     form.addEventListener("input", (event) => {
       const name = event.target.name;
       if (fieldErrors.has(name)) setError(name, null);
+      if (name === "square_feet" || name in COUNTERS) updateEstimate();
     });
 
     const postal = field("postal_code");
@@ -809,6 +1064,7 @@
   render();
   initHeader();
   initFlipCards();
+  initTips();
   initPrivacy();
   initForm();
   showStep(1, false);
