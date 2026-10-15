@@ -1,16 +1,33 @@
 /*
  * Cleanton Express Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
- * Règles : pas de tiret cadratin ; aucun prix écrit en dur ; pas de faux avis.
+ * Règles : tiret cadratin avec modération ; aucun prix écrit en dur ; pas de faux avis ; jamais de mention « vingt-quatre sur sept ».
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
  *   {price}  un prix formaté ($89 / 89 $)
  *   {phone}  le téléphone de config.js, (437) 717-8009
  *   {d}      une remise, {n} un nombre, {i} {n} les numéros d'étape du formulaire
  */
+/* ==================== À REMPLIR ====================
+   Textes provisoires de la section « Pourquoi Cleanton Express ». */
+const FILL_IN = {
+  en: {
+    hours: "Requests accepted at any hour, reply as fast as possible.",
+    // TODO : remplacer par la mention du produit certifié une fois les produits choisis
+    productsTitle: "Cleaning products included",
+    productsText: "We bring everything, at no extra cost."
+  },
+  fr: {
+    hours: "Demandes acceptées à toute heure, réponse au plus vite.",
+    // TODO : remplacer par la mention du produit certifié une fois les produits choisis
+    productsTitle: "Produits inclus",
+    productsText: "Nous apportons tout, sans frais supplémentaires."
+  }
+};
+
 const I18N = {
   en: {
     meta: {
-      title: "Cleanton Express Cleaning | 24/7 cleaning services in Toronto",
-      description: "24/7 professional cleaning in Toronto for condos, apartments, homes and businesses. Prices from {price}, eco-friendly products, service in English and French."
+      title: "Cleanton Express Cleaning | Cleaning services in Toronto",
+      description: "Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, prices from {price}, eco-friendly products, service in English and French."
     },
     skip: "Skip to content",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
@@ -29,7 +46,7 @@ const I18N = {
       call: "Call {phone}"
     },
     hero: {
-      badge: "✦ Available 24/7 in Toronto",
+      badge: "✦ Requests accepted at any hour",
       title1: "We clean.",
       title2: "That’s it.",
       sub: "Reliable, fast and professional cleaning for homes and businesses, whenever you need us.",
@@ -37,21 +54,22 @@ const I18N = {
       whatsapp: "WhatsApp available",
       quick: "Quick response"
     },
-    ticker: ["24/7 cleaning", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
+    ticker: ["Requests at any hour", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
     why: {
-      label: "Why choose Cleanton Express Cleaning",
-      title1: "Every space.",
-      title2: "Spotless.",
-      p1: "Designed for responsiveness. Guided by exacting standards. We know that a clean space reflects your image, and that your home or business can’t wait.",
-      p2: "That’s why we step in with precision, professionalism and high standards, 24/7. Fast, structured and professional cleaning, tailored to your needs.",
-      pillars: [
-        { title: "24/7 availability", text: "Day, night, weekends and holidays: we’re always on." },
-        { title: "Eco-friendly products", text: "Included at no extra charge." },
-        { title: "Pro equipment", text: "Professional-grade tools for an impeccable result every time." },
-        { title: "Reliable & punctual", text: "On time, careful and committed to quality." },
-        { title: "Competitive pricing", text: "Professional quality, with prices shown upfront." }
+      label: "Why Cleanton Express",
+      title: "Fast. Fair. Personally checked.",
+      text: "Moving out, turning over a unit, or need it done on short notice? You get an instant estimate, a confirmed price within 2 hours, and a founder who actually reads your feedback.",
+      cards: [
+        { title: "Confirmed within 2 hours", text: "Instant estimate online, confirmation by text or WhatsApp. " + FILL_IN.en.hours },
+        { title: "Honest, upfront prices", text: "“From” prices on the site, final price before we start. Recurring clients save up to {weekly}." },
+        { title: "Your feedback runs the business", text: "Anything under 5 stars, we call you and make it right." },
+        { title: "Owner on every job", text: "Our founder cleans or checks every booking personally." },
+        { title: "Photo report on request", text: "Ideal for move-outs, landlords and property managers." },
+        { title: FILL_IN.en.productsTitle, text: FILL_IN.en.productsText }
       ]
     },
+    trust: { insured: "Insured — certificate of insurance available on request." },
+    cta: { estimate: "Get my instant estimate", whatsapp: "WhatsApp us" },
     services: {
       label: "Our services",
       labelBrand: "at Cleanton",
@@ -65,14 +83,16 @@ const I18N = {
         name: "Commercial",
         title: "Offices, shops & more",
         desc: "We adapt to your schedule and deliver spotless results, every time.",
-        items: ["Offices & corporate spaces", "Retail stores", "Gyms & fitness studios", "Bars & restaurants", "After-event cleaning", "Unit turnovers for property managers & realtors"]
+        items: ["Offices & corporate spaces", "Retail stores", "Gyms & fitness studios", "Bars & restaurants", "After-event cleaning", "Unit turnovers for property managers & realtors"],
+        price: "Estimate by square foot, confirmed by phone"
       },
       residential: {
         tag: "✔ Residential cleaning",
         name: "Residential",
         title: "Your home, spotless",
         desc: "Regular cleans, deep cleans, move-ins and move-outs: we bring your home back to its best.",
-        items: ["Regular home cleaning", "Deep cleaning", "Move-in / move-out cleaning", "Condos, apartments & townhouses"]
+        items: ["Regular home cleaning", "Deep cleaning", "Move-in / move-out cleaning", "Condos, apartments & townhouses"],
+        price: "From {price} · based on your bedrooms and bathrooms · get your estimate in 2 minutes"
       }
     },
     areas: {
@@ -107,13 +127,25 @@ const I18N = {
       },
       extras: {
         title: "Additional areas & extras",
-        addons: ["Basement area", "Extra kitchen", "Inside cabinets", "Inside fridge", "Inside oven", "Windows & tracks", "Blinds cleaning", "Load dishwasher", "Change bed sheets", "Load laundry", "Pets in home"]
+        addons: ["Extra kitchen", "Inside cabinets", "Inside fridge", "Inside oven", "Windows & tracks", "Blinds cleaning", "Change bed sheets + laundry", "Pets in home"]
       },
       notOffered: {
         title: "Services not offered",
         intro: "To ensure our cleaners can work safely and effectively, we are unable to provide the following:",
         items: ["Cleaning of animal feces", "Mold", "Exterior of the home (garage, patio, balcony)", "Moving heavy furniture or fragile items", "Crawl spaces", "Bodily fluids", "Pest removal or infestations", "Dishes", "Full wash of ceilings and walls"]
       }
+    },
+    results: {
+      label: "Results",
+      title: "Real results, real clients",
+      before: "Before",
+      after: "After",
+      compare: "Before and after comparison: {caption}",
+      altBefore: "Before: {caption}",
+      altAfter: "After: {caption}",
+      rating: "Rated {n} out of 5",
+      google: "See all reviews on Google",
+      launch: "We’re just getting started — be one of our first clients."
     },
     faq: {
       label: "FAQ",
@@ -136,7 +168,7 @@ const I18N = {
       label: "Contact",
       title: "Get Your Free Quote",
       intro: "Fill in the form or contact us directly. We respond quickly.",
-      whatsapp: "WhatsApp available 24/7",
+      whatsapp: "WhatsApp: requests at any hour",
       area: "Toronto & GTA",
       formLabel: "Booking request"
     },
@@ -170,10 +202,14 @@ const I18N = {
         bedrooms: "Bedrooms",
         bedroomsLess: "One bedroom less",
         bedroomsMore: "One more bedroom",
-        studioNote: "A studio counts as 1 bedroom.",
+        studioNote: "0 = studio.",
         bathrooms: "Bathrooms",
         bathroomsLess: "One bathroom less",
         bathroomsMore: "One more bathroom",
+        halfBathrooms: "Half bathrooms",
+        halfBathroomsLess: "One half bathroom less",
+        halfBathroomsMore: "One more half bathroom",
+        halfNote: "Toilet and sink, no shower.",
         type: "Type of home",
         types: ["Condo or apartment", "Townhouse", "House"],
         frequency: "How often?",
@@ -184,21 +220,25 @@ const I18N = {
         proTypes: ["An office or shop", "A property manager", "A realtor", "Other"],
         sqft: "Square footage",
         sqftExample: "e.g. 1200",
-        proClean: "Type of cleaning",
-        proCleans: ["Standard", "Deep clean"],
         kitchens: "Kitchens",
         kitchensLess: "One kitchen less",
         kitchensMore: "One more kitchen",
+        kitchensNote: "Included in the price.",
         proBathrooms: "Bathrooms"
       },
       step2: {
         title: "Add-ons",
         note: "Everything here is optional. Tap a tile to add it.",
         extras: "Extras",
-        addons: { kitchen: "Extra kitchen", fridge: "Inside fridge", oven: "Inside oven", cabinets: "Inside cabinets", blinds: "Blinds cleaning", pets: "Pets in home" },
+        addons: { kitchen: "Extra kitchen", fridge: "Inside fridge", oven: "Inside oven", cabinets: "Inside cabinets", blinds: "Blinds cleaning", pets: "Pets in home", sheetsLaundry: "Change bed sheets + laundry" },
+        blindsLess: "One window with blinds less",
+        blindsMore: "One more window with blinds",
+        blindsHint: "windows with blinds",
         windows: "Inside windows & tracks",
         windowsName: "Inside windows",
-        windowUpTo: "up to {n}",
+        windowTierUpTo: "up to {to}",
+        windowTierRange: "{from} to {to}",
+        windowTierMore: "more than {n}",
         windowsNote: "Pick one. Tap it again to remove it."
       },
       step3: {
@@ -256,8 +296,11 @@ const I18N = {
       },
       units: {
         bedroom: ["{n} bedroom", "{n} bedrooms"],
+        studio: "Studio",
         bathroom: ["{n} bathroom", "{n} bathrooms"],
+        halfBathroom: ["{n} half bathroom", "{n} half bathrooms"],
         kitchen: ["{n} kitchen", "{n} kitchens"],
+        window: ["{n} window", "{n} windows"],
         sqft: "{n} sq ft"
       },
       estimate: {
@@ -270,7 +313,10 @@ const I18N = {
         rate: "{sqft} × {price}",
         late: "Arrival after 6 pm",
         deep: "Deep clean",
-        move: "Move-in / move-out"
+        move: "Move-in / move-out",
+        blinds: "Blinds cleaning ({windows})",
+        minimum: "Minimum per visit",
+        quote: "Inside windows, {tier}: price on quote."
       },
       privacy: "We only use your details to answer your request.",
       errors: {
@@ -292,7 +338,7 @@ const I18N = {
     },
     whatsapp: "Hi Cleanton! I’d like to book a cleaning.\nBedrooms and bathrooms: \nPreferred date: ",
     footer: {
-      line: "© 2026 Cleanton Express · 24/7 professional cleaning · Toronto",
+      line: "© 2026 Cleanton Express · Professional cleaning · Toronto",
       privacy: "Privacy Policy",
       legal: "Cleanton Express Cleaning · Toronto, Ontario, Canada. Prices in Canadian dollars, before tax. Services subject to availability."
     },
@@ -311,8 +357,8 @@ const I18N = {
   },
   fr: {
     meta: {
-      title: "Cleanton Express Cleaning | Ménage 24/7 à Toronto",
-      description: "Ménage professionnel 24/7 à Toronto pour condos, appartements, maisons et entreprises. Prix dès {price}, produits écologiques, service en français et en anglais."
+      title: "Cleanton Express Cleaning | Ménage à Toronto",
+      description: "Ménage professionnel à Toronto pour condos, appartements, maisons et entreprises. Demandes acceptées à toute heure, prix dès {price}, produits écologiques, service en français et en anglais."
     },
     skip: "Aller au contenu",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
@@ -331,7 +377,7 @@ const I18N = {
       call: "Appeler le {phone}"
     },
     hero: {
-      badge: "✦ Disponible 24/7 à Toronto",
+      badge: "✦ Demandes acceptées à toute heure",
       title1: "On nettoie.",
       title2: "C’est tout.",
       sub: "Un ménage fiable, rapide et professionnel pour les logements et les entreprises, quand vous en avez besoin.",
@@ -339,21 +385,22 @@ const I18N = {
       whatsapp: "WhatsApp disponible",
       quick: "Réponse rapide"
     },
-    ticker: ["Ménage 24/7", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
+    ticker: ["Demandes à toute heure", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
     why: {
-      label: "Pourquoi choisir Cleanton Express Cleaning",
-      title1: "Chaque espace.",
-      title2: "Impeccable.",
-      p1: "Pensé pour réagir vite. Guidé par des standards exigeants. Un espace propre reflète votre image, et votre logement ou votre entreprise ne peut pas attendre.",
-      p2: "C’est pourquoi nous intervenons avec précision, professionnalisme et exigence, 24/7. Un ménage rapide, structuré et professionnel, adapté à vos besoins.",
-      pillars: [
-        { title: "Disponible 24/7", text: "Jour, nuit, week-ends et jours fériés : on est toujours là." },
-        { title: "Produits écologiques", text: "Inclus, sans supplément." },
-        { title: "Équipement pro", text: "Du matériel professionnel pour un résultat impeccable, à chaque fois." },
-        { title: "Fiable et ponctuel", text: "À l’heure, soigneux et attaché à la qualité." },
-        { title: "Prix compétitifs", text: "Une qualité professionnelle, avec des prix affichés d’avance." }
+      label: "Pourquoi Cleanton Express",
+      title: "Rapides. Justes. Vérifiés par le fondateur.",
+      text: "Déménagement, remise en location ou besoin d’un ménage rapidement ? Estimation instantanée, prix confirmé sous 2 h, et un fondateur qui lit vraiment vos retours.",
+      cards: [
+        { title: "Confirmé sous 2 h", text: "Estimation instantanée en ligne, confirmation par SMS ou WhatsApp. " + FILL_IN.fr.hours },
+        { title: "Des prix clairs, sans surprise", text: "Prix « à partir de » affichés, prix final confirmé avant l’intervention. Jusqu’à {weekly} de remise pour les clients réguliers." },
+        { title: "Vos retours pilotent l’entreprise", text: "En dessous de 5 étoiles, nous vous appelons et corrigeons." },
+        { title: "Le fondateur sur chaque mission", text: "Notre fondateur réalise ou contrôle personnellement chaque intervention." },
+        { title: "Rapport photo sur demande", text: "Idéal pour les déménagements, propriétaires et gestionnaires immobiliers." },
+        { title: FILL_IN.fr.productsTitle, text: FILL_IN.fr.productsText }
       ]
     },
+    trust: { insured: "Assurés — attestation d’assurance disponible sur demande." },
+    cta: { estimate: "Obtenir mon estimation", whatsapp: "Écrire sur WhatsApp" },
     services: {
       label: "Nos services",
       labelBrand: "chez Cleanton",
@@ -367,14 +414,16 @@ const I18N = {
         name: "Commercial",
         title: "Bureaux, commerces et plus",
         desc: "On s’adapte à votre horaire, pour un résultat impeccable à chaque fois.",
-        items: ["Bureaux et espaces d’entreprise", "Commerces", "Gyms et studios de sport", "Bars et restaurants", "Ménage après un événement", "Remises en état pour gestionnaires et agents immobiliers"]
+        items: ["Bureaux et espaces d’entreprise", "Commerces", "Gyms et studios de sport", "Bars et restaurants", "Ménage après un événement", "Remises en état pour gestionnaires et agents immobiliers"],
+        price: "Estimation au pied carré, confirmée par téléphone"
       },
       residential: {
         tag: "✔ Ménage résidentiel",
         name: "Résidentiel",
         title: "Votre logement, impeccable",
         desc: "Ménage régulier, ménage en profondeur, emménagement ou déménagement : on redonne à votre logement son meilleur visage.",
-        items: ["Ménage régulier", "Ménage en profondeur", "Ménage d’emménagement ou de déménagement", "Condos, appartements et maisons en rangée"]
+        items: ["Ménage régulier", "Ménage en profondeur", "Ménage d’emménagement ou de déménagement", "Condos, appartements et maisons en rangée"],
+        price: "Dès {price} · selon vos chambres et salles de bain · obtenez votre estimation en 2 minutes"
       }
     },
     areas: {
@@ -409,13 +458,25 @@ const I18N = {
       },
       extras: {
         title: "Autres espaces et extras",
-        addons: ["Sous-sol", "Cuisine supplémentaire", "Intérieur des armoires", "Intérieur du frigo", "Intérieur du four", "Fenêtres et rails", "Nettoyage des stores", "Remplir le lave-vaisselle", "Changer les draps", "Lancer une lessive", "Animaux à la maison"]
+        addons: ["Cuisine supplémentaire", "Intérieur des armoires", "Intérieur du frigo", "Intérieur du four", "Fenêtres et rails", "Nettoyage des stores", "Changer les draps + lessive", "Animaux à la maison"]
       },
       notOffered: {
         title: "Services non offerts",
         intro: "Pour que nos agents d’entretien travaillent en sécurité et efficacement, nous ne pouvons pas offrir les services suivants :",
         items: ["Nettoyage d’excréments d’animaux", "Moisissure", "Extérieur du logement (garage, terrasse, balcon)", "Déplacement de meubles lourds ou d’objets fragiles", "Vides sanitaires", "Fluides corporels", "Extermination ou infestation de nuisibles", "Vaisselle", "Lavage complet des plafonds et des murs"]
       }
+    },
+    results: {
+      label: "Résultats",
+      title: "De vrais résultats, de vrais clients",
+      before: "Avant",
+      after: "Après",
+      compare: "Comparaison avant et après : {caption}",
+      altBefore: "Avant : {caption}",
+      altAfter: "Après : {caption}",
+      rating: "Note de {n} sur 5",
+      google: "Voir tous les avis sur Google",
+      launch: "Nous démarrons — devenez l’un de nos premiers clients."
     },
     faq: {
       label: "FAQ",
@@ -438,7 +499,7 @@ const I18N = {
       label: "Contact",
       title: "Obtenez votre devis gratuit",
       intro: "Remplissez le formulaire ou contactez-nous directement. On répond rapidement.",
-      whatsapp: "WhatsApp disponible 24/7",
+      whatsapp: "WhatsApp : demandes à toute heure",
       area: "Toronto et GTA",
       formLabel: "Demande de réservation"
     },
@@ -472,10 +533,14 @@ const I18N = {
         bedrooms: "Chambres",
         bedroomsLess: "Une chambre de moins",
         bedroomsMore: "Une chambre de plus",
-        studioNote: "Un studio compte comme 1 chambre.",
+        studioNote: "0 = studio.",
         bathrooms: "Salles de bain",
         bathroomsLess: "Une salle de bain de moins",
         bathroomsMore: "Une salle de bain de plus",
+        halfBathrooms: "Demi-salles de bain",
+        halfBathroomsLess: "Une demi-salle de bain de moins",
+        halfBathroomsMore: "Une demi-salle de bain de plus",
+        halfNote: "Toilette et lavabo, sans douche.",
         type: "Type de logement",
         types: ["Condo ou appartement", "Maison en rangée", "Maison"],
         frequency: "À quelle fréquence ?",
@@ -486,21 +551,25 @@ const I18N = {
         proTypes: ["Bureau ou commerce", "Gestionnaire immobilier", "Agent immobilier", "Autre"],
         sqft: "Superficie (pi²)",
         sqftExample: "ex. 1200",
-        proClean: "Type de ménage",
-        proCleans: ["Standard", "En profondeur"],
         kitchens: "Cuisines",
         kitchensLess: "Une cuisine de moins",
         kitchensMore: "Une cuisine de plus",
+        kitchensNote: "Comprises dans le prix.",
         proBathrooms: "Salles de bain"
       },
       step2: {
         title: "Extras",
         note: "Tout est facultatif. Touchez une tuile pour l’ajouter.",
         extras: "Extras",
-        addons: { kitchen: "Cuisine supplémentaire", fridge: "Intérieur du frigo", oven: "Intérieur du four", cabinets: "Intérieur des armoires", blinds: "Nettoyage des stores", pets: "Animaux à la maison" },
+        addons: { kitchen: "Cuisine supplémentaire", fridge: "Intérieur du frigo", oven: "Intérieur du four", cabinets: "Intérieur des armoires", blinds: "Nettoyage des stores", pets: "Animaux à la maison", sheetsLaundry: "Changer les draps + lessive" },
+        blindsLess: "Une fenêtre avec stores de moins",
+        blindsMore: "Une fenêtre avec stores de plus",
+        blindsHint: "fenêtres avec stores",
         windows: "Vitres intérieures et rails",
         windowsName: "Vitres intérieures",
-        windowUpTo: "jusqu’à {n}",
+        windowTierUpTo: "jusqu’à {to}",
+        windowTierRange: "de {from} à {to}",
+        windowTierMore: "plus de {n}",
         windowsNote: "Choisissez-en une. Touchez-la de nouveau pour la retirer."
       },
       step3: {
@@ -558,8 +627,11 @@ const I18N = {
       },
       units: {
         bedroom: ["{n} chambre", "{n} chambres"],
+        studio: "Studio",
         bathroom: ["{n} salle de bain", "{n} salles de bain"],
+        halfBathroom: ["{n} demi-salle de bain", "{n} demi-salles de bain"],
         kitchen: ["{n} cuisine", "{n} cuisines"],
+        window: ["{n} fenêtre", "{n} fenêtres"],
         sqft: "{n} pi²"
       },
       estimate: {
@@ -572,7 +644,10 @@ const I18N = {
         rate: "{sqft} × {price}",
         late: "Arrivée après 18 h",
         deep: "Ménage en profondeur",
-        move: "Déménagement"
+        move: "Déménagement",
+        blinds: "Nettoyage des stores ({windows})",
+        minimum: "Minimum par visite",
+        quote: "Vitres intérieures, {tier} : prix sur devis."
       },
       privacy: "Vos coordonnées servent uniquement à répondre à votre demande.",
       errors: {
@@ -594,7 +669,7 @@ const I18N = {
     },
     whatsapp: "Bonjour Cleanton ! J’aimerais réserver un ménage.\nChambres et salles de bain : \nDate souhaitée : ",
     footer: {
-      line: "© 2026 Cleanton Express · Ménage professionnel 24/7 · Toronto",
+      line: "© 2026 Cleanton Express · Ménage professionnel · Toronto",
       privacy: "Politique de confidentialité",
       legal: "Cleanton Express Cleaning · Toronto (Ontario), Canada. Prix en dollars canadiens, avant taxes. Services selon les disponibilités."
     },

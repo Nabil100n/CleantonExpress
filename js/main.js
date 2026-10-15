@@ -85,15 +85,20 @@
     };
   }
 
-  // Prix des pièces : frais de base + 1re chambre + chambres en plus + 1re salle de bain + salles de bain en plus
-  function roomsPrice(bedrooms, bathrooms) {
-    const r = CONFIG.residential;
-    return r.base + r.firstBedroom + r.extraBedroom * (bedrooms - 1) + r.firstBathroom + r.extraBathroom * (bathrooms - 1);
+  // Une pièce comptée « 1re, puis chacune en plus » ; 0 pièce = 0 $
+  function tierPrice(count, tier) {
+    return count > 0 ? tier.first + (count - 1) * tier.extra : 0;
   }
 
-  // Prix de départ d'un service : 1 chambre, 1 salle de bain
+  // Prix des pièces : départ (studio) + chambres + salles de bain + demi-salles de bain
+  function roomsPrice(bedrooms, bathrooms, halfBathrooms) {
+    const r = CONFIG.residential;
+    return r.base + tierPrice(bedrooms, r.bedrooms) + tierPrice(bathrooms, r.bathrooms) + tierPrice(halfBathrooms || 0, r.halfBathrooms);
+  }
+
+  // Prix de départ d'un service : studio sans salle de bain
   function startingPrice(svc) {
-    return roomsPrice(1, 1) + (CONFIG.serviceSurcharge[svc] || 0);
+    return roomsPrice(0, 0, 0) + (CONFIG.serviceSurcharge[svc] || 0);
   }
 
   const phoneDigits = CONFIG.phone.replace(/\D/g, "");
@@ -104,12 +109,9 @@
   }
 
   function commonVars(l) {
-    const offer = CONFIG.launchOffer || {};
     return Object.assign(rateVars(l), {
       phone: phoneDisplay(),
-      price: money(startingPrice("regular"), l),
-      launch: percent(offer.discount || 0, l),
-      clients: offer.clients || ""
+      price: money(startingPrice("regular"), l)
     });
   }
 
@@ -200,6 +202,7 @@
     renderTicker();
     renderAreas();
     renderDetailCounts();
+    renderResults();
     renderFaq();
     renderPrivacy();
     renderFormLabels();
@@ -237,6 +240,100 @@
         node.textContent = t("details.tasks", { n });
       }
     });
+  }
+
+  /* ---------- Résultats : avant/après et avis réels (données dans config.js) ---------- */
+
+  // Une image absente disparaît : le cadre garde son aplat de couleur
+  function photo(src, alt, className) {
+    const img = document.createElement("img");
+    img.className = className;
+    img.src = src;
+    img.alt = alt;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.width = 800;
+    img.height = 600;
+    img.addEventListener("error", () => img.remove());
+    return img;
+  }
+
+  // Comparaison avant/après : un curseur (input range) pilote la position de la poignée
+  function beforeAfterItem(pair) {
+    const service = (lang === "fr" ? pair.service_fr || pair.service_en : pair.service_en || pair.service_fr) || "";
+    const caption = [service, pair.location].filter(Boolean).join(" · ");
+    const figure = el("figure", "ba-item");
+    const frame = el("div", "ba-frame");
+    frame.style.setProperty("--pos", "50%");
+    const base = "images/before-after/" + pair.id;
+    const before = el("div", "ba-before");
+    before.append(photo(base + "-before.webp", t("results.altBefore", { caption }), "ba-img"));
+    const tagBefore = el("span", "ba-tag ba-tag--before", t("results.before"));
+    const tagAfter = el("span", "ba-tag ba-tag--after", t("results.after"));
+    const handle = el("span", "ba-handle");
+    [tagBefore, tagAfter, handle].forEach((node) => node.setAttribute("aria-hidden", "true"));
+    const range = document.createElement("input");
+    range.type = "range";
+    range.className = "ba-range";
+    range.min = "0";
+    range.max = "100";
+    range.value = "50";
+    range.setAttribute("aria-label", t("results.compare", { caption }));
+    const setPos = (value) => {
+      range.value = String(Math.round(Math.min(100, Math.max(0, value))));
+      frame.style.setProperty("--pos", range.value + "%");
+    };
+    range.addEventListener("input", () => setPos(Number(range.value)));
+    // Au doigt ou à la souris : on glisse n'importe où sur l'image
+    let dragging = false;
+    const fromPointer = (event) => {
+      const rect = frame.getBoundingClientRect();
+      setPos(((event.clientX - rect.left) / rect.width) * 100);
+    };
+    frame.addEventListener("pointerdown", (event) => { dragging = true; fromPointer(event); });
+    frame.addEventListener("pointermove", (event) => { if (dragging) fromPointer(event); });
+    ["pointerup", "pointercancel", "pointerleave"].forEach((type) => frame.addEventListener(type, () => { dragging = false; }));
+    frame.append(photo(base + "-after.webp", t("results.altAfter", { caption }), "ba-img"), before, tagBefore, tagAfter, handle, range);
+    figure.append(frame);
+    if (caption) figure.append(el("figcaption", "", caption));
+    return figure;
+  }
+
+  function reviewDate(value) {
+    const match = /^(\d{4})-(\d{2})$/.exec(value || "");
+    if (!match) return value || "";
+    return new Intl.DateTimeFormat(lang === "fr" ? "fr-CA" : "en-CA", { month: "long", year: "numeric" }).format(new Date(Number(match[1]), Number(match[2]) - 1, 1));
+  }
+
+  function reviewCard(review) {
+    const li = el("li", "review");
+    const rating = Math.min(5, Math.max(0, Math.round(Number(review.rating) || 0)));
+    const stars = el("p", "review__stars");
+    stars.setAttribute("role", "img");
+    stars.setAttribute("aria-label", t("results.rating", { n: rating }));
+    stars.append(el("span", "", "★".repeat(rating)), el("span", "review__stars-off", "★".repeat(5 - rating)));
+    const text = (lang === "fr" ? review.text_fr || review.text_en : review.text_en || review.text_fr).trim();
+    const meta = el("p", "review__meta");
+    meta.append(el("span", "review__name", review.name || ""));
+    [review.service, reviewDate(review.date), review.location].filter((part) => part && String(part).trim()).forEach((part) => meta.append(" · " + part));
+    li.append(stars, el("p", "review__text", text), meta);
+    return li;
+  }
+
+  function renderResults() {
+    const section = $("#results");
+    if (!section) return;
+    const pairs = (CONFIG.beforeAfter || []).filter((pair) => pair && pair.id);
+    const reviews = (CONFIG.reviews || []).filter((r) => r && ((r.text_en || "").trim() || (r.text_fr || "").trim()));
+    $("[data-before-after]", section).hidden = pairs.length === 0;
+    $("[data-ba-list]", section).replaceChildren(...pairs.map(beforeAfterItem));
+    $("[data-reviews]", section).hidden = reviews.length === 0;
+    $("[data-reviews-list]", section).replaceChildren(...reviews.map(reviewCard));
+    const google = $("[data-google-reviews]", section);
+    google.hidden = !CONFIG.googleReviewsUrl;
+    if (CONFIG.googleReviewsUrl) google.href = CONFIG.googleReviewsUrl;
+    // État « lancement » : seulement s'il n'y a aucun avis valide
+    $("[data-launch]", section).hidden = reviews.length > 0;
   }
 
   // Questions en accordéon ; les questions ouvertes le restent quand on change de langue
@@ -402,8 +499,10 @@
   const field = (name) => form.elements.namedItem(name);
   const checked = (name) => form.querySelector('input[name="' + name + '"]:checked:not(:disabled)');
   const COUNTERS = {
-    bedrooms: () => [1, CONFIG.residential.maxBedrooms],
-    bathrooms: () => [1, CONFIG.residential.maxBathrooms],
+    bedrooms: () => [0, CONFIG.residential.bedrooms.max],
+    bathrooms: () => [0, CONFIG.residential.bathrooms.max],
+    half_bathrooms: () => [0, CONFIG.residential.halfBathrooms.max],
+    blinds_count: () => [0, CONFIG.blinds.max],
     pro_kitchens: () => [0, 20],
     pro_bathrooms: () => [0, 20]
   };
@@ -469,6 +568,13 @@
     return CONFIG.windows[Number(input.dataset.window)];
   }
 
+  // « up to 6 », « 7 to 12 », « more than 12 » d'après les paliers de config.js
+  function tierLabel(tier, l) {
+    if (tier.to == null) return t("form.step2.windowTierMore", { n: tier.from - 1 }, l);
+    if (tier.from <= 1) return t("form.step2.windowTierUpTo", { to: tier.to }, l);
+    return t("form.step2.windowTierRange", { from: tier.from, to: tier.to }, l);
+  }
+
   function renderFormLabels() {
     $$("[data-freq-label]", form).forEach((span) => {
       const key = span.dataset.freqLabel;
@@ -485,10 +591,11 @@
     $("[data-late-label]", form).textContent = t("form.step3.late");
 
     $$("input[data-window]", form).forEach((input) => {
-      input.value = "Inside windows and tracks (up to " + windowTier(input).upTo + ")";
+      const tier = windowTier(input);
+      input.value = "Inside windows and tracks (" + tierLabel(tier, "en") + (tier.price == null ? ", on quote" : "") + ")";
     });
     $$("[data-window-label]", form).forEach((span) => {
-      span.textContent = t("form.step2.windowUpTo", { n: CONFIG.windows[Number(span.dataset.windowLabel)].upTo });
+      span.textContent = tierLabel(CONFIG.windows[Number(span.dataset.windowLabel)]);
     });
 
     renderDateValue();
@@ -742,6 +849,7 @@
       if (residential) {
         if (readCount("bedrooms") == null) errors.push(["bedrooms", "count"]);
         if (readCount("bathrooms") == null) errors.push(["bathrooms", "count"]);
+        if (readCount("half_bathrooms") == null) errors.push(["half_bathrooms", "count"]);
       }
       if (pro) {
         if (!checked("pro_type")) errors.push(["pro_type", "required"]);
@@ -805,11 +913,12 @@
 
   function addonName(input, l) {
     if (input.hasAttribute("data-window")) {
-      return t("form.step2.windowsName", null, l) + " (" + t("form.step2.windowUpTo", { n: windowTier(input).upTo }, l) + ")";
+      return t("form.step2.windowsName", null, l) + " (" + tierLabel(windowTier(input), l) + ")";
     }
     return t("form.step2.addons." + input.dataset.addon, null, l);
   }
 
+  // null = sur devis
   function addonPrice(input) {
     return input.hasAttribute("data-window") ? windowTier(input).price : CONFIG.addons[input.dataset.addon];
   }
@@ -819,41 +928,67 @@
     return arrival && arrival.hasAttribute("data-late") ? CONFIG.lateArrival : 0;
   }
 
+  // « Studio, 1 bathroom », « 2 bedrooms, 1 bathroom, 1 half bathroom »
+  function homeLabel(l) {
+    const bedrooms = countForPrice("bedrooms");
+    const parts = [bedrooms === 0 ? t("form.units.studio", null, l) : unit("bedroom", bedrooms, l), unit("bathroom", countForPrice("bathrooms"), l)];
+    const half = countForPrice("half_bathrooms");
+    if (half > 0) parts.push(unit("halfBathroom", half, l));
+    return parts.join(", ");
+  }
+
+  function blindsCount() {
+    const input = field("blinds_count");
+    return input && !input.disabled ? countForPrice("blinds_count") : 0;
+  }
+
   // Calcule l'estimation et son détail, dans la langue demandée
   function estimate(l) {
     const svc = serviceKey();
     if (!svc) return null;
     const lines = [];
-    const late = lateFee();
+    const quote = [];
 
     if (svc === "pro") {
       const raw = (field("square_feet").value || "").trim();
       const sqft = /^\d+$/.test(raw) ? Number(raw) : 0;
-      if (!sqft) return { pro: true, total: null, lines };
-      const base = Math.round(sqft * CONFIG.pro.perSqft);
-      lines.push([t("form.estimate.rate", { sqft: unit("sqft", sqft, l), price: moneyRate(CONFIG.pro.perSqft, l) }, l), base]);
-      const deep = checked("pro_clean") && checked("pro_clean").hasAttribute("data-pro-deep") ? CONFIG.pro.deep : 0;
-      if (deep) lines.push([t("form.estimate.deep", null, l), deep]);
-      if (late) lines.push([t("form.estimate.late", null, l), late]);
-      return { pro: true, total: lines.reduce((sum, line) => sum + line[1], 0), lines };
+      if (!sqft) return { pro: true, total: null, lines, quote };
+      lines.push([t("form.estimate.rate", { sqft: unit("sqft", sqft, l), price: moneyRate(CONFIG.pro.perSqft, l) }, l), Math.round(sqft * CONFIG.pro.perSqft)]);
+      const baths = countForPrice("pro_bathrooms");
+      if (baths > 0) lines.push([unit("bathroom", baths, l), Math.round(tierPrice(baths, CONFIG.residential.bathrooms) * (1 + CONFIG.pro.bathroomMarkup))]);
+      const total = lines.reduce((sum, line) => sum + line[1], 0);
+      // Plancher : en dessous du minimum, on affiche le minimum
+      if (total < CONFIG.pro.minimum) return { pro: true, total: CONFIG.pro.minimum, lines: [[t("form.estimate.minimum", null, l), CONFIG.pro.minimum]], quote };
+      return { pro: true, total, lines, quote };
     }
 
-    const bedrooms = countForPrice("bedrooms");
-    const bathrooms = countForPrice("bathrooms");
-    lines.push([unit("bedroom", bedrooms, l) + ", " + unit("bathroom", bathrooms, l), roomsPrice(bedrooms, bathrooms)]);
+    lines.push([homeLabel(l), roomsPrice(countForPrice("bedrooms"), countForPrice("bathrooms"), countForPrice("half_bathrooms"))]);
     const surcharge = CONFIG.serviceSurcharge[svc] || 0;
     if (surcharge) lines.push([t("form.estimate." + svc, null, l), surcharge]);
-    $$('input[name="addons"]:checked:not(:disabled)', form).forEach((input) => lines.push([addonName(input, l), addonPrice(input)]));
+    $$('input[name="addons"]:checked:not(:disabled)', form).forEach((input) => {
+      const price = addonPrice(input);
+      if (price == null) quote.push(t("form.estimate.quote", { tier: tierLabel(windowTier(input), l) }, l));
+      else lines.push([addonName(input, l), price]);
+    });
+    const blinds = blindsCount();
+    if (blinds > 0) lines.push([t("form.estimate.blinds", { windows: unit("window", blinds, l) }, l), blinds * CONFIG.blinds.perWindow]);
+    const late = lateFee();
     if (late) lines.push([t("form.estimate.late", null, l), late]);
     const total = lines.reduce((sum, line) => sum + line[1], 0);
 
     const freq = svc === "regular" ? checked("frequency") : null;
     const freqKey = freq ? freq.dataset.freq : "once";
     const then = freqKey === "once" ? null : { rate: CONFIG.recurring[freqKey], total: Math.round(total * (1 - CONFIG.recurring[freqKey])) };
-    return { pro: false, total, lines, then };
+    return { pro: false, total, lines, then, quote };
+  }
+
+  function updateBlindsTile() {
+    const tile = $("[data-blinds-tile]", form);
+    if (tile) tile.classList.toggle("is-active", blindsCount() > 0);
   }
 
   function updateEstimate() {
+    updateBlindsTile();
     const box = $("[data-estimate]", form);
     const data = estimate();
     box.hidden = !data;
@@ -877,6 +1012,10 @@
     const then = $("[data-estimate-then]", box);
     then.hidden = !data.then;
     then.textContent = data.then ? t("form.estimate.then", { price: money(data.then.total), d: "−" + percent(data.then.rate) }) : "";
+
+    const quote = $("[data-estimate-quote]", box);
+    quote.hidden = !data.quote.length;
+    quote.textContent = data.quote.join(" ");
 
     $("[data-estimate-note]", box).textContent = t(data.pro ? "form.estimate.proNote" : "form.estimate.note");
   }
@@ -927,21 +1066,19 @@
     if (pro) {
       const type = checked("pro_type");
       const sqft = /^\d+$/.test(value("square_feet")) ? Number(value("square_feet")) : 0;
-      const clean = checked("pro_clean");
       const parts = (l) => [
         sqft ? unit("sqft", sqft, l) : "",
         unit("kitchen", countForPrice("pro_kitchens"), l),
         unit("bathroom", countForPrice("pro_bathrooms"), l)
       ];
       add("form.summary.business",
-        [optionLabel(type)].concat(parts(lang), optionLabel(clean)).filter(Boolean).join(", "),
-        [type ? type.value : ""].concat(parts("en"), clean ? clean.value : "").filter(Boolean).join(", "));
+        [optionLabel(type)].concat(parts(lang)).filter(Boolean).join(", "),
+        [type ? type.value : ""].concat(parts("en")).filter(Boolean).join(", "));
     } else if (svc) {
       const type = checked("property_type");
-      const rooms = (l) => unit("bedroom", countForPrice("bedrooms"), l) + ", " + unit("bathroom", countForPrice("bathrooms"), l);
       add("form.summary.home",
-        [rooms(lang), optionLabel(type)].filter(Boolean).join(", "),
-        [rooms("en"), type ? type.value : ""].filter(Boolean).join(", "));
+        [homeLabel(lang), optionLabel(type)].filter(Boolean).join(", "),
+        [homeLabel("en"), type ? type.value : ""].filter(Boolean).join(", "));
     }
 
     if (svc === "regular") {
@@ -951,7 +1088,14 @@
 
     if (svc && !pro) {
       const addons = $$('input[name="addons"]:checked:not(:disabled)', form);
-      add("form.summary.addons", addons.map((input) => addonName(input, lang)).join(", "), addons.map((input) => input.value).join(", "));
+      const shownAddons = addons.map((input) => addonName(input, lang));
+      const plainAddons = addons.map((input) => input.value);
+      const blinds = blindsCount();
+      if (blinds > 0) {
+        shownAddons.push(t("form.estimate.blinds", { windows: unit("window", blinds) }));
+        plainAddons.push(t("form.estimate.blinds", { windows: unit("window", blinds, "en") }, "en"));
+      }
+      add("form.summary.addons", shownAddons.join(", "), plainAddons.join(", "));
     }
 
     const date = value("date");
@@ -991,6 +1135,7 @@
       } else {
         english.push((est.pro ? t("form.estimate.proLabel", null, "en") : t("form.estimate.label", null, "en")) + ": " + money(est.total, "en"));
         est.lines.forEach(([label, amount], i) => english.push("  " + (i === 0 ? "" : "+ ") + label + ": " + money(amount, "en")));
+        est.quote.forEach((line) => english.push("  " + line));
         if (est.then) english.push(t("form.estimate.then", { price: money(est.then.total, "en"), d: "-" + percent(est.then.rate, "en") }, "en"));
       }
     }
@@ -1013,7 +1158,7 @@
       const sqft = (field("square_feet").value || "").trim();
       detail = [((checked("pro_type") || {}).value || ""), sqft ? unit("sqft", Number(sqft), "en") : ""].filter(Boolean).join(", ");
     } else {
-      detail = unit("bedroom", countForPrice("bedrooms"), "en") + ", " + unit("bathroom", countForPrice("bathrooms"), "en");
+      detail = homeLabel("en");
     }
     field("lang").value = lang;
     field("summary").value = data.english;

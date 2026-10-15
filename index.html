@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Titre et description en anglais pour les aperçus de liens (WhatsApp, Facebook, Google).
        js/main.js les remplace selon la langue. -->
-  <title>Cleanton Express Cleaning | 24/7 cleaning services in Toronto</title>
-  <meta name="description" content="24/7 professional cleaning in Toronto for condos, apartments, homes and businesses. Eco-friendly products, service in English and French.">
+  <title>Cleanton Express Cleaning | Cleaning services in Toronto</title>
+  <meta name="description" content="Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, eco-friendly products, service in English and French.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cleanton Express Cleaning">
-  <meta property="og:title" content="Cleanton Express Cleaning | 24/7 cleaning services in Toronto">
-  <meta property="og:description" content="24/7 professional cleaning in Toronto for condos, apartments, homes and businesses. Eco-friendly products, service in English and French.">
+  <meta property="og:title" content="Cleanton Express Cleaning | Cleaning services in Toronto">
+  <meta property="og:description" content="Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, eco-friendly products, service in English and French.">
   <meta property="og:locale" content="en_CA">
   <meta property="og:locale:alternate" content="fr_CA">
   <!-- og:url et og:image (images/og.jpg) : à ajouter quand le domaine sera acheté (voir docs/images.md, n° 7) -->
@@ -36,6 +36,7 @@
     <symbol id="i-window" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M12 3v18M4 12h16"/></symbol>
     <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 14h18v5M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="10.5" r="1.8"/></symbol>
     <symbol id="i-bath" viewBox="0 0 24 24"><path d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-2z"/><path d="M6 12V5.5a2 2 0 0 1 2-2c1 0 1.7.6 2 1.5"/><path d="M7 19l-1 2M17 19l1 2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.4-3 8.3-7 9.8-4-1.5-7-5.4-7-9.8V6l7-3z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></symbol>
     <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l1.8 4.9L18 9.5l-5.2 1.6L11 16l-1.8-4.9L4 9.5l5.2-1.6z"/><path d="M18.5 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
   </svg>
@@ -124,6 +125,7 @@
                 <h3 data-i18n="services.residential.title"></h3>
                 <p class="flip-back-desc" data-i18n="services.residential.desc"></p>
                 <ul class="service-list" data-i18n-list="services.residential.items"></ul>
+                <p class="flip-back-price" data-i18n="services.residential.price"></p>
                 <div class="flip-back-bottom">
                   <a href="#book" class="btn btn-primary btn-small" data-i18n="services.cta"></a>
                   <button type="button" class="flip-hint-back" data-i18n="services.back"></button>
@@ -147,6 +149,7 @@
                 <h3 data-i18n="services.commercial.title"></h3>
                 <p class="flip-back-desc" data-i18n="services.commercial.desc"></p>
                 <ul class="service-list" data-i18n-list="services.commercial.items"></ul>
+                <p class="flip-back-price" data-i18n="services.commercial.price"></p>
                 <div class="flip-back-bottom">
                   <a href="#book" class="btn btn-primary btn-small" data-book-service="pro" data-i18n="services.cta"></a>
                   <button type="button" class="flip-hint-back" data-i18n="services.back"></button>
@@ -164,21 +167,26 @@
       </div>
     </section>
 
-    <!-- POURQUOI NOUS -->
+    <!-- POURQUOI CLEANTON EXPRESS -->
     <section class="section" id="why" aria-labelledby="why-title">
       <p class="label" data-i18n="why.label"></p>
-      <h2 id="why-title"><span data-i18n="why.title1"></span><br><span data-i18n="why.title2"></span></h2>
+      <h2 id="why-title" data-i18n="why.title"></h2>
       <div class="intro-text">
-        <p data-i18n="why.p1"></p>
-        <p data-i18n="why.p2"></p>
+        <p data-i18n="why.text"></p>
       </div>
-      <ul class="pillars">
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⚡"></span><h3 data-i18n="why.pillars.0.title"></h3><p data-i18n="why.pillars.0.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🌿"></span><h3 data-i18n="why.pillars.1.title"></h3><p data-i18n="why.pillars.1.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧹"></span><h3 data-i18n="why.pillars.2.title"></h3><p data-i18n="why.pillars.2.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🤝"></span><h3 data-i18n="why.pillars.3.title"></h3><p data-i18n="why.pillars.3.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="💰"></span><h3 data-i18n="why.pillars.4.title"></h3><p data-i18n="why.pillars.4.text"></p></li>
+      <ul class="pillars pillars--six">
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⏱️"></span><h3 data-i18n="why.cards.0.title"></h3><p data-i18n="why.cards.0.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="💲"></span><h3 data-i18n="why.cards.1.title"></h3><p data-i18n="why.cards.1.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⭐"></span><h3 data-i18n="why.cards.2.title"></h3><p data-i18n="why.cards.2.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧑‍🔧"></span><h3 data-i18n="why.cards.3.title"></h3><p data-i18n="why.cards.3.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="📸"></span><h3 data-i18n="why.cards.4.title"></h3><p data-i18n="why.cards.4.text"></p></li>
+        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧴"></span><h3 data-i18n="why.cards.5.title"></h3><p data-i18n="why.cards.5.text"></p></li>
       </ul>
+      <p class="insured"><svg class="insured__icon" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><span data-i18n="trust.insured"></span></p>
+      <div class="cta-row">
+        <a href="#book" class="btn btn-primary" data-i18n="cta.estimate"></a>
+        <a href="#" class="btn btn-outline" target="_blank" rel="noopener" data-whatsapp-link data-i18n="cta.whatsapp"></a>
+      </div>
     </section>
 
     <!-- DÉTAILS DES SERVICES (fond blanc) -->
@@ -279,6 +287,30 @@
       </div>
     </section>
 
+    <!-- RÉSULTATS : avant/après et avis réels (données dans js/config.js) -->
+    <section class="section" id="results" aria-labelledby="results-title">
+      <p class="label" data-i18n="results.label"></p>
+      <h2 id="results-title" data-i18n="results.title"></h2>
+
+      <div class="ba" data-before-after hidden>
+        <div class="ba-grid" data-ba-list></div>
+      </div>
+
+      <div class="reviews" data-reviews hidden>
+        <ul class="reviews-grid" data-reviews-list></ul>
+        <a class="reviews-google" href="#" target="_blank" rel="noopener" data-google-reviews hidden data-i18n="results.google"></a>
+      </div>
+
+      <div class="launch" data-launch hidden>
+        <p class="launch__text" data-i18n="results.launch"></p>
+      </div>
+
+      <div class="cta-row">
+        <a href="#book" class="btn btn-primary" data-i18n="cta.estimate"></a>
+        <a href="#" class="btn btn-outline" target="_blank" rel="noopener" data-whatsapp-link data-i18n="cta.whatsapp"></a>
+      </div>
+    </section>
+
     <!-- FAQ -->
     <section class="section section--faq" id="faq" aria-labelledby="faq-title">
       <p class="label" data-i18n="faq.label"></p>
@@ -370,7 +402,7 @@
                     <label class="label-field" for="bedrooms" data-i18n="form.step1.bedrooms"></label>
                     <div class="stepper">
                       <button type="button" class="stepper__btn stepper__btn--less" data-stepper="bedrooms" data-delta="-1" data-i18n-attr="aria-label:form.step1.bedroomsLess"></button>
-                      <input class="stepper__input" type="number" id="bedrooms" name="bedrooms" value="1" min="1" step="1" inputmode="numeric">
+                      <input class="stepper__input" type="number" id="bedrooms" name="bedrooms" value="0" min="0" step="1" inputmode="numeric">
                       <button type="button" class="stepper__btn stepper__btn--more" data-stepper="bedrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.bedroomsMore"></button>
                     </div>
                     <p class="field__note" data-i18n="form.step1.studioNote"></p>
@@ -380,10 +412,20 @@
                     <label class="label-field" for="bathrooms" data-i18n="form.step1.bathrooms"></label>
                     <div class="stepper">
                       <button type="button" class="stepper__btn stepper__btn--less" data-stepper="bathrooms" data-delta="-1" data-i18n-attr="aria-label:form.step1.bathroomsLess"></button>
-                      <input class="stepper__input" type="number" id="bathrooms" name="bathrooms" value="1" min="1" step="1" inputmode="numeric">
+                      <input class="stepper__input" type="number" id="bathrooms" name="bathrooms" value="1" min="0" step="1" inputmode="numeric">
                       <button type="button" class="stepper__btn stepper__btn--more" data-stepper="bathrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.bathroomsMore"></button>
                     </div>
                     <p class="field__error" id="err-bathrooms" data-error></p>
+                  </div>
+                  <div class="field counter" data-field="half_bathrooms">
+                    <label class="label-field" for="half_bathrooms" data-i18n="form.step1.halfBathrooms"></label>
+                    <div class="stepper">
+                      <button type="button" class="stepper__btn stepper__btn--less" data-stepper="half_bathrooms" data-delta="-1" data-i18n-attr="aria-label:form.step1.halfBathroomsLess"></button>
+                      <input class="stepper__input" type="number" id="half_bathrooms" name="half_bathrooms" value="0" min="0" step="1" inputmode="numeric">
+                      <button type="button" class="stepper__btn stepper__btn--more" data-stepper="half_bathrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.halfBathroomsMore"></button>
+                    </div>
+                    <p class="field__note" data-i18n="form.step1.halfNote"></p>
+                    <p class="field__error" id="err-half_bathrooms" data-error></p>
                   </div>
                 </div>
 
@@ -426,13 +468,6 @@
                   <input class="input input--sqft" type="number" id="square_feet" name="square_feet" min="1" step="1" inputmode="numeric" data-i18n-attr="placeholder:form.step1.sqftExample">
                   <p class="field__error" id="err-square_feet" data-error></p>
                 </div>
-                <fieldset class="field">
-                  <legend class="label-field" data-i18n="form.step1.proClean"></legend>
-                  <div class="options">
-                    <label class="pill"><input type="radio" name="pro_clean" value="Standard" checked><span data-i18n="form.step1.proCleans.0"></span></label>
-                    <label class="pill"><input type="radio" name="pro_clean" value="Deep clean" data-pro-deep><span data-i18n="form.step1.proCleans.1"></span></label>
-                  </div>
-                </fieldset>
                 <div class="counters">
                   <div class="field counter" data-field="pro_kitchens">
                     <label class="label-field" for="pro_kitchens" data-i18n="form.step1.kitchens"></label>
@@ -441,6 +476,7 @@
                       <input class="stepper__input" type="number" id="pro_kitchens" name="pro_kitchens" value="1" min="0" step="1" inputmode="numeric">
                       <button type="button" class="stepper__btn stepper__btn--more" data-stepper="pro_kitchens" data-delta="1" data-i18n-attr="aria-label:form.step1.kitchensMore"></button>
                     </div>
+                    <p class="field__note" data-i18n="form.step1.kitchensNote"></p>
                     <p class="field__error" id="err-pro_kitchens" data-error></p>
                   </div>
                   <div class="field counter" data-field="pro_bathrooms">
@@ -493,19 +529,33 @@
                       </span>
                     </label></li>
                     <li><label class="tile">
-                      <input type="checkbox" name="addons" value="Blinds cleaning" data-addon="blinds">
-                      <span class="tile__body">
-                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-blinds"/></svg>
-                        <span class="tile__name" data-i18n="form.step2.addons.blinds"></span>
-                      </span>
-                    </label></li>
-                    <li><label class="tile">
                       <input type="checkbox" name="addons" value="Pets in home" data-addon="pets">
                       <span class="tile__body">
                         <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-paw"/></svg>
                         <span class="tile__name" data-i18n="form.step2.addons.pets"></span>
                       </span>
                     </label></li>
+                    <li><label class="tile">
+                      <input type="checkbox" name="addons" value="Change bed sheets + laundry" data-addon="sheetsLaundry">
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-bed"/></svg>
+                        <span class="tile__name" data-i18n="form.step2.addons.sheetsLaundry"></span>
+                      </span>
+                    </label></li>
+                    <li class="tiles__wide"><div class="tile tile--counter" data-blinds-tile>
+                      <span class="tile__body">
+                        <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-blinds"/></svg>
+                        <span class="tile__text">
+                          <label class="tile__name" for="blinds_count" data-i18n="form.step2.addons.blinds"></label>
+                          <span class="tile__sub" id="blinds-hint" data-i18n="form.step2.blindsHint"></span>
+                        </span>
+                        <span class="tile-stepper">
+                          <button type="button" class="tile-stepper__btn stepper__btn--less" data-stepper="blinds_count" data-delta="-1" data-i18n-attr="aria-label:form.step2.blindsLess"></button>
+                          <input class="tile-stepper__input" type="number" id="blinds_count" name="blinds_count" value="0" min="0" step="1" inputmode="numeric" aria-describedby="blinds-hint">
+                          <button type="button" class="tile-stepper__btn stepper__btn--more" data-stepper="blinds_count" data-delta="1" data-i18n-attr="aria-label:form.step2.blindsMore"></button>
+                        </span>
+                      </span>
+                    </div></li>
                   </ul>
                 </fieldset>
                 <fieldset class="field">
@@ -519,14 +569,14 @@
                       </span>
                     </label></li>
                     <li><label class="tile">
-                      <input type="checkbox" name="addons" value="Inside windows and tracks (up to 12)" data-addon="windows1" data-window="1">
+                      <input type="checkbox" name="addons" value="Inside windows and tracks (7 to 12)" data-addon="windows1" data-window="1">
                       <span class="tile__body">
                         <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-window"/></svg>
                         <span class="tile__name"><span data-i18n="form.step2.windowsName"></span> <span class="tile__sub" data-window-label="1"></span></span>
                       </span>
                     </label></li>
                     <li><label class="tile">
-                      <input type="checkbox" name="addons" value="Inside windows and tracks (up to 24)" data-addon="windows2" data-window="2">
+                      <input type="checkbox" name="addons" value="Inside windows and tracks (more than 12, on quote)" data-addon="windows2" data-window="2">
                       <span class="tile__body">
                         <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-window"/></svg>
                         <span class="tile__name"><span data-i18n="form.step2.windowsName"></span> <span class="tile__sub" data-window-label="2"></span></span>
@@ -700,6 +750,7 @@
               </div>
               <ul class="estimate__breakdown" data-estimate-breakdown hidden></ul>
               <p class="estimate__then" data-estimate-then hidden></p>
+              <p class="estimate__quote" data-estimate-quote hidden></p>
               <p class="estimate__note" data-estimate-note></p>
             </div>
 
@@ -734,6 +785,7 @@
       <a href="#" target="_blank" rel="noopener" data-whatsapp-link data-i18n="contact.whatsapp"></a>
       <button type="button" class="footer-link-btn" data-open-privacy data-i18n="footer.privacy"></button>
     </p>
+    <p class="insured insured--footer"><svg class="insured__icon" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><span data-i18n="trust.insured"></span></p>
     <p class="footer-legal" data-i18n="footer.legal"></p>
   </footer>
 
