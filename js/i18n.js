@@ -149,7 +149,7 @@ const I18N = {
       choose: "Choose an option",
       step1: {
         title: "Your cleaning",
-        note: "Estimated prices before tax, for a home in normal condition.",
+        note: "Tell us about your home: your estimate updates as you go.",
         service: "Which service?",
         services: {
           regular: {
@@ -167,8 +167,6 @@ const I18N = {
           move: { name: "Move-in / move-out", desc: "Empty home. Deep clean plus walls, vents and range hood." },
           pro: { name: "Commercial / Office", desc: "Offices, shops, property managers and realtors." }
         },
-        from: "from {price}",
-        perSqft: "{price} / sq ft",
         bedrooms: "Bedrooms",
         bedroomsLess: "One bedroom less",
         bedroomsMore: "One more bedroom",
@@ -201,8 +199,7 @@ const I18N = {
         windows: "Inside windows & tracks",
         windowsName: "Inside windows",
         windowUpTo: "up to {n}",
-        windowsNote: "Pick one. Tap it again to remove it.",
-        price: "+{price}"
+        windowsNote: "Pick one. Tap it again to remove it."
       },
       step3: {
         title: "Where and when?",
@@ -216,9 +213,13 @@ const I18N = {
         arrival: "Arrival time",
         arrivalOptional: "Arrival time (optional)",
         windows: ["Morning, 8 to 10 am", "Midday, 11 am to 1 pm", "Afternoon, 2 to 4 pm", "4 to 6 pm"],
-        late: "After 6 pm (+{price} extra charge)",
+        late: "After 6 pm",
         exact: "Exact time request",
         exactLabel: "Exact arrival time",
+        timeChoose: "Choose a time",
+        dateChoose: "Choose a date",
+        prevMonth: "Previous month",
+        nextMonth: "Next month",
         arrivalNote: "This is when we arrive, not how long it takes. A clean lasts 2 to 6 hours depending on the home and the service.",
         flexibility: "If that date is taken?",
         flexibilities: ["Only this date", "Day before or after", "Any day that week"],
@@ -450,7 +451,7 @@ const I18N = {
       choose: "Choisissez une option",
       step1: {
         title: "Votre ménage",
-        note: "Prix estimés avant taxes, pour un logement en état normal.",
+        note: "Décrivez votre logement : votre estimation se met à jour au fur et à mesure.",
         service: "Quel service ?",
         services: {
           regular: {
@@ -468,8 +469,6 @@ const I18N = {
           move: { name: "Déménagement", desc: "Logement vide. Ménage en profondeur, plus murs, bouches d’aération et hotte." },
           pro: { name: "Commercial / bureau", desc: "Bureaux, commerces, gestionnaires et agents immobiliers." }
         },
-        from: "dès {price}",
-        perSqft: "{price} / pi²",
         bedrooms: "Chambres",
         bedroomsLess: "Une chambre de moins",
         bedroomsMore: "Une chambre de plus",
@@ -502,8 +501,7 @@ const I18N = {
         windows: "Vitres intérieures et rails",
         windowsName: "Vitres intérieures",
         windowUpTo: "jusqu’à {n}",
-        windowsNote: "Choisissez-en une. Touchez-la de nouveau pour la retirer.",
-        price: "+{price}"
+        windowsNote: "Choisissez-en une. Touchez-la de nouveau pour la retirer."
       },
       step3: {
         title: "Où et quand ?",
@@ -517,9 +515,13 @@ const I18N = {
         arrival: "Heure d’arrivée",
         arrivalOptional: "Heure d’arrivée (facultative)",
         windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h", "De 16 h à 18 h"],
-        late: "Après 18 h (supplément de {price})",
+        late: "Après 18 h",
         exact: "Heure précise",
         exactLabel: "Heure d’arrivée précise",
+        timeChoose: "Choisir une heure",
+        dateChoose: "Choisir une date",
+        prevMonth: "Mois précédent",
+        nextMonth: "Mois suivant",
         arrivalNote: "C’est l’heure à laquelle on arrive, pas la durée. Un ménage dure de 2 à 6 h selon le logement et le service.",
         flexibility: "Si cette date est prise ?",
         flexibilities: ["Seulement cette date", "La veille ou le lendemain", "N’importe quel jour de la semaine"],

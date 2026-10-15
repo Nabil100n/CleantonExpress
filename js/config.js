@@ -22,7 +22,8 @@ const CONFIG = {
   },
 
   // Supplément fixe ajouté au prix des pièces, selon le service choisi
-  serviceSurcharge: { regular: 0, deep: 89, move: 89 },
+  // (Deep dès 89 + 89 = 178 $ ; Move-in/out dès 89 + 130 = 219 $)
+  serviceSurcharge: { regular: 0, deep: 89, move: 130 },
 
   // Commercial / bureau : estimation seulement, au pied carré, sans extras.
   // deep = supplément « Deep Clean » ajouté à l'estimation (0 = aucun).

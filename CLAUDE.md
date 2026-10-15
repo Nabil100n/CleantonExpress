@@ -11,11 +11,13 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Texte des boutons orange en bleu nuit (contraste AA), pas en blanc.
 
 ## Contenu, prix et formulaire (décision du 15 octobre 2026)
-- Ordre de la page : hero, bandeau, « What we do » (Résidentiel à gauche, Commercial à droite), « Why choose us », « Détail des services » (checklist par pièce : standard, deep, move-in/out, extras, services non offerts), FAQ, Contact.
+- Ordre de la page : hero, bandeau, « What we do » (Résidentiel à gauche, Commercial à droite), « Why choose us », « Détail des services » (checklist par pièce : standard, deep, move-in/out, extras, services non offerts), FAQ, Contact (titre, formulaire, puis coordonnées : téléphone, WhatsApp, Toronto & GTA, courriel).
 - Ces règles remplacent les prix et la réservation des sections 4 et 5 de `docs/brief-site.md`.
-- Résidentiel : prix calculé dans le formulaire. 36 $ de frais de base (non affichés) + 34 $ la 1re chambre + 20 $ par chambre en plus + 19 $ la 1re salle de bain + 20 $ par salle de bain en plus, donc 89 $ pour 1 chambre et 1 salle de bain. Un studio compte comme 1 chambre. Deep clean et Move-in/out : +89 $. Arrivée après 18 h : +10 $. Remises récurrentes sur le total, dès la 2e visite.
+- Résidentiel : prix calculé dans le formulaire. 36 $ de frais de base (non affichés) + 34 $ la 1re chambre + 20 $ par chambre en plus + 19 $ la 1re salle de bain + 20 $ par salle de bain en plus, donc 89 $ pour 1 chambre et 1 salle de bain. Un studio compte comme 1 chambre. Deep clean : +89 $ (dès 178 $). Move-in/out : +130 $ (dès 219 $). Arrivée après 18 h : +10 $. Remises récurrentes sur le total, dès la 2e visite.
 - Extras en tuiles cliquables : Extra kitchen, Inside fridge, Inside oven, Inside cabinets, Blinds, Pets in home, et les vitres intérieures en 3 paliers (6, 12, 24 fenêtres, un seul à la fois).
 - Commercial / Office : superficie obligatoire, estimation au pied carré sans extras, affichée « Estimate Only » / « Prix indicatif » avec le message d'appel de confirmation.
+- Dans le formulaire, un prix n'apparaît que dans l'encadré bleu d'estimation, sous chaque étape : rien sur les cartes de service, les tuiles d'extras ni l'option « après 18 h ». Le détail ligne par ligne s'affiche à l'étape 4.
+- Date souhaitée : calendrier maison (le sélecteur natif ne s'ouvre pas dans toutes les applis mobiles). Heure précise : liste de créneaux de 30 minutes.
 - Toutes ces valeurs vivent dans `js/config.js`.
 
 ## L'entreprise

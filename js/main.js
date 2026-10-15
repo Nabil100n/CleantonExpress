@@ -195,12 +195,6 @@
     $$("[data-whatsapp-link]").forEach((node) => { node.href = whatsappHref(); });
     $$("[data-email-text]").forEach((node) => { node.textContent = CONFIG.email; });
     $$("[data-email-link]").forEach((node) => { node.href = "mailto:" + CONFIG.email; });
-    $$("[data-from-price]").forEach((node) => {
-      const svc = node.dataset.fromPrice;
-      node.textContent = svc === "pro"
-        ? t("form.step1.perSqft", { price: moneyRate(CONFIG.pro.perSqft) })
-        : t("form.step1.from", { price: money(startingPrice(svc)) });
-    });
 
     syncMenuLabel();
     renderTicker();
@@ -486,9 +480,9 @@
       if (key !== "once") input.value = FREQ_VALUES[key] + " (-" + Math.round(CONFIG.recurring[key] * 100) + "%)";
     });
 
-    const late = form.querySelector("input[data-late]");
-    late.value = t("form.step3.late", { price: money(CONFIG.lateArrival, "en") }, "en");
-    $("[data-late-label]", form).textContent = t("form.step3.late", { price: money(CONFIG.lateArrival) });
+    // Le supplément n'apparaît que dans l'estimation ; la valeur envoyée le rappelle à Nabil
+    form.querySelector("input[data-late]").value = t("form.step3.late", null, "en") + " (+" + money(CONFIG.lateArrival, "en") + ")";
+    $("[data-late-label]", form).textContent = t("form.step3.late");
 
     $$("input[data-window]", form).forEach((input) => {
       input.value = "Inside windows and tracks (up to " + windowTier(input).upTo + ")";
@@ -497,11 +491,153 @@
       span.textContent = t("form.step2.windowUpTo", { n: CONFIG.windows[Number(span.dataset.windowLabel)].upTo });
     });
 
-    $$("[data-addon-price]", form).forEach((span) => {
-      const key = span.dataset.addonPrice;
-      const price = key.startsWith("windows") ? CONFIG.windows[Number(key.slice(7))].price : CONFIG.addons[key];
-      span.textContent = t("form.step2.price", { price: money(price) });
+    renderDateValue();
+    renderTimeOptions();
+    if (!$("[data-calendar]", form).hidden) renderCalendar();
+  }
+
+  /* Calendrier de la date souhaitée
+     Le champ date natif ne s'ouvre pas dans toutes les applis mobiles : ce calendrier marche partout.
+     La date choisie est gardée au format AAAA-MM-JJ dans le champ caché « date ». */
+
+  const cal = { view: null, focus: null };
+  const MONTHS_AHEAD = 12;
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const isoOf = (d) => d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+  const parseISO = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); };
+  const monthStart = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
+  const lastMonth = () => { const now = new Date(); return new Date(now.getFullYear(), now.getMonth() + MONTHS_AHEAD, 1); };
+  const locale = () => (lang === "fr" ? "fr-CA" : "en-CA");
+
+  function renderDateValue() {
+    const iso = field("date").value;
+    const node = $("[data-date-value]", form);
+    node.textContent = iso ? formatDate(iso, lang) : t("form.step3.dateChoose");
+    node.classList.toggle("is-placeholder", !iso);
+  }
+
+  function renderCalendar() {
+    const box = $("[data-calendar]", form);
+    const today = todayISO();
+    const selected = field("date").value;
+    if (!cal.view) cal.view = monthStart(selected ? parseISO(selected) : new Date());
+    const monthKey = isoOf(cal.view).slice(0, 7);
+
+    $("[data-cal-month]", box).textContent = new Intl.DateTimeFormat(locale(), { month: "long", year: "numeric" }).format(cal.view);
+    $("[data-cal-prev]", box).disabled = cal.view <= monthStart(new Date());
+    $("[data-cal-next]", box).disabled = cal.view >= lastMonth();
+
+    // La semaine commence le dimanche ; le 1er janvier 2023 était un dimanche
+    const weekday = new Intl.DateTimeFormat(locale(), { weekday: "short" });
+    $("[data-cal-weekdays]", box).replaceChildren(...Array.from({ length: 7 }, (_, i) => el("span", "", weekday.format(new Date(2023, 0, 1 + i)))));
+
+    // Un seul jour atteignable au clavier : le jour choisi, sinon aujourd'hui, sinon le 1er du mois
+    let focus = cal.focus && cal.focus.slice(0, 7) === monthKey ? cal.focus : null;
+    if (!focus) focus = selected.slice(0, 7) === monthKey ? selected : today.slice(0, 7) === monthKey ? today : monthKey + "-01";
+    if (focus < today) focus = today;
+    cal.focus = focus;
+
+    const full = new Intl.DateTimeFormat(locale(), { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    const cells = [];
+    for (let i = 0; i < cal.view.getDay(); i++) cells.push(el("span", "calendar__blank"));
+    const days = new Date(cal.view.getFullYear(), cal.view.getMonth() + 1, 0).getDate();
+    for (let d = 1; d <= days; d++) {
+      const date = new Date(cal.view.getFullYear(), cal.view.getMonth(), d);
+      const iso = isoOf(date);
+      const button = el("button", "calendar__day", String(d));
+      button.type = "button";
+      button.dataset.date = iso;
+      button.setAttribute("aria-label", full.format(date));
+      button.setAttribute("aria-pressed", String(iso === selected));
+      if (iso === today) {
+        button.classList.add("is-today");
+        button.setAttribute("aria-current", "date");
+      }
+      button.disabled = iso < today;
+      button.tabIndex = iso === focus ? 0 : -1;
+      cells.push(button);
+    }
+    $("[data-cal-days]", box).replaceChildren(...cells);
+  }
+
+  function focusCalendarDay() {
+    const day = $('[data-cal-days] [tabindex="0"]', form);
+    if (day) day.focus();
+  }
+
+  function setCalendar(open, focusDay) {
+    $("[data-calendar]", form).hidden = !open;
+    $("[data-date-toggle]", form).setAttribute("aria-expanded", String(open));
+    if (!open) return;
+    cal.view = null;
+    cal.focus = null;
+    renderCalendar();
+    if (focusDay) focusCalendarDay();
+  }
+
+  function pickDate(iso) {
+    field("date").value = iso;
+    renderDateValue();
+    setCalendar(false);
+    $("[data-date-toggle]", form).focus();
+    field("date").dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  function initCalendar() {
+    const toggle = $("[data-date-toggle]", form);
+    const box = $("[data-calendar]", form);
+    toggle.addEventListener("click", (event) => setCalendar(box.hidden, event.detail === 0));
+    $("[data-cal-prev]", box).addEventListener("click", () => moveMonth(-1));
+    $("[data-cal-next]", box).addEventListener("click", () => moveMonth(1));
+    box.addEventListener("click", (event) => {
+      const day = event.target.closest("[data-date]");
+      if (day && !day.disabled) pickDate(day.dataset.date);
     });
+    // Échap ferme, que le focus soit sur le champ ou dans le calendrier
+    toggle.parentElement.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || box.hidden) return;
+      event.stopPropagation();
+      setCalendar(false);
+      toggle.focus();
+    });
+    // Flèches : jour précédent ou suivant, semaine précédente ou suivante
+    box.addEventListener("keydown", (event) => {
+      const day = event.target.closest("[data-date]");
+      const step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[event.key];
+      if (!day || !step) return;
+      event.preventDefault();
+      const next = parseISO(day.dataset.date);
+      next.setDate(next.getDate() + step);
+      if (isoOf(next) < todayISO() || monthStart(next) > lastMonth()) return;
+      cal.focus = isoOf(next);
+      cal.view = monthStart(next);
+      renderCalendar();
+      focusCalendarDay();
+    });
+    document.addEventListener("click", (event) => {
+      if (!box.hidden && !event.target.closest("[data-calendar], [data-date-toggle]")) setCalendar(false);
+    });
+  }
+
+  function moveMonth(step) {
+    cal.view = new Date(cal.view.getFullYear(), cal.view.getMonth() + step, 1);
+    cal.focus = null;
+    renderCalendar();
+  }
+
+  // Heure précise : créneaux de 30 minutes, affichés à l'heure locale (2:30 p.m. / 14 h 30)
+  function renderTimeOptions() {
+    const select = $("[data-time-select]", form);
+    const current = select.value;
+    const format = new Intl.DateTimeFormat(locale(), { hour: "numeric", minute: "2-digit" });
+    const options = [new Option(t("form.step3.timeChoose"), "")];
+    for (let minutes = 0; minutes < 24 * 60; minutes += 30) {
+      const h = Math.floor(minutes / 60);
+      const m = minutes % 60;
+      options.push(new Option(format.format(new Date(2000, 0, 1, h, m)), pad2(h) + ":" + pad2(m)));
+    }
+    select.replaceChildren(...options);
+    select.value = current;
   }
 
   // Affiche les blocs utiles au service choisi ; les champs des blocs masqués sont désactivés
@@ -534,7 +670,7 @@
   // Pour les pros, adresse, date et heure d'arrivée sont facultatives : le libellé le dit
   function updateOptionalLabels() {
     const pro = serviceKey() === "pro";
-    [["label[for=\"address\"]", "address"], ["label[for=\"date\"]", "date"], ['[data-field="arrival_window"] .label-field', "arrival"]].forEach(([selector, key]) => {
+    [["label[for=\"address\"]", "address"], ["#date-label", "date"], ['[data-field="arrival_window"] .label-field', "arrival"]].forEach(([selector, key]) => {
       const node = $(selector, form);
       if (node) node.textContent = t("form.step3." + key + (pro ? "Optional" : ""));
     });
@@ -583,7 +719,7 @@
     if (key) fieldErrors.set(name, key); else fieldErrors.delete(name);
     if (message) message.textContent = key ? errorText(name, key) : "";
     if (wrap) wrap.classList.toggle("has-error", Boolean(key));
-    $$('[name="' + name + '"]', form).forEach((control) => {
+    $$('[name="' + name + '"]:not([type="hidden"]), [data-error-target="' + name + '"]', form).forEach((control) => {
       if (key) {
         control.setAttribute("aria-invalid", "true");
         if (message) control.setAttribute("aria-describedby", message.id);
@@ -642,7 +778,8 @@
     errors.forEach(([name, key]) => setError(name, key));
 
     if (errors.length) {
-      const first = form.querySelector('[name="' + errors[0][0] + '"]:not(:disabled)');
+      const name = errors[0][0];
+      const first = form.querySelector('[data-error-target="' + name + '"]') || form.querySelector('[name="' + name + '"]:not(:disabled)');
       if (first) {
         first.focus({ preventScroll: true });
         first.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "center" });
@@ -935,6 +1072,8 @@
 
   function resetForm() {
     form.reset();
+    field("date").value = "";
+    setCalendar(false);
     Array.from(fieldErrors.keys()).forEach((name) => setError(name, null));
     renderFormLabels();
     refreshForm();
@@ -985,8 +1124,8 @@
   }
 
   function initForm() {
-    field("date").min = todayISO();
     initCounters();
+    initCalendar();
 
     form.addEventListener("change", (event) => {
       const target = event.target;
@@ -1045,15 +1184,11 @@
       event.preventDefault();
       preselect(link.dataset.bookService);
       const behavior = reduceMotion.matches ? "auto" : "smooth";
-      if (window.matchMedia("(min-width: 1000px)").matches) {
-        $("#book").scrollIntoView({ behavior, block: "start" });
-      } else {
-        // Sur mobile, directement le formulaire ; sur un petit écran, la carte du service cochée
-        const card = checked("service").closest("label");
-        const tooLow = card.getBoundingClientRect().bottom - form.getBoundingClientRect().top > window.innerHeight - 90;
-        if (tooLow) card.scrollIntoView({ behavior, block: "center" });
-        else form.scrollIntoView({ behavior, block: "start" });
-      }
+      // Directement le formulaire ; sur un petit écran, la carte du service cochée
+      const card = checked("service").closest("label");
+      const tooLow = card.getBoundingClientRect().bottom - form.getBoundingClientRect().top > window.innerHeight - 90;
+      if (tooLow) card.scrollIntoView({ behavior, block: "center" });
+      else form.scrollIntoView({ behavior, block: "start" });
       $('.step[data-step="1"] .step__title', form).focus({ preventScroll: true });
     });
   }
