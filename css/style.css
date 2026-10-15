@@ -23,6 +23,7 @@
   --line-light: #cce0f0;
   --line-input: #6e88a8;          /* bord des champs : contraste 3:1 sur blanc */
   --orange-ink: #b83c14;          /* orange lisible en petit sur blanc et sur bleu très pâle */
+  --orange-light: #ff8f63;        /* orange lisible en petit sur le bleu de l'estimation (contraste 5:1) */
   --blue-ink: #1b7db0;            /* bleu lisible sur fond clair */
   --error: #b3261e;
 
@@ -1459,6 +1460,14 @@ h2 {
   font-size: 14px;
 }
 .estimate__amount { flex: none; white-space: nowrap; }
+.estimate__tax {
+  margin-top: 6px;
+  color: var(--orange-light);
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
 .estimate__then { margin-top: 8px; font-size: 14px; }
 .estimate__quote { margin-top: 8px; font-size: 14px; }
 .estimate__note { margin-top: 8px; color: #c8d8ee; font-size: 13px; line-height: 1.55; }
@@ -1479,6 +1488,7 @@ h2 {
 
 @media (max-width: 479px) {
   .form-nav .btn { flex: 1 1 auto; padding: 14px 16px; }
+  .estimate__tax { text-align: left; }
 }
 
 /* ---------- Fenêtres (succès, confidentialité) ---------- */

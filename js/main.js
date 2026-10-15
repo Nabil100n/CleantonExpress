@@ -72,6 +72,18 @@
     return l === "fr" ? fixed.replace(".", ",") + " $" : "$" + fixed;
   }
 
+  // Montant avec cents : « $100.57 » / « 100,57 $ »
+  function moneyCents(amount, l) {
+    l = l || lang;
+    const value = new Intl.NumberFormat(l === "fr" ? "fr-CA" : "en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount);
+    return l === "fr" ? value + "\u00A0$" : "$" + value;
+  }
+
+  // Prix après taxes (TVH), arrondi au cent
+  function withTax(amount) {
+    return Math.round(amount * (1 + CONFIG.taxRate) * 100) / 100;
+  }
+
   function percent(rate, l) {
     const value = Math.round(rate * 100);
     return (l || lang) === "fr" ? value + " %" : value + "%";
@@ -1000,6 +1012,11 @@
     value.textContent = data.total == null ? t("form.estimate.proEmpty") : money(data.total);
     value.classList.toggle("is-empty", data.total == null);
 
+    // Prix après taxes, en petit, sous le total
+    const tax = $("[data-estimate-tax]", box);
+    tax.hidden = data.total == null;
+    tax.textContent = data.total == null ? "" : t("form.estimate.withTax", { price: moneyCents(withTax(data.total)), rate: percent(CONFIG.taxRate) });
+
     const breakdown = $("[data-estimate-breakdown]", box);
     const showLines = currentStep === 4 && data.lines.length > 1;
     breakdown.hidden = !showLines;
@@ -1134,6 +1151,7 @@
         english.push(t("form.estimate.proLabel", null, "en") + ": " + t("form.estimate.proEmpty", null, "en"));
       } else {
         english.push((est.pro ? t("form.estimate.proLabel", null, "en") : t("form.estimate.label", null, "en")) + ": " + money(est.total, "en"));
+        english.push("  " + t("form.estimate.withTax", { price: moneyCents(withTax(est.total), "en"), rate: percent(CONFIG.taxRate, "en") }, "en"));
         est.lines.forEach(([label, amount], i) => english.push("  " + (i === 0 ? "" : "+ ") + label + ": " + money(amount, "en")));
         est.quote.forEach((line) => english.push("  " + line));
         if (est.then) english.push(t("form.estimate.then", { price: money(est.then.total, "en"), d: "-" + percent(est.then.rate, "en") }, "en"));

@@ -19,6 +19,7 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Extras en tuiles : Extra kitchen 59 $, Inside fridge 29 $, Inside oven 29 $, Inside cabinets 39 $, Pets in home 29 $, Change bed sheets + laundry 29 $ par visite, stores 8 $ par fenêtre (compteur sur la tuile). Vitres intérieures + rails : jusqu'à 6 fenêtres 39 $, de 7 à 12 : 69 $, plus de 12 : sur devis. Pas de sous-sol ni de lave-vaisselle.
 - Commercial / Office : superficie obligatoire, 0,20 $ le pied carré, salles de bain au prix résidentiel + 20 %, cuisines comprises, plancher de 89 $. Pas de deep clean en ligne (il faut un appel), pas de supplément après 18 h. Affiché « Estimate Only » / « Prix indicatif » avec le message d'appel de confirmation.
 - Dans le formulaire, un prix n'apparaît que dans l'encadré bleu d'estimation, sous chaque étape. Le détail ligne par ligne s'affiche à l'étape 4.
+- Sous le total de l'encadré, en plus petit et en orange : le prix après taxes (TVH de l'Ontario, 13 %, `taxRate` dans `js/config.js`).
 - Date souhaitée : calendrier maison. Heure précise : liste de créneaux de 30 minutes.
 - Toutes ces valeurs vivent dans `js/config.js`, comme les avis et les photos avant/après à remplir.
 

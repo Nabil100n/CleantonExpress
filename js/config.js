@@ -47,6 +47,9 @@ const CONFIG = {
   // Arrivée après 18 h (ménage résidentiel)
   lateArrival: 10,
 
+  // TVH de l'Ontario, pour le prix après taxes affiché sous l'estimation
+  taxRate: 0.13,
+
   /* ==================== À REMPLIR (section « Résultats ») ====================
      Tant qu'un tableau est vide, son bloc reste masqué. Aucune note moyenne ni
      aucun nombre d'avis n'est calculé ni affiché. */
