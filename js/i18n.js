@@ -1,5 +1,5 @@
 /*
- * Cleanton Express Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
+ * C for Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
  * Règles : tiret cadratin avec modération ; aucun prix écrit en dur ; pas de faux avis ; jamais de mention « vingt-quatre sur sept ».
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
  *   {price}  un prix formaté ($89 / 89 $)
@@ -7,7 +7,7 @@
  *   {d}      une remise, {n} un nombre, {i} {n} les numéros d'étape du formulaire
  */
 /* ==================== À REMPLIR ====================
-   Textes provisoires de la section « Pourquoi Cleanton Express ». */
+   Textes provisoires de la section « Pourquoi C for Cleaning ». */
 const FILL_IN = {
   en: {
     hours: "Requests accepted at any hour, reply as fast as possible.",
@@ -26,12 +26,12 @@ const FILL_IN = {
 const I18N = {
   en: {
     meta: {
-      title: "Cleanton Express Cleaning | Cleaning services in Toronto",
+      title: "C for Cleaning | Cleaning services in Toronto",
       description: "Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, prices from {price}, eco-friendly products, service in English and French."
     },
     skip: "Skip to content",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
-    brand: { word1: "Cleanton", word2: "Express", word3: "Cleaning", home: "Cleanton Express Cleaning, back to top" },
+    brand: { word1: "C", word2: "for", word3: "Cleaning", home: "C for Cleaning, back to top" },
     nav: {
       label: "Main",
       why: "Why Us",
@@ -56,7 +56,7 @@ const I18N = {
     },
     ticker: ["Requests at any hour", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
     why: {
-      label: "Why Cleanton Express",
+      label: "Why C for Cleaning",
       title: "Fast. Fair. Personally checked.",
       text: "Moving out, turning over a unit, or need it done on short notice? You get an instant estimate, a confirmed price within 2 hours, and a founder who actually reads your feedback.",
       cards: [
@@ -72,7 +72,7 @@ const I18N = {
     cta: { estimate: "Get my instant estimate", whatsapp: "WhatsApp us" },
     services: {
       label: "Our services",
-      labelBrand: "at Cleanton",
+      labelBrand: "at C for Cleaning",
       title: "What we do",
       hint: "Tap a card to discover more",
       more: "↺ Tap to discover more",
@@ -337,11 +337,11 @@ const I18N = {
         close: "Close"
       }
     },
-    whatsapp: "Hi Cleanton! I’d like to book a cleaning.\nBedrooms and bathrooms: \nPreferred date: ",
+    whatsapp: "Hi C for Cleaning! I’d like to book a cleaning.\nBedrooms and bathrooms: \nPreferred date: ",
     footer: {
-      line: "© 2026 Cleanton Express · Professional cleaning · Toronto",
+      line: "© 2026 C for Cleaning · Professional cleaning · Toronto",
       privacy: "Privacy Policy",
-      legal: "Cleanton Express Cleaning · Toronto, Ontario, Canada. Prices in Canadian dollars, before tax. Services subject to availability."
+      legal: "C for Cleaning · Toronto, Ontario, Canada. Prices in Canadian dollars, before tax. Services subject to availability."
     },
     privacy: {
       title: "Privacy Policy",
@@ -358,12 +358,12 @@ const I18N = {
   },
   fr: {
     meta: {
-      title: "Cleanton Express Cleaning | Ménage à Toronto",
+      title: "C for Cleaning | Ménage à Toronto",
       description: "Ménage professionnel à Toronto pour condos, appartements, maisons et entreprises. Demandes acceptées à toute heure, prix dès {price}, produits écologiques, service en français et en anglais."
     },
     skip: "Aller au contenu",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
-    brand: { word1: "Cleanton", word2: "Express", word3: "Cleaning", home: "Cleanton Express Cleaning, haut de page" },
+    brand: { word1: "C", word2: "for", word3: "Cleaning", home: "C for Cleaning, haut de page" },
     nav: {
       label: "Navigation principale",
       why: "Pourquoi nous",
@@ -388,7 +388,7 @@ const I18N = {
     },
     ticker: ["Demandes à toute heure", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
     why: {
-      label: "Pourquoi Cleanton Express",
+      label: "Pourquoi C for Cleaning",
       title: "Rapides. Justes. Vérifiés par le fondateur.",
       text: "Déménagement, remise en location ou besoin d’un ménage rapidement ? Estimation instantanée, prix confirmé sous 2 h, et un fondateur qui lit vraiment vos retours.",
       cards: [
@@ -404,7 +404,7 @@ const I18N = {
     cta: { estimate: "Obtenir mon estimation", whatsapp: "Écrire sur WhatsApp" },
     services: {
       label: "Nos services",
-      labelBrand: "chez Cleanton",
+      labelBrand: "chez C for Cleaning",
       title: "Ce qu’on fait",
       hint: "Touchez une carte pour en savoir plus",
       more: "↺ Touchez pour en savoir plus",
@@ -669,11 +669,11 @@ const I18N = {
         close: "Fermer"
       }
     },
-    whatsapp: "Bonjour Cleanton ! J’aimerais réserver un ménage.\nChambres et salles de bain : \nDate souhaitée : ",
+    whatsapp: "Bonjour C for Cleaning ! J’aimerais réserver un ménage.\nChambres et salles de bain : \nDate souhaitée : ",
     footer: {
-      line: "© 2026 Cleanton Express · Ménage professionnel · Toronto",
+      line: "© 2026 C for Cleaning · Ménage professionnel · Toronto",
       privacy: "Politique de confidentialité",
-      legal: "Cleanton Express Cleaning · Toronto (Ontario), Canada. Prix en dollars canadiens, avant taxes. Services selon les disponibilités."
+      legal: "C for Cleaning · Toronto (Ontario), Canada. Prix en dollars canadiens, avant taxes. Services selon les disponibilités."
     },
     privacy: {
       title: "Politique de confidentialité",

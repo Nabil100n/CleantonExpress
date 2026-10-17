@@ -1,4 +1,4 @@
-# Cleanton Express Cleaning : site web
+# C for Cleaning : site web
 
 Claude Code lit ce fichier à chaque session. Il donne le contexte et les règles fixes.
 - `docs/brief-site.md` est une archive du premier brief : en cas de doute, ce fichier-ci fait foi.
@@ -24,7 +24,8 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Toutes ces valeurs vivent dans `js/config.js`, comme les avis et les photos avant/après à remplir.
 
 ## L'entreprise
-- Cleanton Express Cleaning : ménage de condos, d'appartements et de townhouses à Toronto (GTA), Ontario, Canada.
+- C for Cleaning (nom adopté le 17 octobre 2026, anciennement Cleanton Express Cleaning) : ménage de condos, d'appartements et de townhouses à Toronto (GTA), Ontario, Canada.
+- Nom de marque : « C for Cleaning », écrit tel quel en anglais comme en français. Le logo (le « C ») ne change pas.
 - Entreprise individuelle lancée par Nabil, seul au départ ; des cleaners indépendants viendront plus tard.
 - Deux volets :
   - **Résidentiel** : le cœur du site, avec des forfaits à prix affichés.

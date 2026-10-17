@@ -1,5 +1,5 @@
 /*
- * Cleanton Express Cleaning : réglages du site.
+ * C for Cleaning : réglages du site.
  * C'est le SEUL endroit où changer un prix, une remise, une option, le téléphone ou le courriel.
  * Le formulaire, les services et les textes qui citent un prix reprennent tous ces valeurs.
  * Tous les prix sont avant taxes, en dollars canadiens.

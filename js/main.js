@@ -1,5 +1,5 @@
 /*
- * Cleanton Express Cleaning : comportements de la page.
+ * C for Cleaning : comportements de la page.
  * Langue, menu mobile, bandeau défilant, cartes Services à retourner, détail des services, FAQ,
  * liens ?service=, réservation en plusieurs étapes avec estimation du prix, politique de confidentialité.
  * Aucun texte ni prix ici : les textes viennent de js/i18n.js, les prix de js/config.js.
