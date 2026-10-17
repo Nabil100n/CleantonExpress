@@ -1,4 +1,4 @@
-# Brief du site Cleanton Express Cleaning
+# Brief du site C for Cleaning
 
 Un site d'une page, bilingue anglais / français, pour un service de ménage de condos et d'appartements à Toronto.
 Les prix sont affichés d'entrée, comme sur hellamaid.ca, mais le rendu doit évoquer un hôtel boutique, jamais un gabarit de ménage générique.
@@ -57,7 +57,7 @@ Ce brief mélange deux sources :
 - Respecter `prefers-reduced-motion`.
 
 **Logo**
-- Par défaut, un mot-symbole : « Cleanton Express » en Cormorant Garamond 600, avec « CLEANING » en toutes petites capitales Jost.
+- Par défaut, un mot-symbole : « C for Cleaning » en Cormorant Garamond 600.
 - Un emplacement est prévu pour `images/logo.png` à côté du nom ; tant que le fichier n'existe pas, le mot-symbole s'affiche seul (voir `docs/images.md`).
 
 ---
@@ -230,9 +230,9 @@ const CONFIG = {
 Règles : pas de tiret cadratin ; prix au format « $165 » / « 165 $ ».
 
 ### SEO
-- Titre EN : « Cleanton Express Cleaning | Condo & apartment cleaning in Toronto, prices upfront »
+- Titre EN : « C for Cleaning | Condo & apartment cleaning in Toronto, prices upfront »
 - Description EN : « Move-in/move-out, regular and deep cleaning for Toronto condos and apartments. Prices upfront from $165, eco-friendly products included, service in English and French. »
-- Titre FR : « Cleanton Express Cleaning | Ménage de condos et d'appartements à Toronto, prix affichés »
+- Titre FR : « C for Cleaning | Ménage de condos et d'appartements à Toronto, prix affichés »
 - Description FR : « Déménagement, ménage régulier ou en profondeur pour condos et appartements à Toronto. Prix affichés dès 165 $, produits écologiques inclus, service en français et en anglais. »
 
 ### Bandeau d'annonce
@@ -457,10 +457,10 @@ Règles : pas de tiret cadratin ; prix au format « $165 » / « 165 $ ».
   - Bouton : Close / Fermer.
 
 ### Messages WhatsApp pré-remplis
-- EN : « Hi Cleanton! I'd like to book a cleaning.\nHome size: \nPreferred date: »
-- FR : « Bonjour Cleanton ! J'aimerais réserver un ménage.\nTaille du logement : \nDate souhaitée : »
+- EN : « Hi C for Cleaning! I'd like to book a cleaning.\nHome size: \nPreferred date: »
+- FR : « Bonjour C for Cleaning ! J'aimerais réserver un ménage.\nTaille du logement : \nDate souhaitée : »
 
 ### Pied de page
-- EN : « © 2026 Cleanton Express Cleaning, Toronto, Ontario. Prices in Canadian dollars, before tax. »
-- FR : « © 2026 Cleanton Express Cleaning, Toronto (Ontario). Prix en dollars canadiens, avant taxes. »
+- EN : « © 2026 C for Cleaning, Toronto, Ontario. Prices in Canadian dollars, before tax. »
+- FR : « © 2026 C for Cleaning, Toronto (Ontario). Prix en dollars canadiens, avant taxes. »
 - Liens : téléphone, WhatsApp, EN « Back to top » / FR « Haut de page ».

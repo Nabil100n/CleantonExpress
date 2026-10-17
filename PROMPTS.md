@@ -3,7 +3,7 @@
 À lancer dans l'ordre, un prompt par message. N'envoie le suivant qu'une fois le précédent terminé et vérifié.
 
 ## Avant de commencer (5 minutes)
-1. Crée un dossier `cleanton-site` sur ton ordinateur.
+1. Crée un dossier `c-for-cleaning-site` sur ton ordinateur.
 2. Mets-y :
    - `CLAUDE.md`, à la racine ;
    - le dossier `docs/`, avec `brief-site.md` et `images.md` ;
@@ -56,7 +56,7 @@ Après le rapport, envoie un message du type : « Applique les corrections 1, 3 
 ## Prompt 5 : le test d'envoi réel
 ```
 Je vais faire un vrai envoi de test. Lance le site en local et dis-moi l'adresse à ouvrir.
-Je remplirai le formulaire avec le nom « TEST Cleanton ».
+Je remplirai le formulaire avec le nom « TEST C for Cleaning ».
 Ensuite, dis-moi quels champs je dois retrouver dans l'e-mail de Formspree, pour que je vérifie qu'il ne manque rien.
 ```
 
@@ -65,7 +65,7 @@ Ensuite, dis-moi quels champs je dois retrouver dans l'e-mail de Formspree, pour
 Prépare la mise en ligne sur Netlify :
 - vérifie que le site fonctionne sans serveur (chemins relatifs, pas de fichier manquant) ;
 - dis-moi la méthode la plus simple pour publier ce dossier sur Netlify, étape par étape ;
-- liste ce qu'il faudra changer le jour où j'achète le domaine cleantonexpress.com (og:url, og:image, liens).
+- liste ce qu'il faudra changer le jour où j'achète le domaine cforcleaning.com (og:url, og:image, liens).
 Ne publie rien toi-même.
 ```
 

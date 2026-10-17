@@ -27,7 +27,7 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Toutes ces valeurs vivent dans `js/config.js`, comme les avis à remplir. Avant/après : `images/before-1.jpg` et `images/after-1.jpg` ; tant que `beforeAfterReal` vaut `false`, le comparateur montre une photo temporaire avec un badge « Example / Exemple » et le sous-titre « A recent job in Toronto » reste masqué.
 
 ## L'entreprise
-- C for Cleaning (nom adopté le 17 octobre 2026, anciennement Cleanton Express Cleaning) : ménage de condos, d'appartements et de townhouses à Toronto (GTA), Ontario, Canada.
+- C for Cleaning (nom adopté le 17 octobre 2026) : ménage de condos, d'appartements et de townhouses à Toronto (GTA), Ontario, Canada.
 - Nom de marque : « C for Cleaning », écrit tel quel en anglais comme en français. Le logo (le « C ») ne change pas.
 - Entreprise individuelle lancée par Nabil, seul au départ ; des cleaners indépendants viendront plus tard.
 - Deux volets :
@@ -37,11 +37,11 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Téléphone et WhatsApp : +1 437 717 8009.
 - Courriel : contact@cforcleaning.com (17 octobre 2026 ; Nabil achète le domaine cforcleaning.com), affiché dans le bloc Contact (valeur dans `js/config.js`). À vérifier avant la mise en ligne : la boîte doit recevoir.
 - Assurance responsabilité civile confirmée par Nabil le 16 octobre 2026 : la mention « Insured / Assurés, attestation sur demande » est autorisée.
-- Aucun site n'est en ligne sur cleantonexpress.com ni sur cforcleaning.com : aucun lien vers ces domaines (le courriel seulement).
+- Aucun site n'est encore en ligne sur cforcleaning.com : aucun lien vers ce domaine (le courriel seulement).
 
 ## Stack (rester simple)
 - Site statique d'une seule page : HTML, CSS et JavaScript, sans framework, sans étape de build, sans dépendance npm.
-- Hébergement sur Vercel : le site publie la branche `main`, racine du projet (`vercel.json` cache `docs/`, `CLAUDE.md` et `PROMPTS.md`).
+- Hébergement sur Vercel (projet `c-for-cleaning`, adresse c-for-cleaning.vercel.app) : le site publie la branche `main`, racine du projet (`vercel.json` cache `docs/`, `CLAUDE.md` et `PROMPTS.md`).
 - Formulaire envoyé à Formspree (`https://formspree.io/f/mjgeappr`) avec `fetch`, en `FormData`, avec l'en-tête `Accept: application/json`.
 - Polices Google Fonts :
   - **Bebas Neue** pour les titres, les prix et le nom de marque.
