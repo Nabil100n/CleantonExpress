@@ -333,11 +333,15 @@ const I18N = {
         proEmpty: "Enter your square footage",
         rate: "{sqft} × {price}",
         late: "Arrival after 6 pm",
-        deep: "Deep clean",
-        move: "Move-in / move-out",
-        blinds: "Blinds cleaning ({windows})",
+        blinds: "Blinds cleaning ({n} × {price})",
         minimum: "Minimum per visit",
-        quote: "Inside windows, {tier}: price on quote."
+        quote: "Inside windows, {tier}: price on quote.",
+        detailLabel: "How this price is calculated",
+        base: "{service} · {home}",
+        total: "Estimated total, before tax",
+        discount: "Discount {d}, from the 2nd visit",
+        fine: "Final price confirmed by message before the cleaning.",
+        proFine: "Final price confirmed by phone before the cleaning."
       },
       privacy: "We only use your details to answer your request.",
       errors: {
@@ -685,11 +689,15 @@ const I18N = {
         proEmpty: "Indiquez la superficie",
         rate: "{sqft} × {price}",
         late: "Arrivée après 18 h",
-        deep: "Ménage en profondeur",
-        move: "Déménagement",
-        blinds: "Nettoyage des stores ({windows})",
+        blinds: "Nettoyage des stores ({n} × {price})",
         minimum: "Minimum par visite",
-        quote: "Vitres intérieures, {tier} : prix sur devis."
+        quote: "Vitres intérieures, {tier} : prix sur devis.",
+        detailLabel: "Détail du calcul du prix",
+        base: "{service} · {home}",
+        total: "Total estimé, avant taxes",
+        discount: "Remise {d}, à partir de la 2e visite",
+        fine: "Prix final confirmé par message avant le ménage.",
+        proFine: "Prix final confirmé par appel avant le ménage."
       },
       privacy: "Vos coordonnées servent uniquement à répondre à votre demande.",
       errors: {

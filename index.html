@@ -775,14 +775,20 @@
               </div>
             </div>
 
-            <!-- Estimation : mise à jour à chaque choix -->
+            <!-- Estimation : mise à jour à chaque choix. Le « ? » ouvre le détail ligne par ligne, sous le prix. -->
             <div class="estimate" data-estimate hidden>
               <div class="estimate__row" aria-live="polite">
-                <span class="estimate__label" data-estimate-label></span>
+                <p class="estimate__head">
+                  <span class="estimate__label" data-estimate-label></span>
+                  <button type="button" class="estimate__help" aria-expanded="false" aria-controls="estimate-detail" data-estimate-help data-i18n-attr="aria-label:form.estimate.detailLabel"><span aria-hidden="true">?</span></button>
+                </p>
                 <strong class="estimate__value" data-estimate-value></strong>
               </div>
               <p class="estimate__tax" data-estimate-tax hidden></p>
-              <ul class="estimate__breakdown" data-estimate-breakdown hidden></ul>
+              <div class="estimate__detail" id="estimate-detail" data-estimate-detail hidden>
+                <ul class="estimate__breakdown" data-estimate-breakdown></ul>
+                <p class="estimate__fine" data-estimate-fine></p>
+              </div>
               <p class="estimate__then" data-estimate-then hidden></p>
               <p class="estimate__quote" data-estimate-quote hidden></p>
               <p class="estimate__note" data-estimate-note></p>

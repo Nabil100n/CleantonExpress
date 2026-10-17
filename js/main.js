@@ -806,6 +806,7 @@
     $("[data-progress-count]", form).textContent = t("form.progress", { i: index + 1, n: order.length });
     $("[data-progress-name]", form).textContent = t("form.step" + currentStep + ".title");
     $("[data-progress-fill]", form).style.width = ((index + 1) / order.length) * 100 + "%";
+    $(".progress__bar", form).style.setProperty("--steps", order.length);
     $("[data-back]", form).hidden = index === 0;
     $("[data-next]", form).hidden = index === order.length - 1;
     $("[data-submit]", form).hidden = index !== order.length - 1;
@@ -979,16 +980,16 @@
       return { pro: true, total, lines, quote };
     }
 
-    lines.push([homeLabel(l), roomsPrice(countForPrice("bedrooms"), countForPrice("bathrooms"), countForPrice("half_bathrooms"))]);
-    const surcharge = CONFIG.serviceSurcharge[svc] || 0;
-    if (surcharge) lines.push([t("form.estimate." + svc, null, l), surcharge]);
+    // Prix de base de la formule pour la taille choisie (logement + supplément Deep ou Move)
+    const base = roomsPrice(countForPrice("bedrooms"), countForPrice("bathrooms"), countForPrice("half_bathrooms")) + (CONFIG.serviceSurcharge[svc] || 0);
+    lines.push([t("form.estimate.base", { service: t("form.step1.services." + svc + ".name", null, l), home: homeLabel(l) }, l), base]);
     $$('input[name="addons"]:checked:not(:disabled)', form).forEach((input) => {
       const price = addonPrice(input);
       if (price == null) quote.push(t("form.estimate.quote", { tier: tierLabel(windowTier(input), l) }, l));
       else lines.push([addonName(input, l), price]);
     });
     const blinds = blindsCount();
-    if (blinds > 0) lines.push([t("form.estimate.blinds", { windows: unit("window", blinds, l) }, l), blinds * CONFIG.blinds.perWindow]);
+    if (blinds > 0) lines.push([t("form.estimate.blinds", { n: blinds, price: money(CONFIG.blinds.perWindow, l) }, l), blinds * CONFIG.blinds.perWindow]);
     const late = lateFee();
     if (late) lines.push([t("form.estimate.late", null, l), late]);
     const total = lines.reduce((sum, line) => sum + line[1], 0);
@@ -1003,6 +1004,31 @@
   function updateBlindsTile() {
     const tile = $("[data-blinds-tile]", form);
     if (tile) tile.classList.toggle("is-active", blindsCount() > 0);
+  }
+
+  // Le « ? » de l'estimation : ouvre et ferme le détail du prix
+  function setEstimateDetail(open) {
+    const help = $("[data-estimate-help]", form);
+    const detail = $("[data-estimate-detail]", form);
+    if (!help || !detail) return;
+    help.setAttribute("aria-expanded", String(open));
+    detail.hidden = !open;
+  }
+
+  function initEstimateHelp() {
+    const help = $("[data-estimate-help]", form);
+    const detail = $("[data-estimate-detail]", form);
+    help.addEventListener("click", () => setEstimateDetail(help.getAttribute("aria-expanded") !== "true"));
+    document.addEventListener("click", (event) => {
+      if (detail.hidden || help.contains(event.target) || detail.contains(event.target)) return;
+      setEstimateDetail(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || detail.hidden) return;
+      const inside = help.contains(document.activeElement) || detail.contains(document.activeElement);
+      setEstimateDetail(false);
+      if (inside) help.focus();
+    });
   }
 
   function updateEstimate() {
@@ -1023,14 +1049,20 @@
     tax.hidden = data.total == null;
     tax.textContent = data.total == null ? "" : t("form.estimate.withTax", { price: moneyCents(withTax(data.total)), rate: percent(CONFIG.taxRate) });
 
-    const breakdown = $("[data-estimate-breakdown]", box);
-    const showLines = currentStep === 4 && data.lines.length > 1;
-    breakdown.hidden = !showLines;
-    breakdown.replaceChildren(...(showLines ? data.lines.map(([label, amount], i) => {
-      const li = el("li", "");
-      li.append(el("span", "", label), el("span", "estimate__amount", (i === 0 ? "" : "+") + money(amount)));
+    // Détail ligne par ligne, derrière le « ? » : toujours à jour, ouvert ou non
+    const help = $("[data-estimate-help]", box);
+    help.hidden = data.total == null;
+    if (help.hidden) setEstimateDetail(false);
+    const row = (label, amount, cls) => {
+      const li = el("li", cls || "");
+      li.append(el("span", "", label), el("span", "estimate__amount", amount));
       return li;
-    }) : []));
+    };
+    const items = data.lines.map(([label, amount], i) => row(label, (i === 0 ? "" : "+") + money(amount)));
+    if (data.total != null) items.push(row(t("form.estimate.total"), money(data.total), "estimate__total"));
+    if (data.then) items.push(row(t("form.estimate.discount", { d: "−" + percent(data.then.rate) }), "−" + money(data.total - data.then.total), "estimate__discount"));
+    $("[data-estimate-breakdown]", box).replaceChildren(...items);
+    $("[data-estimate-fine]", box).textContent = t(data.pro ? "form.estimate.proFine" : "form.estimate.fine");
 
     const then = $("[data-estimate-then]", box);
     then.hidden = !data.then;
@@ -1295,6 +1327,7 @@
   function initForm() {
     initCounters();
     initCalendar();
+    initEstimateHelp();
 
     form.addEventListener("change", (event) => {
       const target = event.target;
