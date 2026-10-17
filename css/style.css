@@ -472,26 +472,43 @@ h2 {
 }
 .intro-text p + p { margin-top: 1.9em; }
 
-/* Piliers */
-.pillars {
+/* Engagements chiffrés : 4 colonnes, 2 × 2 sur tablette, 1 colonne sur mobile */
+.promises {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: 60px;
-  overflow: hidden;
-  background: var(--border);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 52px;
+}
+.promise {
+  padding: 28px 24px 30px;
   border: 1px solid var(--border);
   border-radius: 12px;
+  background: var(--gray);
 }
-.pillars--six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.pillar { padding: 32px 24px; background: var(--gray); transition: background 0.2s; }
-.pillar:hover { background: #1a3060; }
-.pillar-icon { display: block; margin-bottom: 14px; font-size: 26px; line-height: 1; }
-.pillar h3 { margin-bottom: 8px; font-size: 14px; font-weight: 500; }
-.pillar p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.promise__num {
+  margin-bottom: 16px;
+  color: var(--orange);
+  font-family: var(--display);
+  font-size: 64px;
+  letter-spacing: 1px;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+.promise__title { margin-bottom: 10px; color: var(--white); font-size: 17px; font-weight: 500; line-height: 1.35; }
+.promise__text { color: var(--muted); font-size: 14px; line-height: 1.65; }
+@media (max-width: 999px) { .promises { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 599px) { .promises { grid-template-columns: minmax(0, 1fr); } }
 
-@media (max-width: 900px) { .pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Pastilles sous les engagements */
+.why-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.why-tags li {
+  padding: 7px 14px;
+  border: 1px solid var(--blue);
+  border-radius: 100px;
+  color: var(--white);
+  font-size: 13px;
+  line-height: 1.3;
+}
 
 /* Ligne « assurés » et boutons de fin de section */
 .insured {
@@ -1718,8 +1735,9 @@ h2 {
   .badge { padding: 5px 12px; font-size: 10px; letter-spacing: 2px; }
   .section { padding: 60px 20px; }
   h2 { font-size: clamp(32px, 9vw, 48px); }
-  .pillars { margin-top: 36px; }
-  .pillar { padding: 22px 16px; }
+  .promises { margin-top: 36px; }
+  .promise { padding: 22px 20px 24px; }
+  .promise__num { font-size: 56px; }
   .services-outer { padding: 60px 16px; }
   .services-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 36px; }
   .flip-card-inner, .flip-front { min-height: 360px; }
@@ -1743,7 +1761,6 @@ h2 {
   .nav-brand-name { font-size: 14px; letter-spacing: 1px; }
   .nav .logo { height: 36px; }
   .hero h1 { font-size: 42px; }
-  .pillars { grid-template-columns: minmax(0, 1fr); }
   .counters { gap: 0 10px; }
   .stepper__btn { width: 42px; }
 }

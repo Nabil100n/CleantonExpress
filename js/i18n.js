@@ -6,23 +6,6 @@
  *   {phone}  le téléphone de config.js, (437) 717-8009
  *   {zero}   zéro dollar ($0 / 0 $), {n} un nombre, {i} {n} les numéros d’étape du formulaire
  */
-/* ==================== À REMPLIR ====================
-   Textes provisoires de la section « Pourquoi nous choisir ». */
-const FILL_IN = {
-  en: {
-    hours: "Requests accepted at any hour, reply as fast as possible.",
-    // TODO : remplacer par la mention du produit certifié une fois les produits choisis
-    productsTitle: "Cleaning products included",
-    productsText: "We bring everything, at no extra cost."
-  },
-  fr: {
-    hours: "Demandes acceptées à toute heure, réponse au plus vite.",
-    // TODO : remplacer par la mention du produit certifié une fois les produits choisis
-    productsTitle: "Produits inclus",
-    productsText: "Nous apportons tout, sans frais supplémentaires."
-  }
-};
-
 const I18N = {
   en: {
     meta: {
@@ -57,16 +40,15 @@ const I18N = {
     ticker: ["Homes & condos", "Move-in & move-out", "Deep cleaning", "Offices & shops", "Eco-friendly products", "English & French", "Toronto & GTA", "Book online in 2 minutes"],
     why: {
       label: "Why choose us",
-      title: "Fast. Fair. Personally checked.",
-      text: "Moving out, turning over a unit, or need it done on short notice? You get an instant estimate, a confirmed price within 2 hours, and a founder who actually reads your feedback.",
+      title: "What we promise, in writing",
+      text: "Instead of big claims, here are four commitments you can hold us to.",
       cards: [
-        { title: "Confirmed within 2 hours", text: "Instant estimate online, confirmation by text or WhatsApp. " + FILL_IN.en.hours },
-        { title: "Honest, upfront prices", text: "“From” prices on the site, final price before we start." },
-        { title: "Your feedback runs the business", text: "Anything under 5 stars, we call you and make it right." },
-        { title: "Owner on every job", text: "Our founder cleans or checks every booking personally." },
-        { title: "Photo report on request", text: "Ideal for move-outs, landlords and property managers." },
-        { title: FILL_IN.en.productsTitle, text: FILL_IN.en.productsText }
-      ]
+        { number: "2 h", title: "Your price within 2 hours", text: "Instant estimate online, final price by text or WhatsApp within 2 hours, 8 am to 8 pm. Requests accepted at any hour." },
+        { number: "24 h", title: "Missed a spot? We come back", text: "Tell us within 24 hours and we return to fix it, free. Anything under 5 stars, we call you." },
+        { number: "1", title: "Same person every visit", text: "No new face each time: the person who cleans your home knows it, and you can reach us directly." },
+        { number: "{zero}", title: "Nothing to pay upfront", text: "You pay after the cleaning, by card or Interac e-Transfer. The price is set before we start: if your home needs more work, you get the new price before, never after." }
+      ],
+      tags: ["Eco-friendly products included", "English & French", "Photo report for every move-out"]
     },
     trust: { insured: "Insured — certificate of insurance available on request." },
     cta: { estimate: "Get my instant estimate", whatsapp: "WhatsApp us" },
@@ -420,16 +402,15 @@ const I18N = {
     ticker: ["Maisons et condos", "Emménagement et déménagement", "Ménage en profondeur", "Bureaux et commerces", "Produits écologiques", "Français et anglais", "Toronto et GTA", "Réservation en ligne en 2 minutes"],
     why: {
       label: "Pourquoi nous choisir",
-      title: "Rapides. Justes. Vérifiés par le fondateur.",
-      text: "Déménagement, remise en location ou besoin d’un ménage rapidement ? Estimation instantanée, prix confirmé sous 2 h, et un fondateur qui lit vraiment vos retours.",
+      title: "Nos promesses, noir sur blanc",
+      text: "Plutôt que de grandes phrases, quatre engagements que vous pouvez nous rappeler.",
       cards: [
-        { title: "Confirmé sous 2 h", text: "Estimation instantanée en ligne, confirmation par SMS ou WhatsApp. " + FILL_IN.fr.hours },
-        { title: "Des prix clairs, sans surprise", text: "Prix « à partir de » affichés, prix final confirmé avant l’intervention." },
-        { title: "Vos retours pilotent l’entreprise", text: "En dessous de 5 étoiles, nous vous appelons et corrigeons." },
-        { title: "Le fondateur sur chaque mission", text: "Notre fondateur réalise ou contrôle personnellement chaque intervention." },
-        { title: "Rapport photo sur demande", text: "Idéal pour les déménagements, propriétaires et gestionnaires immobiliers." },
-        { title: FILL_IN.fr.productsTitle, text: FILL_IN.fr.productsText }
-      ]
+        { number: "2 h", title: "Votre prix en moins de 2 h", text: "Estimation instantanée en ligne, prix final par SMS ou WhatsApp en moins de 2 h, de 8 h à 20 h. Demandes acceptées à toute heure." },
+        { number: "24 h", title: "Un oubli ? On revient", text: "Signalez-le sous 24 h et on revient le corriger, gratuitement. Moins de 5 étoiles : on vous appelle." },
+        { number: "1", title: "La même personne à chaque visite", text: "Pas un inconnu à chaque fois : la personne qui fait votre ménage connaît votre logement, et vous nous joignez directement." },
+        { number: "{zero}", title: "Rien à payer avant", text: "Vous payez après le ménage, par carte ou par virement Interac. Le prix est fixé avant de commencer : si le logement demande plus de travail, vous avez le nouveau prix avant, jamais après." }
+      ],
+      tags: ["Produits écologiques inclus", "Français et anglais", "Rapport photo à chaque déménagement"]
     },
     trust: { insured: "Assurés — attestation d’assurance disponible sur demande." },
     cta: { estimate: "Obtenir mon estimation", whatsapp: "Écrire sur WhatsApp" },
@@ -544,21 +525,21 @@ const I18N = {
         {
           q: "Que se passe-t-il après ma demande ?",
           steps: [
-            { title: "Étape 1 : votre prix.", text: "Nous confirmons la date et le prix final par SMS, WhatsApp ou téléphone en moins de 2 h, de 8 h à 20 h." },
+            { title: "Étape 1 : votre prix.", text: "Nous confirmons la date et le prix final par SMS, WhatsApp ou téléphone en moins de 2 h, de 8 h à 20 h." },
             { title: "Étape 2 : le ménage.", text: "Nous arrivons à l’heure prévue avec tous les produits et le matériel." },
             { title: "Étape 3 : le paiement.", text: "Vous payez après le ménage, par carte via un lien de paiement sécurisé ou par virement Interac. Rien à payer avant." }
           ]
         },
         { q: "Le prix affiché est-il définitif ?", a: "C’est une estimation selon ce que vous nous indiquez. On vous confirme le prix final avant le ménage, jamais après." },
         { q: "J’habite un studio, je choisis quoi ?", a: "Mettez 0 dans Chambres : 0 chambre correspond à un studio. Indiquez ensuite votre nombre de salles de bain." },
-        { q: "Combien de temps dure un ménage ?", a: "En général 2 à 6 h, selon le logement et le service. Nous vous le disons en confirmant le prix." },
+        { q: "Combien de temps dure un ménage ?", a: "En général 2 à 6 h, selon le logement et le service. Nous vous le disons en confirmant le prix." },
         { q: "Où intervenez-vous ?", a: "Le centre-ville de Toronto et la GTA, sans frais de déplacement. Un doute ? Envoyez-nous votre code postal sur WhatsApp." },
         { q: "Puis-je réserver un ménage régulier ?", a: "Oui : chaque semaine, aux deux semaines ou chaque mois. Réservez un premier ménage, puis dites-nous par message à quel rythme revenir. On peut parler d’une remise pour un ménage régulier." },
         { q: "Apportez-vous les produits et le matériel ?", a: "Oui. On apporte des produits écologiques et tout le matériel. Vous préférez qu’on utilise votre aspirateur ou vos produits ? Dites-le-nous." },
         { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." },
         { q: "Le ménage de départ m’aide-t-il à récupérer mon dépôt ?", a: "La décision revient à votre propriétaire, mais nous suivons une checklist de départ et vous envoyons des photos datées de chaque pièce à la fin : vous avez une preuve." },
-        { q: "Et si quelque chose ne va pas ?", a: "Signalez-le sous 24 h, avec une photo si possible, et on revient le corriger gratuitement." },
-        { q: "Puis-je annuler ou décaler ?", a: "Oui, gratuitement jusqu’à 24 h avant le ménage. Un message suffit." },
+        { q: "Et si quelque chose ne va pas ?", a: "Signalez-le sous 24 h, avec une photo si possible, et on revient le corriger gratuitement." },
+        { q: "Puis-je annuler ou décaler ?", a: "Oui, gratuitement jusqu’à 24 h avant le ménage. Un message suffit." },
         { q: "Travaillez-vous avec les gestionnaires et agents immobiliers ?", a: "Oui. Nous remettons en état les logements entre deux locataires et avant une mise en vente, avec rapport photo et facture par logement. Choisissez Commercial / bureau dans le formulaire, ou appelez-nous pour un tarif au volume." }
       ]
     },
@@ -645,15 +626,15 @@ const I18N = {
         dateOptional: "Date souhaitée (facultative)",
         arrival: "Heure d’arrivée",
         arrivalOptional: "Heure d’arrivée (facultative)",
-        windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h", "De 16 h à 18 h"],
-        late: "Après 18 h",
+        windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h", "De 16 h à 18 h"],
+        late: "Après 18 h",
         exact: "Heure précise",
         exactLabel: "Heure d’arrivée précise",
         timeChoose: "Choisir une heure",
         dateChoose: "Choisir une date",
         prevMonth: "Mois précédent",
         nextMonth: "Mois suivant",
-        arrivalNote: "C’est l’heure à laquelle on arrive, pas la durée. Un ménage dure de 2 à 6 h selon le logement et le service.",
+        arrivalNote: "C’est l’heure à laquelle on arrive, pas la durée. Un ménage dure de 2 à 6 h selon le logement et le service.",
         flexibility: "Si cette date est prise ?",
         flexibilities: ["Seulement cette date", "La veille ou le lendemain", "N’importe quel jour de la semaine"],
         access: "Comment on entre ?",
@@ -703,7 +684,7 @@ const I18N = {
         proNote: "Ceci est une estimation approximative. Nous vous appellerons rapidement pour discuter de vos besoins et confirmer le prix final.",
         proEmpty: "Indiquez la superficie",
         rate: "{sqft} × {price}",
-        late: "Arrivée après 18 h",
+        late: "Arrivée après 18 h",
         blinds: "Nettoyage des stores ({n} × {price})",
         minimum: "Minimum par visite",
         quote: "Vitres intérieures, {tier} : prix sur devis.",
@@ -727,7 +708,7 @@ const I18N = {
       },
       success: {
         title: "Demande envoyée",
-        text: "Merci ! On vous confirme la date et le prix en moins de 2 h, de 8 h à 20 h.",
+        text: "Merci ! On vous confirme la date et le prix en moins de 2 h, de 8 h à 20 h.",
         close: "Fermer"
       }
     },
