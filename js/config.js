@@ -6,7 +6,7 @@
  */
 const CONFIG = {
   phone: "+14377178009",
-  email: "contact@cleantonexpress.com",
+  email: "contact@cforcleaning.com",
   formspree: "https://formspree.io/f/mjgeappr",
 
   // Résidentiel (grille du 16 octobre 2026).

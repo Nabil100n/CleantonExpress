@@ -7,7 +7,7 @@
  *   {d}      une remise, {n} un nombre, {i} {n} les numéros d'étape du formulaire
  */
 /* ==================== À REMPLIR ====================
-   Textes provisoires de la section « Pourquoi C for Cleaning ». */
+   Textes provisoires de la section « Pourquoi nous choisir ». */
 const FILL_IN = {
   en: {
     hours: "Requests accepted at any hour, reply as fast as possible.",
@@ -27,7 +27,7 @@ const I18N = {
   en: {
     meta: {
       title: "C for Cleaning | Cleaning services in Toronto",
-      description: "Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, prices from {price}, eco-friendly products, service in English and French."
+      description: "Professional cleaning for condos, apartments, homes and businesses. Fast availability across Toronto, prices from {price}, eco-friendly products, service in English and French."
     },
     skip: "Skip to content",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
@@ -46,7 +46,7 @@ const I18N = {
       call: "Call {phone}"
     },
     hero: {
-      badge: "✦ Requests accepted at any hour",
+      badge: "✦ Fast availability across Toronto",
       title1: "We clean.",
       title2: "That’s it.",
       sub: "Reliable, fast and professional cleaning for homes and businesses, whenever you need us.",
@@ -54,9 +54,9 @@ const I18N = {
       whatsapp: "WhatsApp available",
       quick: "Quick response"
     },
-    ticker: ["Requests at any hour", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
+    ticker: ["Fast availability across Toronto", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
     why: {
-      label: "Why C for Cleaning",
+      label: "Why choose us",
       title: "Fast. Fair. Personally checked.",
       text: "Moving out, turning over a unit, or need it done on short notice? You get an instant estimate, a confirmed price within 2 hours, and a founder who actually reads your feedback.",
       cards: [
@@ -359,7 +359,7 @@ const I18N = {
   fr: {
     meta: {
       title: "C for Cleaning | Ménage à Toronto",
-      description: "Ménage professionnel à Toronto pour condos, appartements, maisons et entreprises. Demandes acceptées à toute heure, prix dès {price}, produits écologiques, service en français et en anglais."
+      description: "Ménage professionnel pour condos, appartements, maisons et entreprises. Disponibles rapidement partout à Toronto, prix dès {price}, produits écologiques, service en français et en anglais."
     },
     skip: "Aller au contenu",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
@@ -378,7 +378,7 @@ const I18N = {
       call: "Appeler le {phone}"
     },
     hero: {
-      badge: "✦ Demandes acceptées à toute heure",
+      badge: "✦ Disponibles rapidement partout à Toronto",
       title1: "On nettoie.",
       title2: "C’est tout.",
       sub: "Un ménage fiable, rapide et professionnel pour les logements et les entreprises, quand vous en avez besoin.",
@@ -386,9 +386,9 @@ const I18N = {
       whatsapp: "WhatsApp disponible",
       quick: "Réponse rapide"
     },
-    ticker: ["Demandes à toute heure", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
+    ticker: ["Disponibles rapidement partout à Toronto", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
     why: {
-      label: "Pourquoi C for Cleaning",
+      label: "Pourquoi nous choisir",
       title: "Rapides. Justes. Vérifiés par le fondateur.",
       text: "Déménagement, remise en location ou besoin d’un ménage rapidement ? Estimation instantanée, prix confirmé sous 2 h, et un fondateur qui lit vraiment vos retours.",
       cards: [
