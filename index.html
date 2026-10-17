@@ -330,12 +330,31 @@
     <section class="section section--bg" id="results" aria-labelledby="results-title">
       <p class="label" data-i18n="results.label"></p>
       <h2 id="results-title" data-i18n="results.title"></h2>
+      <!-- Sous-titre : affiché seulement quand les vraies photos sont en place (beforeAfterReal: true dans js/config.js) -->
+      <p class="results-sub" data-i18n="results.sub" data-real-only hidden></p>
 
-      <div class="ba" data-before-after hidden>
-        <div class="ba-grid" data-ba-list></div>
-      </div>
+      <!-- PHOTOS TEMPORAIRES : remplacer par les vraies photos avant/après -->
+      <!-- Une fois les vraies photos reçues : src="images/before-1.jpg" et src="images/after-1.jpg" ci-dessous,
+           puis beforeAfterReal: true dans js/config.js (le badge « Exemple » disparaît, le sous-titre s'affiche). -->
+      <figure class="ba-item">
+        <div class="ba-frame" data-ba-frame>
+          <img class="ba-img" src="images/service-residential.jpg" alt="" width="1400" height="931" loading="lazy" decoding="async" draggable="false" data-ba-alt="altAfter" onerror="this.remove()">
+          <div class="ba-before">
+            <img class="ba-img" src="images/service-residential.jpg" alt="" width="1400" height="931" loading="lazy" decoding="async" draggable="false" data-ba-alt="altBefore" data-ba-before-img onerror="this.remove()">
+          </div>
+          <span class="ba-tag ba-tag--before" aria-hidden="true" data-i18n="results.before"></span>
+          <span class="ba-tag ba-tag--after" aria-hidden="true" data-i18n="results.after"></span>
+          <span class="ba-handle" aria-hidden="true"></span>
+          <span class="ba-example" data-example-only data-i18n="results.example"></span>
+          <input class="ba-range" type="range" min="0" max="100" value="50" step="1" data-ba-range data-i18n-attr="aria-label:results.compare">
+        </div>
+        <figcaption class="ba-note" data-example-only data-i18n="results.exampleNote"></figcaption>
+      </figure>
 
       <div class="reviews" data-reviews hidden>
+        <h3 class="reviews__title" data-i18n="results.reviewsTitle"></h3>
+        <!-- AVIS : coller ici les vrais avis reçus (texte exact, prénom + initiale, lien Google si dispo). Ne jamais inventer d'avis. -->
+        <!-- Les avis se collent dans js/config.js (tableau reviews, en anglais et en français) et s'affichent ici tout seuls. -->
         <ul class="reviews-grid" data-reviews-list></ul>
         <a class="reviews-google" href="#" target="_blank" rel="noopener" data-google-reviews hidden data-i18n="results.google"></a>
       </div>

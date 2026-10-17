@@ -257,58 +257,30 @@
   /* ---------- Résultats : avant/après et avis réels (données dans config.js) ---------- */
 
   // Une image absente disparaît : le cadre garde son aplat de couleur
-  function photo(src, alt, className) {
-    const img = document.createElement("img");
-    img.className = className;
-    img.src = src;
-    img.alt = alt;
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.width = 800;
-    img.height = 600;
-    img.addEventListener("error", () => img.remove());
-    return img;
-  }
-
-  // Comparaison avant/après : un curseur (input range) pilote la position de la poignée
-  function beforeAfterItem(pair) {
-    const service = (lang === "fr" ? pair.service_fr || pair.service_en : pair.service_en || pair.service_fr) || "";
-    const caption = [service, pair.location].filter(Boolean).join(" · ");
-    const figure = el("figure", "ba-item");
-    const frame = el("div", "ba-frame");
-    frame.style.setProperty("--pos", "50%");
-    const base = "images/before-after/" + pair.id;
-    const before = el("div", "ba-before");
-    before.append(photo(base + "-before.webp", t("results.altBefore", { caption }), "ba-img"));
-    const tagBefore = el("span", "ba-tag ba-tag--before", t("results.before"));
-    const tagAfter = el("span", "ba-tag ba-tag--after", t("results.after"));
-    const handle = el("span", "ba-handle");
-    [tagBefore, tagAfter, handle].forEach((node) => node.setAttribute("aria-hidden", "true"));
-    const range = document.createElement("input");
-    range.type = "range";
-    range.className = "ba-range";
-    range.min = "0";
-    range.max = "100";
-    range.value = "50";
-    range.setAttribute("aria-label", t("results.compare", { caption }));
-    const setPos = (value) => {
-      range.value = String(Math.round(Math.min(100, Math.max(0, value))));
-      frame.style.setProperty("--pos", range.value + "%");
-    };
-    range.addEventListener("input", () => setPos(Number(range.value)));
-    // Au doigt ou à la souris : on glisse n'importe où sur l'image
-    let dragging = false;
-    const fromPointer = (event) => {
-      const rect = frame.getBoundingClientRect();
-      setPos(((event.clientX - rect.left) / rect.width) * 100);
-    };
-    frame.addEventListener("pointerdown", (event) => { dragging = true; fromPointer(event); });
-    frame.addEventListener("pointermove", (event) => { if (dragging) fromPointer(event); });
-    ["pointerup", "pointercancel", "pointerleave"].forEach((type) => frame.addEventListener(type, () => { dragging = false; }));
-    frame.append(photo(base + "-after.webp", t("results.altAfter", { caption }), "ba-img"), before, tagBefore, tagAfter, handle, range);
-    figure.append(frame);
-    if (caption) figure.append(el("figcaption", "", caption));
-    return figure;
+  // Comparateur avant/après : on glisse au doigt ou à la souris n'importe où sur l'image,
+  // ou on utilise les flèches du clavier sur le curseur (invisible mais focalisable)
+  function initBeforeAfter() {
+    $$("[data-ba-frame]").forEach((frame) => {
+      const range = $("[data-ba-range]", frame);
+      const setPos = (value) => {
+        range.value = String(Math.round(Math.min(100, Math.max(0, value))));
+        frame.style.setProperty("--pos", range.value + "%");
+      };
+      setPos(Number(range.value));
+      range.addEventListener("input", () => setPos(Number(range.value)));
+      let dragging = false;
+      const fromPointer = (event) => {
+        const rect = frame.getBoundingClientRect();
+        setPos(((event.clientX - rect.left) / rect.width) * 100);
+      };
+      frame.addEventListener("pointerdown", (event) => {
+        dragging = true;
+        if (frame.setPointerCapture) frame.setPointerCapture(event.pointerId);
+        fromPointer(event);
+      });
+      frame.addEventListener("pointermove", (event) => { if (dragging) fromPointer(event); });
+      ["pointerup", "pointercancel"].forEach((type) => frame.addEventListener(type, () => { dragging = false; }));
+    });
   }
 
   function reviewDate(value) {
@@ -318,7 +290,12 @@
   }
 
   function reviewCard(review) {
-    const li = el("li", "review");
+    // Carte modèle, clairement marquée, pour voir la mise en page avant le premier vrai avis
+    if (review.sample) {
+      review = { rating: 5, name: t("results.sampleName"), service: t("results.sampleMeta"), text_en: t("results.sampleText"), text_fr: t("results.sampleText"), sample: true };
+    }
+    const li = el("li", review.sample ? "review review--sample" : "review");
+    if (review.sample) li.append(el("p", "review__badge", t("results.sampleBadge")));
     const rating = Math.min(5, Math.max(0, Math.round(Number(review.rating) || 0)));
     const stars = el("p", "review__stars");
     stars.setAttribute("role", "img");
@@ -335,10 +312,13 @@
   function renderResults() {
     const section = $("#results");
     if (!section) return;
-    const pairs = (CONFIG.beforeAfter || []).filter((pair) => pair && pair.id);
-    const reviews = (CONFIG.reviews || []).filter((r) => r && ((r.text_en || "").trim() || (r.text_fr || "").trim()));
-    $("[data-before-after]", section).hidden = pairs.length === 0;
-    $("[data-ba-list]", section).replaceChildren(...pairs.map(beforeAfterItem));
+    // Photos temporaires : badge « Exemple », pas de sous-titre, images sans texte alternatif (décoratives)
+    const real = Boolean(CONFIG.beforeAfterReal);
+    $$("[data-real-only]", section).forEach((node) => { node.hidden = !real; });
+    $$("[data-example-only]", section).forEach((node) => { node.hidden = real; });
+    $$("[data-ba-alt]", section).forEach((img) => { img.alt = real ? t("results." + img.dataset.baAlt) : ""; });
+    $$("[data-ba-before-img]", section).forEach((img) => img.classList.toggle("ba-img--example", !real));
+    const reviews = (CONFIG.reviews || []).filter((r) => r && (r.sample || (r.text_en || "").trim() || (r.text_fr || "").trim()));
     $("[data-reviews]", section).hidden = reviews.length === 0;
     $("[data-reviews-list]", section).replaceChildren(...reviews.map(reviewCard));
     const google = $("[data-google-reviews]", section);
@@ -1402,6 +1382,7 @@
   initHeader();
   initFlipCards();
   initTips();
+  initBeforeAfter();
   initPrivacy();
   initForm();
   showStep(1, false);

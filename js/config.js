@@ -52,9 +52,13 @@ const CONFIG = {
   // TVH de l'Ontario, pour le prix après taxes affiché sous l'estimation
   taxRate: 0.13,
 
-  /* ==================== À REMPLIR (section « Résultats ») ====================
-     Tant qu'un tableau est vide, son bloc reste masqué. Aucune note moyenne ni
-     aucun nombre d'avis n'est calculé ni affiché. */
+  /* ==================== À REMPLIR (section « Avant et après ») ====================
+     Aucune note moyenne ni aucun nombre d'avis n'est calculé ni affiché. */
+
+  // false tant que le comparateur montre des photos temporaires : badge « Exemple » visible,
+  // sous-titre « Une mission récente à Toronto » masqué. Passer à true avec les vraies photos
+  // (images/before-1.jpg et images/after-1.jpg, chemins à mettre dans index.html).
+  beforeAfterReal: false,
 
   // Lien « Voir tous les avis sur Google ». Vide = lien masqué.
   googleReviewsUrl: "",
@@ -63,14 +67,12 @@ const CONFIG = {
   // Format :
   // { name: "Prénom I.", service: "Move-out clean", date: "2026-10", rating: 5,
   //   text_en: "…", text_fr: "…", location: "" }   // location : facultatif, vide = aucun lieu affiché
+  // { sample: true } = carte « Exemple d'avis » pour voir la mise en page : à SUPPRIMER dès le premier vrai avis.
   reviews: [
+    { sample: true }, // EXEMPLE : à supprimer
     { name: "", service: "", date: "", rating: 5, text_en: "", text_fr: "", location: "" }, // TODO : avis à remplir
     { name: "", service: "", date: "", rating: 5, text_en: "", text_fr: "", location: "" }, // TODO : avis à remplir
     { name: "", service: "", date: "", rating: 5, text_en: "", text_fr: "", location: "" }  // TODO : avis à remplir
   ],
 
-  // Photos avant / après de VRAIS ménages, avec l'accord du client.
-  // Fichiers dans images/before-after/ : <id>-before.webp et <id>-after.webp
-  // Format : { id: "move-out-01", service_en: "Move-out clean", service_fr: "Ménage de déménagement", location: "Liberty Village" }
-  beforeAfter: []
 };
