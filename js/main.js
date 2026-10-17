@@ -9,7 +9,6 @@
 
   const LANGS = ["en", "fr"];
   const STORAGE_KEY = "cleanton-lang";
-  const FREQ_VALUES = { weekly: "Weekly", biweekly: "Bi-weekly", monthly: "Monthly" };
   const LINK_TO_SERVICE = { regular: "regular", deep: "deep", move: "move", recurring: "regular", pro: "pro" };
   const POSTAL_CODE = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -89,14 +88,6 @@
     return (l || lang) === "fr" ? value + " %" : value + "%";
   }
 
-  function rateVars(l) {
-    return {
-      weekly: percent(CONFIG.recurring.weekly, l),
-      biweekly: percent(CONFIG.recurring.biweekly, l),
-      monthly: percent(CONFIG.recurring.monthly, l)
-    };
-  }
-
   // Une pièce comptée « 1re, puis chacune en plus » ; 0 pièce = 0 $
   function tierPrice(count, tier) {
     return count > 0 ? tier.first + (count - 1) * tier.extra : 0;
@@ -121,10 +112,11 @@
   }
 
   function commonVars(l) {
-    return Object.assign(rateVars(l), {
+    return {
       phone: phoneDisplay(),
-      price: money(startingPrice("regular"), l)
-    });
+      price: money(startingPrice("regular"), l),
+      zero: money(0, l)
+    };
   }
 
   function whatsappHref() {
@@ -568,20 +560,6 @@
   }
 
   function renderFormLabels() {
-    $$("[data-freq-label]", form).forEach((span) => {
-      const key = span.dataset.freqLabel;
-      const name = t("form.step1.frequencies." + key);
-      const rate = CONFIG.recurring[key] || 0;
-      span.textContent = rate > 0 ? name + " " + t("form.step1.discount", { d: percent(rate) }) : name;
-    });
-    $$("input[data-freq]", form).forEach((input) => {
-      const key = input.dataset.freq;
-      const rate = CONFIG.recurring[key] || 0;
-      if (key !== "once") input.value = FREQ_VALUES[key] + (rate > 0 ? " (-" + Math.round(rate * 100) + "%)" : "");
-    });
-    // La phrase « la remise s'applique dès la 2e visite » n'a de sens que s'il y a une remise
-    const anyDiscount = Object.values(CONFIG.recurring).some((rate) => rate > 0);
-    $$("[data-discount-only]", form).forEach((node) => { node.hidden = !anyDiscount; });
 
     // Le supplément n'apparaît que dans l'estimation ; la valeur envoyée le rappelle à Nabil
     form.querySelector("input[data-late]").value = t("form.step3.late", null, "en") + " (+" + money(CONFIG.lateArrival, "en") + ")";
@@ -973,12 +951,7 @@
     const late = lateFee();
     if (late) lines.push([t("form.estimate.late", null, l), late]);
     const total = lines.reduce((sum, line) => sum + line[1], 0);
-
-    const freq = svc === "regular" ? checked("frequency") : null;
-    const freqKey = freq ? freq.dataset.freq : "once";
-    const rate = freqKey === "once" ? 0 : CONFIG.recurring[freqKey] || 0;
-    const then = rate > 0 ? { rate, total: Math.round(total * (1 - rate)) } : null;
-    return { pro: false, total, lines, then, quote };
+    return { pro: false, total, lines, quote };
   }
 
   function updateBlindsTile() {
@@ -1040,13 +1013,8 @@
     };
     const items = data.lines.map(([label, amount], i) => row(label, (i === 0 ? "" : "+") + money(amount)));
     if (data.total != null) items.push(row(t("form.estimate.total"), money(data.total), "estimate__total"));
-    if (data.then) items.push(row(t("form.estimate.discount", { d: "−" + percent(data.then.rate) }), "−" + money(data.total - data.then.total), "estimate__discount"));
     $("[data-estimate-breakdown]", box).replaceChildren(...items);
     $("[data-estimate-fine]", box).textContent = t(data.pro ? "form.estimate.proFine" : "form.estimate.fine");
-
-    const then = $("[data-estimate-then]", box);
-    then.hidden = !data.then;
-    then.textContent = data.then ? t("form.estimate.then", { price: money(data.then.total), d: "−" + percent(data.then.rate) }) : "";
 
     const quote = $("[data-estimate-quote]", box);
     quote.hidden = !data.quote.length;
@@ -1116,11 +1084,6 @@
         [homeLabel("en"), type ? type.value : ""].filter(Boolean).join(", "));
     }
 
-    if (svc === "regular") {
-      const freq = checked("frequency");
-      add("form.summary.frequency", optionLabel(freq), freq ? freq.value : "");
-    }
-
     if (svc && !pro) {
       const addons = $$('input[name="addons"]:checked:not(:disabled)', form);
       const shownAddons = addons.map((input) => addonName(input, lang));
@@ -1172,7 +1135,6 @@
         english.push("  " + t("form.estimate.withTax", { price: moneyCents(withTax(est.total), "en"), rate: percent(CONFIG.taxRate, "en") }, "en"));
         est.lines.forEach(([label, amount], i) => english.push("  " + (i === 0 ? "" : "+ ") + label + ": " + money(amount, "en")));
         est.quote.forEach((line) => english.push("  " + line));
-        if (est.then) english.push(t("form.estimate.then", { price: money(est.then.total, "en"), d: "-" + percent(est.then.rate, "en") }, "en"));
       }
     }
 
@@ -1295,8 +1257,6 @@
     const radio = form.querySelector('input[name="service"][data-service="' + svc + '"]');
     if (!radio) return false;
     radio.checked = true;
-    if (key === "recurring") form.querySelector('input[data-freq="biweekly"]').checked = true;
-    if (key === "regular") form.querySelector('input[data-freq="once"]').checked = true;
     setError("service", null);
     refreshForm();
     clearStaleErrors();

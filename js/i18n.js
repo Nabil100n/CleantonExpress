@@ -4,7 +4,7 @@
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
  *   {price}  un prix formaté ($89 / 89 $)
  *   {phone}  le téléphone de config.js, (437) 717-8009
- *   {d}      une remise, {n} un nombre, {i} {n} les numéros d'étape du formulaire
+ *   {zero}   zéro dollar ($0 / 0 $), {n} un nombre, {i} {n} les numéros d’étape du formulaire
  */
 /* ==================== À REMPLIR ====================
    Textes provisoires de la section « Pourquoi nous choisir ». */
@@ -240,10 +240,6 @@ const I18N = {
         halfNote: "Toilet and sink, no shower.",
         type: "Type of home",
         types: ["Condo or apartment", "Townhouse", "House"],
-        frequency: "How often?",
-        frequencies: { once: "One time", weekly: "Weekly", biweekly: "Every 2 weeks", monthly: "Monthly" },
-        discount: "−{d}",
-        frequencyNote: "The discount starts with your 2nd visit.",
         proType: "You are",
         proTypes: ["An office or shop", "A property manager", "A realtor", "Other"],
         sqft: "Square footage",
@@ -314,7 +310,6 @@ const I18N = {
         service: "Service",
         home: "Home",
         business: "Space",
-        frequency: "Frequency",
         addons: "Add-ons",
         when: "When",
         address: "Address",
@@ -334,7 +329,6 @@ const I18N = {
       estimate: {
         label: "Estimated total, before tax",
         note: "We confirm your final price by message before the cleaning. Nothing to pay now.",
-        then: "Then {price} per visit from your 2nd visit ({d}).",
         withTax: "{price} with tax ({rate} HST)",
         proLabel: "Estimate Only",
         proNote: "This is a rough estimate. We will call you shortly to discuss your needs and confirm the final quote.",
@@ -347,7 +341,6 @@ const I18N = {
         detailLabel: "How this price is calculated",
         base: "{service} · {home}",
         total: "Estimated total, before tax",
-        discount: "Discount {d}, from the 2nd visit",
         fine: "Final price confirmed by message before the cleaning.",
         proFine: "Final price confirmed by phone before the cleaning."
       },
@@ -604,10 +597,6 @@ const I18N = {
         halfNote: "Toilette et lavabo, sans douche.",
         type: "Type de logement",
         types: ["Condo ou appartement", "Maison en rangée", "Maison"],
-        frequency: "À quelle fréquence ?",
-        frequencies: { once: "Une fois", weekly: "Chaque semaine", biweekly: "Aux deux semaines", monthly: "Chaque mois" },
-        discount: "−{d}",
-        frequencyNote: "Le rabais s’applique dès votre 2e visite.",
         proType: "Vous êtes",
         proTypes: ["Bureau ou commerce", "Gestionnaire immobilier", "Agent immobilier", "Autre"],
         sqft: "Superficie (pi²)",
@@ -678,7 +667,6 @@ const I18N = {
         service: "Service",
         home: "Logement",
         business: "Local",
-        frequency: "Fréquence",
         addons: "Extras",
         when: "Quand",
         address: "Adresse",
@@ -698,7 +686,6 @@ const I18N = {
       estimate: {
         label: "Total estimé, avant taxes",
         note: "On vous confirme le prix final par message avant le ménage. Rien à payer maintenant.",
-        then: "Puis {price} par visite dès votre 2e visite ({d}).",
         withTax: "{price} taxes incluses (TVH {rate})",
         proLabel: "Prix indicatif",
         proNote: "Ceci est une estimation approximative. Nous vous appellerons rapidement pour discuter de vos besoins et confirmer le prix final.",
@@ -711,7 +698,6 @@ const I18N = {
         detailLabel: "Détail du calcul du prix",
         base: "{service} · {home}",
         total: "Total estimé, avant taxes",
-        discount: "Remise {d}, à partir de la 2e visite",
         fine: "Prix final confirmé par message avant le ménage.",
         proFine: "Prix final confirmé par appel avant le ménage."
       },
