@@ -54,7 +54,7 @@ const I18N = {
       whatsapp: "WhatsApp available",
       quick: "Quick response"
     },
-    ticker: ["Fast availability across Toronto", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
+    ticker: ["Homes & condos", "Move-in & move-out", "Deep cleaning", "Offices & shops", "Eco-friendly products", "English & French", "Toronto & GTA", "Book online in 2 minutes"],
     why: {
       label: "Why choose us",
       title: "Fast. Fair. Personally checked.",
@@ -179,18 +179,24 @@ const I18N = {
       title: "Questions",
       items: [
         {
-          q: "What happens after I request a quote?",
+          q: "What happens after I send my request?",
           steps: [
-            { title: "Step 1: Confirmation.", text: "Once you submit your request, our team will review it and contact you shortly via SMS or phone call to confirm the details." },
-            { title: "Step 2: Securing your booking.", text: "You will receive a secure payment link to place a hold on your credit card. No funds are deducted at this stage. You also have the option to pay upfront via Interac e-Transfer." },
-            { title: "Step 3: The cleaning & final payment.", text: "Our professional team arrives and makes your space spotless. Your card is only charged after the service is completed." }
+            { title: "Step 1: Your price.", text: "We confirm your date and final price by text, WhatsApp or phone within 2 hours, 8 am to 8 pm." },
+            { title: "Step 2: The cleaning.", text: "We arrive at the agreed time with all the products and equipment." },
+            { title: "Step 3: Payment.", text: "You pay after the cleaning, by card through a secure payment link or by Interac e-Transfer. Nothing to pay before." }
           ]
         },
         { q: "Is the price shown final?", a: "It’s an estimate based on what you tell us. We confirm the final price with you before the cleaning, never after." },
         { q: "I live in a studio, what do I pick?", a: "Set Bedrooms to 0: 0 bedrooms means a studio. Then choose your number of bathrooms." },
-        { q: "Do you offer a discount for regular cleaning?", a: "If you’d like a regular cleaning (weekly, every 2 weeks or monthly), tell us in the form or by message and we can talk about a discount." },
+        { q: "How long does a cleaning take?", a: "Usually 2 to 6 hours, depending on your home and the service. We tell you when we confirm your price." },
+        { q: "Which areas do you cover?", a: "Downtown Toronto and the GTA, with no travel fee. Not sure we come to you? Send us your postal code on WhatsApp." },
+        { q: "Can I book a regular cleaning?", a: "Yes: weekly, every 2 weeks or monthly. Book your first cleaning, then tell us by message how often you’d like us back. We can talk about a discount for regular cleanings." },
         { q: "Do you bring the products and equipment?", a: "Yes. We bring eco-friendly products and all the supplies. If you’d rather we use your vacuum or your own products, just tell us." },
-        { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." }
+        { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." },
+        { q: "Will a move-out clean help me get my deposit back?", a: "We can’t decide for your landlord, but we follow a move-out checklist and send you dated photos of every room when we finish, so you have proof." },
+        { q: "What if something isn’t right?", a: "Tell us within 24 hours, with a photo if you can, and we come back to fix it for free." },
+        { q: "Can I cancel or reschedule?", a: "Yes, free of charge up to 24 hours before your cleaning. Just message us." },
+        { q: "Do you work with property managers and realtors?", a: "Yes. We clean units between tenants and before listings, with a photo report and an invoice for each unit. Choose Commercial / Office in the form, or call us for volume pricing." }
       ]
     },
     contact: {
@@ -411,7 +417,7 @@ const I18N = {
       whatsapp: "WhatsApp disponible",
       quick: "Réponse rapide"
     },
-    ticker: ["Disponibles rapidement partout à Toronto", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
+    ticker: ["Maisons et condos", "Emménagement et déménagement", "Ménage en profondeur", "Bureaux et commerces", "Produits écologiques", "Français et anglais", "Toronto et GTA", "Réservation en ligne en 2 minutes"],
     why: {
       label: "Pourquoi nous choisir",
       title: "Rapides. Justes. Vérifiés par le fondateur.",
@@ -536,18 +542,24 @@ const I18N = {
       title: "Questions",
       items: [
         {
-          q: "Que se passe-t-il après ma demande de devis ?",
+          q: "Que se passe-t-il après ma demande ?",
           steps: [
-            { title: "Étape 1 : Confirmation.", text: "Une fois votre demande envoyée, notre équipe l’examine et vous contacte rapidement par texto ou par téléphone pour confirmer les détails." },
-            { title: "Étape 2 : Garantir votre réservation.", text: "Vous recevez un lien de paiement sécurisé pour bloquer un montant sur votre carte de crédit. Aucun montant n’est prélevé à cette étape. Vous pouvez aussi payer d’avance par virement Interac." },
-            { title: "Étape 3 : Le ménage et le paiement final.", text: "Notre équipe professionnelle arrive et rend votre espace impeccable. Votre carte n’est débitée qu’une fois le service terminé." }
+            { title: "Étape 1 : votre prix.", text: "Nous confirmons la date et le prix final par SMS, WhatsApp ou téléphone en moins de 2 h, de 8 h à 20 h." },
+            { title: "Étape 2 : le ménage.", text: "Nous arrivons à l’heure prévue avec tous les produits et le matériel." },
+            { title: "Étape 3 : le paiement.", text: "Vous payez après le ménage, par carte via un lien de paiement sécurisé ou par virement Interac. Rien à payer avant." }
           ]
         },
         { q: "Le prix affiché est-il définitif ?", a: "C’est une estimation selon ce que vous nous indiquez. On vous confirme le prix final avant le ménage, jamais après." },
         { q: "J’habite un studio, je choisis quoi ?", a: "Mettez 0 dans Chambres : 0 chambre correspond à un studio. Indiquez ensuite votre nombre de salles de bain." },
-        { q: "Faites-vous une remise pour un ménage régulier ?", a: "Si vous souhaitez un ménage régulier (chaque semaine, aux deux semaines ou chaque mois), dites-le-nous dans le formulaire ou par message : on peut parler d’une remise." },
+        { q: "Combien de temps dure un ménage ?", a: "En général 2 à 6 h, selon le logement et le service. Nous vous le disons en confirmant le prix." },
+        { q: "Où intervenez-vous ?", a: "Le centre-ville de Toronto et la GTA, sans frais de déplacement. Un doute ? Envoyez-nous votre code postal sur WhatsApp." },
+        { q: "Puis-je réserver un ménage régulier ?", a: "Oui : chaque semaine, aux deux semaines ou chaque mois. Réservez un premier ménage, puis dites-nous par message à quel rythme revenir. On peut parler d’une remise pour un ménage régulier." },
         { q: "Apportez-vous les produits et le matériel ?", a: "Oui. On apporte des produits écologiques et tout le matériel. Vous préférez qu’on utilise votre aspirateur ou vos produits ? Dites-le-nous." },
-        { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." }
+        { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." },
+        { q: "Le ménage de départ m’aide-t-il à récupérer mon dépôt ?", a: "La décision revient à votre propriétaire, mais nous suivons une checklist de départ et vous envoyons des photos datées de chaque pièce à la fin : vous avez une preuve." },
+        { q: "Et si quelque chose ne va pas ?", a: "Signalez-le sous 24 h, avec une photo si possible, et on revient le corriger gratuitement." },
+        { q: "Puis-je annuler ou décaler ?", a: "Oui, gratuitement jusqu’à 24 h avant le ménage. Un message suffit." },
+        { q: "Travaillez-vous avec les gestionnaires et agents immobiliers ?", a: "Oui. Nous remettons en état les logements entre deux locataires et avant une mise en vente, avec rapport photo et facture par logement. Choisissez Commercial / bureau dans le formulaire, ou appelez-nous pour un tarif au volume." }
       ]
     },
     contact: {
