@@ -816,6 +816,16 @@ h2 {
   border-radius: 12px;
   background: var(--paper);
 }
+/* En-têtes de même hauteur sur une rangée : le trait sous le titre tombe au même niveau
+   même quand un titre passe sur deux lignes (sous-grille, ignorée sans danger par les vieux navigateurs) */
+@supports (grid-template-rows: subgrid) {
+  .detail-card {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
 .detail-card__head {
   display: flex;
   align-items: center;
