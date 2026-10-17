@@ -103,8 +103,27 @@ const I18N = {
     details: {
       label: "What’s included",
       title: "Service details",
-      intro: "Same checklist every time. Deep clean includes everything in Standard, and Move-in / out includes everything in Deep.",
+      intro: "Same checklist every time. Deep clean includes everything in Standard, and Move-in / out includes everything in Deep. Good to know: bathrooms are not included in the base package. Add each one in the form and it’s added to your estimate.",
       levels: { standard: "✓ Standard cleaning", deep: "+ Deep clean", move: "+ Move-in / out", addons: "Available add-ons" },
+      formulas: {
+        standard: {
+          short: "Upkeep of every room",
+          text: "Every room: surfaces dusted and wiped, floors swept and mopped, carpets vacuumed, mirrors cleaned, bins emptied. Kitchen: sink, stovetop, microwave and appliance exteriors. Bathrooms are not part of the base package: each one you add is cleaned and sanitized (toilet, sink, tub, shower faucets)."
+        },
+        deep: {
+          short: "Standard + the details",
+          text: "Everything in Standard, plus the details: baseboards, under furniture, window sills and frames, door frames, kitchen cabinet fronts and backsplash, bathroom doors and cabinet fronts. Best for a first visit."
+        },
+        move: {
+          short: "Deep + an empty home",
+          text: "Everything in Deep, for an empty home before or after a move: walls spot-cleaned, vents, ceilings and fans dusted, behind the appliances and the range hood. Inside the fridge, oven and cabinets are extras."
+        },
+        pro: {
+          name: "Commercial / Office",
+          short: "Offices, shops and units",
+          text: "Offices, shops, gyms, restaurants and units between tenants. Estimate by square foot, kitchens included, bathrooms added. We confirm the scope and the price with you by phone."
+        }
+      },
       tasks: "{n} tasks",
       options: "{n} options",
       rooms: {
@@ -436,8 +455,27 @@ const I18N = {
     details: {
       label: "Ce qui est inclus",
       title: "Détail des services",
-      intro: "La même checklist à chaque fois. Le ménage en profondeur comprend tout le ménage standard, et le déménagement comprend tout le ménage en profondeur.",
+      intro: "La même checklist à chaque fois. Le ménage en profondeur comprend tout le ménage standard, et le déménagement comprend tout le ménage en profondeur. Bon à savoir : les salles de bain ne sont pas comprises dans le forfait de base. Indiquez-les dans le formulaire, chacune s’ajoute à votre estimation.",
       levels: { standard: "✓ Ménage standard", deep: "+ Ménage en profondeur", move: "+ Déménagement", addons: "Extras disponibles" },
+      formulas: {
+        standard: {
+          short: "L’entretien de chaque pièce",
+          text: "Toutes les pièces : surfaces dépoussiérées et essuyées, sols balayés et lavés, tapis aspirés, miroirs nettoyés, poubelles vidées. Cuisine : évier, plaque de cuisson, micro-ondes et extérieur des appareils. Les salles de bain ne sont pas comprises dans le forfait de base : chacune que vous ajoutez est nettoyée et désinfectée (toilette, lavabo, baignoire, robinetterie de douche)."
+        },
+        deep: {
+          short: "Le standard + les détails",
+          text: "Tout le ménage standard, plus les détails : plinthes, dessous des meubles, rebords et cadres de fenêtres, cadres de portes, façades des placards et crédence de la cuisine, portes et façades de meubles de la salle de bain. Idéal pour une première visite."
+        },
+        move: {
+          short: "Le profond + un logement vide",
+          text: "Tout le ménage en profondeur, pour un logement vide avant ou après un déménagement : taches sur les murs, grilles d’aération, plafonds et ventilateurs dépoussiérés, derrière les appareils et la hotte. L’intérieur du frigo, du four et des placards est en extra."
+        },
+        pro: {
+          name: "Commercial / bureau",
+          short: "Bureaux, commerces et logements",
+          text: "Bureaux, commerces, salles de sport, restaurants et logements entre deux locataires. Estimation au pied carré, cuisines comprises, salles de bain en plus. On confirme avec vous le contenu et le prix par téléphone."
+        }
+      },
       tasks: "{n} tâches",
       options: "{n} options",
       rooms: {

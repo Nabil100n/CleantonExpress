@@ -195,11 +195,37 @@
         <p class="label" data-i18n="details.label"></p>
         <h2 id="details-title" data-i18n="details.title"></h2>
         <p class="details-intro" data-i18n="details.intro"></p>
-        <ul class="details-legend">
-          <li class="details-legend__item details-legend__item--standard" data-i18n="details.levels.standard"></li>
-          <li class="details-legend__item details-legend__item--deep" data-i18n="details.levels.deep"></li>
-          <li class="details-legend__item details-legend__item--move" data-i18n="details.levels.move"></li>
-        </ul>
+        <!-- Une ligne par formule : un clic ouvre ce qui est couvert (les pastilles servent aussi de légende aux cartes) -->
+        <div class="formulas">
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--standard" data-i18n="details.levels.standard"></span>
+              <span class="formula__short" data-i18n="details.formulas.standard.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.standard.text"></p>
+          </details>
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--deep" data-i18n="details.levels.deep"></span>
+              <span class="formula__short" data-i18n="details.formulas.deep.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.deep.text"></p>
+          </details>
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--move" data-i18n="details.levels.move"></span>
+              <span class="formula__short" data-i18n="details.formulas.move.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.move.text"></p>
+          </details>
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--pro" data-i18n="details.formulas.pro.name"></span>
+              <span class="formula__short" data-i18n="details.formulas.pro.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.pro.text"></p>
+          </details>
+        </div>
         <div class="details-grid">
         <article class="detail-card">
           <header class="detail-card__head">
