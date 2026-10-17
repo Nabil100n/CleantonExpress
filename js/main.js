@@ -8,7 +8,7 @@
   "use strict";
 
   const LANGS = ["en", "fr"];
-  const STORAGE_KEY = "cleanton-lang";
+  const STORAGE_KEY = "cforcleaning-lang";
   const LINK_TO_SERVICE = { regular: "regular", deep: "deep", move: "move", recurring: "regular", pro: "pro" };
   const POSTAL_CODE = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
