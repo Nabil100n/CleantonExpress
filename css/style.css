@@ -931,12 +931,15 @@ h2 {
   text-transform: uppercase;
 }
 .not-offered__intro { margin: 4px 0 14px; color: var(--ink-muted); font-size: 14px; }
+/* Une colonne sur mobile, deux sur tablette, trois sur ordinateur : chaque élément tient sur une ligne */
 .not-offered__list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 6px 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px 24px;
   font-size: 14px;
 }
+@media (min-width: 640px) { .not-offered__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .not-offered__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .not-offered__list li { display: flex; gap: 10px; color: #22344d; }
 .not-offered__list li::before { content: "✕"; flex: none; color: var(--error); font-size: 12px; line-height: 21px; }
 

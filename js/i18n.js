@@ -151,7 +151,7 @@ const I18N = {
       notOffered: {
         title: "Services not offered",
         intro: "To ensure our cleaners can work safely and effectively, we are unable to provide the following:",
-        items: ["Cleaning of animal feces", "Mold", "Exterior of the home (garage, patio, balcony)", "Moving heavy furniture or fragile items", "Crawl spaces", "Bodily fluids", "Pest removal or infestations", "Dishes", "Full wash of ceilings and walls"]
+        items: ["Cleaning of animal feces", "Mold", "Garage, patio or balcony", "Moving heavy or fragile items", "Crawl spaces", "Bodily fluids", "Pest removal or infestations", "Dishes", "Full wash of ceilings and walls"]
       }
     },
     results: {
@@ -507,7 +507,7 @@ const I18N = {
       notOffered: {
         title: "Services non offerts",
         intro: "Pour que nos agents d’entretien travaillent en sécurité et efficacement, nous ne pouvons pas offrir les services suivants :",
-        items: ["Nettoyage d’excréments d’animaux", "Moisissure", "Extérieur du logement (garage, terrasse, balcon)", "Déplacement de meubles lourds ou d’objets fragiles", "Vides sanitaires", "Fluides corporels", "Extermination ou infestation de nuisibles", "Vaisselle", "Lavage complet des plafonds et des murs"]
+        items: ["Nettoyage d’excréments d’animaux", "Moisissure", "Garage, terrasse ou balcon", "Déplacer des objets lourds ou fragiles", "Vides sanitaires", "Fluides corporels", "Nuisibles ou infestations", "Vaisselle", "Lavage complet des murs et plafonds"]
       }
     },
     results: {
