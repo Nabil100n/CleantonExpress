@@ -1,5 +1,5 @@
 /*
- * Cleanton Express Cleaning : comportements de la page.
+ * C for Cleaning : comportements de la page.
  * Langue, menu mobile, bandeau défilant, cartes Services à retourner, détail des services, FAQ,
  * liens ?service=, réservation en plusieurs étapes avec estimation du prix, politique de confidentialité.
  * Aucun texte ni prix ici : les textes viennent de js/i18n.js, les prix de js/config.js.
@@ -9,7 +9,6 @@
 
   const LANGS = ["en", "fr"];
   const STORAGE_KEY = "cleanton-lang";
-  const FREQ_VALUES = { weekly: "Weekly", biweekly: "Bi-weekly", monthly: "Monthly" };
   const LINK_TO_SERVICE = { regular: "regular", deep: "deep", move: "move", recurring: "regular", pro: "pro" };
   const POSTAL_CODE = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i;
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -89,14 +88,6 @@
     return (l || lang) === "fr" ? value + " %" : value + "%";
   }
 
-  function rateVars(l) {
-    return {
-      weekly: percent(CONFIG.recurring.weekly, l),
-      biweekly: percent(CONFIG.recurring.biweekly, l),
-      monthly: percent(CONFIG.recurring.monthly, l)
-    };
-  }
-
   // Une pièce comptée « 1re, puis chacune en plus » ; 0 pièce = 0 $
   function tierPrice(count, tier) {
     return count > 0 ? tier.first + (count - 1) * tier.extra : 0;
@@ -121,10 +112,11 @@
   }
 
   function commonVars(l) {
-    return Object.assign(rateVars(l), {
+    return {
       phone: phoneDisplay(),
-      price: money(startingPrice("regular"), l)
-    });
+      price: money(startingPrice("regular"), l),
+      zero: money(0, l)
+    };
   }
 
   function whatsappHref() {
@@ -257,58 +249,30 @@
   /* ---------- Résultats : avant/après et avis réels (données dans config.js) ---------- */
 
   // Une image absente disparaît : le cadre garde son aplat de couleur
-  function photo(src, alt, className) {
-    const img = document.createElement("img");
-    img.className = className;
-    img.src = src;
-    img.alt = alt;
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.width = 800;
-    img.height = 600;
-    img.addEventListener("error", () => img.remove());
-    return img;
-  }
-
-  // Comparaison avant/après : un curseur (input range) pilote la position de la poignée
-  function beforeAfterItem(pair) {
-    const service = (lang === "fr" ? pair.service_fr || pair.service_en : pair.service_en || pair.service_fr) || "";
-    const caption = [service, pair.location].filter(Boolean).join(" · ");
-    const figure = el("figure", "ba-item");
-    const frame = el("div", "ba-frame");
-    frame.style.setProperty("--pos", "50%");
-    const base = "images/before-after/" + pair.id;
-    const before = el("div", "ba-before");
-    before.append(photo(base + "-before.webp", t("results.altBefore", { caption }), "ba-img"));
-    const tagBefore = el("span", "ba-tag ba-tag--before", t("results.before"));
-    const tagAfter = el("span", "ba-tag ba-tag--after", t("results.after"));
-    const handle = el("span", "ba-handle");
-    [tagBefore, tagAfter, handle].forEach((node) => node.setAttribute("aria-hidden", "true"));
-    const range = document.createElement("input");
-    range.type = "range";
-    range.className = "ba-range";
-    range.min = "0";
-    range.max = "100";
-    range.value = "50";
-    range.setAttribute("aria-label", t("results.compare", { caption }));
-    const setPos = (value) => {
-      range.value = String(Math.round(Math.min(100, Math.max(0, value))));
-      frame.style.setProperty("--pos", range.value + "%");
-    };
-    range.addEventListener("input", () => setPos(Number(range.value)));
-    // Au doigt ou à la souris : on glisse n'importe où sur l'image
-    let dragging = false;
-    const fromPointer = (event) => {
-      const rect = frame.getBoundingClientRect();
-      setPos(((event.clientX - rect.left) / rect.width) * 100);
-    };
-    frame.addEventListener("pointerdown", (event) => { dragging = true; fromPointer(event); });
-    frame.addEventListener("pointermove", (event) => { if (dragging) fromPointer(event); });
-    ["pointerup", "pointercancel", "pointerleave"].forEach((type) => frame.addEventListener(type, () => { dragging = false; }));
-    frame.append(photo(base + "-after.webp", t("results.altAfter", { caption }), "ba-img"), before, tagBefore, tagAfter, handle, range);
-    figure.append(frame);
-    if (caption) figure.append(el("figcaption", "", caption));
-    return figure;
+  // Comparateur avant/après : on glisse au doigt ou à la souris n'importe où sur l'image,
+  // ou on utilise les flèches du clavier sur le curseur (invisible mais focalisable)
+  function initBeforeAfter() {
+    $$("[data-ba-frame]").forEach((frame) => {
+      const range = $("[data-ba-range]", frame);
+      const setPos = (value) => {
+        range.value = String(Math.round(Math.min(100, Math.max(0, value))));
+        frame.style.setProperty("--pos", range.value + "%");
+      };
+      setPos(Number(range.value));
+      range.addEventListener("input", () => setPos(Number(range.value)));
+      let dragging = false;
+      const fromPointer = (event) => {
+        const rect = frame.getBoundingClientRect();
+        setPos(((event.clientX - rect.left) / rect.width) * 100);
+      };
+      frame.addEventListener("pointerdown", (event) => {
+        dragging = true;
+        if (frame.setPointerCapture) frame.setPointerCapture(event.pointerId);
+        fromPointer(event);
+      });
+      frame.addEventListener("pointermove", (event) => { if (dragging) fromPointer(event); });
+      ["pointerup", "pointercancel"].forEach((type) => frame.addEventListener(type, () => { dragging = false; }));
+    });
   }
 
   function reviewDate(value) {
@@ -318,7 +282,12 @@
   }
 
   function reviewCard(review) {
-    const li = el("li", "review");
+    // Carte modèle, clairement marquée, pour voir la mise en page avant le premier vrai avis
+    if (review.sample) {
+      review = { rating: 5, name: t("results.sampleName"), service: t("results.sampleMeta"), text_en: t("results.sampleText"), text_fr: t("results.sampleText"), sample: true };
+    }
+    const li = el("li", review.sample ? "review review--sample" : "review");
+    if (review.sample) li.append(el("p", "review__badge", t("results.sampleBadge")));
     const rating = Math.min(5, Math.max(0, Math.round(Number(review.rating) || 0)));
     const stars = el("p", "review__stars");
     stars.setAttribute("role", "img");
@@ -335,10 +304,13 @@
   function renderResults() {
     const section = $("#results");
     if (!section) return;
-    const pairs = (CONFIG.beforeAfter || []).filter((pair) => pair && pair.id);
-    const reviews = (CONFIG.reviews || []).filter((r) => r && ((r.text_en || "").trim() || (r.text_fr || "").trim()));
-    $("[data-before-after]", section).hidden = pairs.length === 0;
-    $("[data-ba-list]", section).replaceChildren(...pairs.map(beforeAfterItem));
+    // Photos temporaires : badge « Exemple », pas de sous-titre, images sans texte alternatif (décoratives)
+    const real = Boolean(CONFIG.beforeAfterReal);
+    $$("[data-real-only]", section).forEach((node) => { node.hidden = !real; });
+    $$("[data-example-only]", section).forEach((node) => { node.hidden = real; });
+    $$("[data-ba-alt]", section).forEach((img) => { img.alt = real ? t("results." + img.dataset.baAlt) : ""; });
+    $$("[data-ba-before-img]", section).forEach((img) => img.classList.toggle("ba-img--example", !real));
+    const reviews = (CONFIG.reviews || []).filter((r) => r && (r.sample || (r.text_en || "").trim() || (r.text_fr || "").trim()));
     $("[data-reviews]", section).hidden = reviews.length === 0;
     $("[data-reviews-list]", section).replaceChildren(...reviews.map(reviewCard));
     const google = $("[data-google-reviews]", section);
@@ -588,15 +560,6 @@
   }
 
   function renderFormLabels() {
-    $$("[data-freq-label]", form).forEach((span) => {
-      const key = span.dataset.freqLabel;
-      const name = t("form.step1.frequencies." + key);
-      span.textContent = key === "once" ? name : name + " " + t("form.step1.discount", { d: percent(CONFIG.recurring[key]) });
-    });
-    $$("input[data-freq]", form).forEach((input) => {
-      const key = input.dataset.freq;
-      if (key !== "once") input.value = FREQ_VALUES[key] + " (-" + Math.round(CONFIG.recurring[key] * 100) + "%)";
-    });
 
     // Le supplément n'apparaît que dans l'estimation ; la valeur envoyée le rappelle à Nabil
     form.querySelector("input[data-late]").value = t("form.step3.late", null, "en") + " (+" + money(CONFIG.lateArrival, "en") + ")";
@@ -801,6 +764,7 @@
     $("[data-progress-count]", form).textContent = t("form.progress", { i: index + 1, n: order.length });
     $("[data-progress-name]", form).textContent = t("form.step" + currentStep + ".title");
     $("[data-progress-fill]", form).style.width = ((index + 1) / order.length) * 100 + "%";
+    $(".progress__bar", form).style.setProperty("--steps", order.length);
     $("[data-back]", form).hidden = index === 0;
     $("[data-next]", form).hidden = index === order.length - 1;
     $("[data-submit]", form).hidden = index !== order.length - 1;
@@ -974,29 +938,50 @@
       return { pro: true, total, lines, quote };
     }
 
-    lines.push([homeLabel(l), roomsPrice(countForPrice("bedrooms"), countForPrice("bathrooms"), countForPrice("half_bathrooms"))]);
-    const surcharge = CONFIG.serviceSurcharge[svc] || 0;
-    if (surcharge) lines.push([t("form.estimate." + svc, null, l), surcharge]);
+    // Prix de base de la formule pour la taille choisie (logement + supplément Deep ou Move)
+    const base = roomsPrice(countForPrice("bedrooms"), countForPrice("bathrooms"), countForPrice("half_bathrooms")) + (CONFIG.serviceSurcharge[svc] || 0);
+    lines.push([t("form.estimate.base", { service: t("form.step1.services." + svc + ".name", null, l), home: homeLabel(l) }, l), base]);
     $$('input[name="addons"]:checked:not(:disabled)', form).forEach((input) => {
       const price = addonPrice(input);
       if (price == null) quote.push(t("form.estimate.quote", { tier: tierLabel(windowTier(input), l) }, l));
       else lines.push([addonName(input, l), price]);
     });
     const blinds = blindsCount();
-    if (blinds > 0) lines.push([t("form.estimate.blinds", { windows: unit("window", blinds, l) }, l), blinds * CONFIG.blinds.perWindow]);
+    if (blinds > 0) lines.push([t("form.estimate.blinds", { n: blinds, price: money(CONFIG.blinds.perWindow, l) }, l), blinds * CONFIG.blinds.perWindow]);
     const late = lateFee();
     if (late) lines.push([t("form.estimate.late", null, l), late]);
     const total = lines.reduce((sum, line) => sum + line[1], 0);
-
-    const freq = svc === "regular" ? checked("frequency") : null;
-    const freqKey = freq ? freq.dataset.freq : "once";
-    const then = freqKey === "once" ? null : { rate: CONFIG.recurring[freqKey], total: Math.round(total * (1 - CONFIG.recurring[freqKey])) };
-    return { pro: false, total, lines, then, quote };
+    return { pro: false, total, lines, quote };
   }
 
   function updateBlindsTile() {
     const tile = $("[data-blinds-tile]", form);
     if (tile) tile.classList.toggle("is-active", blindsCount() > 0);
+  }
+
+  // Le « ? » de l'estimation : ouvre et ferme le détail du prix
+  function setEstimateDetail(open) {
+    const help = $("[data-estimate-help]", form);
+    const detail = $("[data-estimate-detail]", form);
+    if (!help || !detail) return;
+    help.setAttribute("aria-expanded", String(open));
+    detail.hidden = !open;
+  }
+
+  function initEstimateHelp() {
+    const help = $("[data-estimate-help]", form);
+    const detail = $("[data-estimate-detail]", form);
+    help.addEventListener("click", () => setEstimateDetail(help.getAttribute("aria-expanded") !== "true"));
+    document.addEventListener("click", (event) => {
+      if (detail.hidden || help.contains(event.target) || detail.contains(event.target)) return;
+      setEstimateDetail(false);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || detail.hidden) return;
+      const inside = help.contains(document.activeElement) || detail.contains(document.activeElement);
+      setEstimateDetail(false);
+      if (inside) help.focus();
+    });
   }
 
   function updateEstimate() {
@@ -1017,18 +1002,19 @@
     tax.hidden = data.total == null;
     tax.textContent = data.total == null ? "" : t("form.estimate.withTax", { price: moneyCents(withTax(data.total)), rate: percent(CONFIG.taxRate) });
 
-    const breakdown = $("[data-estimate-breakdown]", box);
-    const showLines = currentStep === 4 && data.lines.length > 1;
-    breakdown.hidden = !showLines;
-    breakdown.replaceChildren(...(showLines ? data.lines.map(([label, amount], i) => {
-      const li = el("li", "");
-      li.append(el("span", "", label), el("span", "estimate__amount", (i === 0 ? "" : "+") + money(amount)));
+    // Détail ligne par ligne, derrière le « ? » : toujours à jour, ouvert ou non
+    const help = $("[data-estimate-help]", box);
+    help.hidden = data.total == null;
+    if (help.hidden) setEstimateDetail(false);
+    const row = (label, amount, cls) => {
+      const li = el("li", cls || "");
+      li.append(el("span", "", label), el("span", "estimate__amount", amount));
       return li;
-    }) : []));
-
-    const then = $("[data-estimate-then]", box);
-    then.hidden = !data.then;
-    then.textContent = data.then ? t("form.estimate.then", { price: money(data.then.total), d: "−" + percent(data.then.rate) }) : "";
+    };
+    const items = data.lines.map(([label, amount], i) => row(label, (i === 0 ? "" : "+") + money(amount)));
+    if (data.total != null) items.push(row(t("form.estimate.total"), money(data.total), "estimate__total"));
+    $("[data-estimate-breakdown]", box).replaceChildren(...items);
+    $("[data-estimate-fine]", box).textContent = t(data.pro ? "form.estimate.proFine" : "form.estimate.fine");
 
     const quote = $("[data-estimate-quote]", box);
     quote.hidden = !data.quote.length;
@@ -1098,11 +1084,6 @@
         [homeLabel("en"), type ? type.value : ""].filter(Boolean).join(", "));
     }
 
-    if (svc === "regular") {
-      const freq = checked("frequency");
-      add("form.summary.frequency", optionLabel(freq), freq ? freq.value : "");
-    }
-
     if (svc && !pro) {
       const addons = $$('input[name="addons"]:checked:not(:disabled)', form);
       const shownAddons = addons.map((input) => addonName(input, lang));
@@ -1154,7 +1135,6 @@
         english.push("  " + t("form.estimate.withTax", { price: moneyCents(withTax(est.total), "en"), rate: percent(CONFIG.taxRate, "en") }, "en"));
         est.lines.forEach(([label, amount], i) => english.push("  " + (i === 0 ? "" : "+ ") + label + ": " + money(amount, "en")));
         est.quote.forEach((line) => english.push("  " + line));
-        if (est.then) english.push(t("form.estimate.then", { price: money(est.then.total, "en"), d: "-" + percent(est.then.rate, "en") }, "en"));
       }
     }
 
@@ -1277,8 +1257,6 @@
     const radio = form.querySelector('input[name="service"][data-service="' + svc + '"]');
     if (!radio) return false;
     radio.checked = true;
-    if (key === "recurring") form.querySelector('input[data-freq="biweekly"]').checked = true;
-    if (key === "regular") form.querySelector('input[data-freq="once"]').checked = true;
     setError("service", null);
     refreshForm();
     clearStaleErrors();
@@ -1289,6 +1267,7 @@
   function initForm() {
     initCounters();
     initCalendar();
+    initEstimateHelp();
 
     form.addEventListener("change", (event) => {
       const target = event.target;
@@ -1363,6 +1342,7 @@
   initHeader();
   initFlipCards();
   initTips();
+  initBeforeAfter();
   initPrivacy();
   initForm();
   showStep(1, false);

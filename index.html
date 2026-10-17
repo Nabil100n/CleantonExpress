@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Titre et description en anglais pour les aperçus de liens (WhatsApp, Facebook, Google).
        js/main.js les remplace selon la langue. -->
-  <title>Cleanton Express Cleaning | Cleaning services in Toronto</title>
-  <meta name="description" content="Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, eco-friendly products, service in English and French.">
+  <title>C for Cleaning | Cleaning services in Toronto</title>
+  <meta name="description" content="Professional cleaning for condos, apartments, homes and businesses. Fast availability across Toronto, eco-friendly products, service in English and French.">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Cleanton Express Cleaning">
-  <meta property="og:title" content="Cleanton Express Cleaning | Cleaning services in Toronto">
-  <meta property="og:description" content="Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, eco-friendly products, service in English and French.">
+  <meta property="og:site_name" content="C for Cleaning">
+  <meta property="og:title" content="C for Cleaning | Cleaning services in Toronto">
+  <meta property="og:description" content="Professional cleaning for condos, apartments, homes and businesses. Fast availability across Toronto, eco-friendly products, service in English and French.">
   <meta property="og:locale" content="en_CA">
   <meta property="og:locale:alternate" content="fr_CA">
   <!-- og:url et og:image (images/og.jpg) : à ajouter quand le domaine sera acheté (voir docs/images.md, n° 7) -->
@@ -82,8 +82,13 @@
 
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-slide hero-slide--1" aria-hidden="true"></div>
-      <div class="hero-slide hero-slide--2" aria-hidden="true"></div>
+      <!-- Trois photos en fondu enchaîné, 6 s chacune (décoratives : alt vide) -->
+      <div class="hero-slides" aria-hidden="true">
+        <img class="hero-slide hero-slide--1" src="images/hero-1.jpg" alt="" width="2000" height="1333" fetchpriority="high" onerror="this.remove()">
+        <img class="hero-slide hero-slide--2" src="images/hero-2.jpg" alt="" width="1066" height="1600" decoding="async" onerror="this.remove()">
+        <!-- IMAGE TEMPORAIRE : à remplacer par hero-3.jpg -->
+        <img class="hero-slide hero-slide--3" src="images/service-residential.jpg" alt="" width="1400" height="931" decoding="async" onerror="this.remove()">
+      </div>
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-content">
         <p class="badge" data-i18n="hero.badge"></p>
@@ -167,20 +172,40 @@
       </div>
     </section>
 
-    <!-- POURQUOI CLEANTON EXPRESS -->
-    <section class="section" id="why" aria-labelledby="why-title">
+    <!-- POURQUOI C FOR CLEANING -->
+    <section class="section section--bg" id="why" aria-labelledby="why-title">
       <p class="label" data-i18n="why.label"></p>
       <h2 id="why-title" data-i18n="why.title"></h2>
       <div class="intro-text">
         <p data-i18n="why.text"></p>
       </div>
-      <ul class="pillars pillars--six">
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⏱️"></span><h3 data-i18n="why.cards.0.title"></h3><p data-i18n="why.cards.0.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="💲"></span><h3 data-i18n="why.cards.1.title"></h3><p data-i18n="why.cards.1.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="⭐"></span><h3 data-i18n="why.cards.2.title"></h3><p data-i18n="why.cards.2.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧑‍🔧"></span><h3 data-i18n="why.cards.3.title"></h3><p data-i18n="why.cards.3.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="📸"></span><h3 data-i18n="why.cards.4.title"></h3><p data-i18n="why.cards.4.text"></p></li>
-        <li class="pillar"><span class="pillar-icon" aria-hidden="true" data-icon="🧴"></span><h3 data-i18n="why.cards.5.title"></h3><p data-i18n="why.cards.5.text"></p></li>
+      <!-- 4 engagements chiffrés : 4 colonnes sur ordinateur, 2 × 2 sur tablette, 1 colonne sur mobile -->
+      <ul class="promises">
+        <li class="promise">
+          <p class="promise__num" aria-hidden="true" data-i18n="why.cards.0.number"></p>
+          <h3 class="promise__title" data-i18n="why.cards.0.title"></h3>
+          <p class="promise__text" data-i18n="why.cards.0.text"></p>
+        </li>
+        <li class="promise">
+          <p class="promise__num" aria-hidden="true" data-i18n="why.cards.1.number"></p>
+          <h3 class="promise__title" data-i18n="why.cards.1.title"></h3>
+          <p class="promise__text" data-i18n="why.cards.1.text"></p>
+        </li>
+        <li class="promise">
+          <p class="promise__num" aria-hidden="true" data-i18n="why.cards.2.number"></p>
+          <h3 class="promise__title" data-i18n="why.cards.2.title"></h3>
+          <p class="promise__text" data-i18n="why.cards.2.text"></p>
+        </li>
+        <li class="promise">
+          <p class="promise__num" aria-hidden="true" data-i18n="why.cards.3.number"></p>
+          <h3 class="promise__title" data-i18n="why.cards.3.title"></h3>
+          <p class="promise__text" data-i18n="why.cards.3.text"></p>
+        </li>
+      </ul>
+      <ul class="why-tags">
+        <li data-i18n="why.tags.0"></li>
+        <li data-i18n="why.tags.1"></li>
+        <li data-i18n="why.tags.2"></li>
       </ul>
       <p class="insured"><svg class="insured__icon" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><span data-i18n="trust.insured"></span></p>
       <div class="cta-row">
@@ -195,11 +220,37 @@
         <p class="label" data-i18n="details.label"></p>
         <h2 id="details-title" data-i18n="details.title"></h2>
         <p class="details-intro" data-i18n="details.intro"></p>
-        <ul class="details-legend">
-          <li class="details-legend__item details-legend__item--standard" data-i18n="details.levels.standard"></li>
-          <li class="details-legend__item details-legend__item--deep" data-i18n="details.levels.deep"></li>
-          <li class="details-legend__item details-legend__item--move" data-i18n="details.levels.move"></li>
-        </ul>
+        <!-- Une ligne par formule : un clic ouvre ce qui est couvert (les pastilles servent aussi de légende aux cartes) -->
+        <div class="formulas">
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--standard" data-i18n="details.levels.standard"></span>
+              <span class="formula__short" data-i18n="details.formulas.standard.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.standard.text"></p>
+          </details>
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--deep" data-i18n="details.levels.deep"></span>
+              <span class="formula__short" data-i18n="details.formulas.deep.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.deep.text"></p>
+          </details>
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--move" data-i18n="details.levels.move"></span>
+              <span class="formula__short" data-i18n="details.formulas.move.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.move.text"></p>
+          </details>
+          <details class="formula">
+            <summary class="formula__head">
+              <span class="details-legend__item details-legend__item--pro" data-i18n="details.formulas.pro.name"></span>
+              <span class="formula__short" data-i18n="details.formulas.pro.short"></span>
+            </summary>
+            <p class="formula__text" data-i18n="details.formulas.pro.text"></p>
+          </details>
+        </div>
         <div class="details-grid">
         <article class="detail-card">
           <header class="detail-card__head">
@@ -209,17 +260,19 @@
               <p class="detail-card__count" data-detail-count="rooms"></p>
             </div>
           </header>
-          <div class="detail-group detail-group--standard">
-            <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
-            <ul class="detail-list" data-i18n-list="details.rooms.standard"></ul>
-          </div>
-          <div class="detail-group detail-group--deep">
-            <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
-            <ul class="detail-list" data-i18n-list="details.rooms.deep"></ul>
-          </div>
-          <div class="detail-group detail-group--move">
-            <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
-            <ul class="detail-list" data-i18n-list="details.rooms.move"></ul>
+          <div class="detail-card__body">
+            <div class="detail-group detail-group--standard">
+              <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
+              <ul class="detail-list" data-i18n-list="details.rooms.standard"></ul>
+            </div>
+            <div class="detail-group detail-group--deep">
+              <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
+              <ul class="detail-list" data-i18n-list="details.rooms.deep"></ul>
+            </div>
+            <div class="detail-group detail-group--move">
+              <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
+              <ul class="detail-list" data-i18n-list="details.rooms.move"></ul>
+            </div>
           </div>
         </article>
         <article class="detail-card">
@@ -230,17 +283,19 @@
               <p class="detail-card__count" data-detail-count="kitchen"></p>
             </div>
           </header>
-          <div class="detail-group detail-group--standard">
-            <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
-            <ul class="detail-list" data-i18n-list="details.kitchen.standard"></ul>
-          </div>
-          <div class="detail-group detail-group--deep">
-            <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
-            <ul class="detail-list" data-i18n-list="details.kitchen.deep"></ul>
-          </div>
-          <div class="detail-group detail-group--move">
-            <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
-            <ul class="detail-list" data-i18n-list="details.kitchen.move"></ul>
+          <div class="detail-card__body">
+            <div class="detail-group detail-group--standard">
+              <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
+              <ul class="detail-list" data-i18n-list="details.kitchen.standard"></ul>
+            </div>
+            <div class="detail-group detail-group--deep">
+              <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
+              <ul class="detail-list" data-i18n-list="details.kitchen.deep"></ul>
+            </div>
+            <div class="detail-group detail-group--move">
+              <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
+              <ul class="detail-list" data-i18n-list="details.kitchen.move"></ul>
+            </div>
           </div>
         </article>
         <article class="detail-card">
@@ -251,17 +306,19 @@
               <p class="detail-card__count" data-detail-count="bathroom"></p>
             </div>
           </header>
-          <div class="detail-group detail-group--standard">
-            <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
-            <ul class="detail-list" data-i18n-list="details.bathroom.standard"></ul>
-          </div>
-          <div class="detail-group detail-group--deep">
-            <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
-            <ul class="detail-list" data-i18n-list="details.bathroom.deep"></ul>
-          </div>
-          <div class="detail-group detail-group--move">
-            <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
-            <ul class="detail-list" data-i18n-list="details.bathroom.move"></ul>
+          <div class="detail-card__body">
+            <div class="detail-group detail-group--standard">
+              <h4 class="detail-group__title" data-i18n="details.levels.standard"></h4>
+              <ul class="detail-list" data-i18n-list="details.bathroom.standard"></ul>
+            </div>
+            <div class="detail-group detail-group--deep">
+              <h4 class="detail-group__title" data-i18n="details.levels.deep"></h4>
+              <ul class="detail-list" data-i18n-list="details.bathroom.deep"></ul>
+            </div>
+            <div class="detail-group detail-group--move">
+              <h4 class="detail-group__title" data-i18n="details.levels.move"></h4>
+              <ul class="detail-list" data-i18n-list="details.bathroom.move"></ul>
+            </div>
           </div>
         </article>
         <article class="detail-card">
@@ -272,9 +329,11 @@
               <p class="detail-card__count" data-detail-count="extras"></p>
             </div>
           </header>
-          <div class="detail-group detail-group--addons">
-            <h4 class="detail-group__title" data-i18n="details.levels.addons"></h4>
-            <ul class="detail-list" data-i18n-list="details.extras.addons"></ul>
+          <div class="detail-card__body">
+            <div class="detail-group detail-group--addons">
+              <h4 class="detail-group__title" data-i18n="details.levels.addons"></h4>
+              <ul class="detail-list" data-i18n-list="details.extras.addons"></ul>
+            </div>
           </div>
         </article>
         </div>
@@ -288,15 +347,34 @@
     </section>
 
     <!-- RÉSULTATS : avant/après et avis réels (données dans js/config.js) -->
-    <section class="section" id="results" aria-labelledby="results-title">
+    <section class="section section--bg" id="results" aria-labelledby="results-title">
       <p class="label" data-i18n="results.label"></p>
       <h2 id="results-title" data-i18n="results.title"></h2>
+      <!-- Sous-titre : affiché seulement quand les vraies photos sont en place (beforeAfterReal: true dans js/config.js) -->
+      <p class="results-sub" data-i18n="results.sub" data-real-only hidden></p>
 
-      <div class="ba" data-before-after hidden>
-        <div class="ba-grid" data-ba-list></div>
-      </div>
+      <!-- PHOTOS TEMPORAIRES : remplacer par les vraies photos avant/après -->
+      <!-- Une fois les vraies photos reçues : src="images/before-1.jpg" et src="images/after-1.jpg" ci-dessous,
+           puis beforeAfterReal: true dans js/config.js (le badge « Exemple » disparaît, le sous-titre s'affiche). -->
+      <figure class="ba-item">
+        <div class="ba-frame" data-ba-frame>
+          <img class="ba-img" src="images/service-residential.jpg" alt="" width="1400" height="931" loading="lazy" decoding="async" draggable="false" data-ba-alt="altAfter" onerror="this.remove()">
+          <div class="ba-before">
+            <img class="ba-img" src="images/service-residential.jpg" alt="" width="1400" height="931" loading="lazy" decoding="async" draggable="false" data-ba-alt="altBefore" data-ba-before-img onerror="this.remove()">
+          </div>
+          <span class="ba-tag ba-tag--before" aria-hidden="true" data-i18n="results.before"></span>
+          <span class="ba-tag ba-tag--after" aria-hidden="true" data-i18n="results.after"></span>
+          <span class="ba-handle" aria-hidden="true"></span>
+          <span class="ba-example" data-example-only data-i18n="results.example"></span>
+          <input class="ba-range" type="range" min="0" max="100" value="50" step="1" data-ba-range data-i18n-attr="aria-label:results.compare">
+        </div>
+        <figcaption class="ba-note" data-example-only data-i18n="results.exampleNote"></figcaption>
+      </figure>
 
       <div class="reviews" data-reviews hidden>
+        <h3 class="reviews__title" data-i18n="results.reviewsTitle"></h3>
+        <!-- AVIS : coller ici les vrais avis reçus (texte exact, prénom + initiale, lien Google si dispo). Ne jamais inventer d'avis. -->
+        <!-- Les avis se collent dans js/config.js (tableau reviews, en anglais et en français) et s'affichent ici tout seuls. -->
         <ul class="reviews-grid" data-reviews-list></ul>
         <a class="reviews-google" href="#" target="_blank" rel="noopener" data-google-reviews hidden data-i18n="results.google"></a>
       </div>
@@ -312,14 +390,14 @@
     </section>
 
     <!-- FAQ -->
-    <section class="section section--faq" id="faq" aria-labelledby="faq-title">
+    <section class="section section--faq section--bg-2" id="faq" aria-labelledby="faq-title">
       <p class="label" data-i18n="faq.label"></p>
       <h2 id="faq-title" data-i18n="faq.title"></h2>
       <div class="faq" data-faq></div>
     </section>
 
     <!-- CONTACT ET RÉSERVATION -->
-    <section class="section" id="book" aria-labelledby="book-title">
+    <section class="section section--bg" id="book" aria-labelledby="book-title">
       <div class="book-wrap">
         <p class="label" data-i18n="contact.label"></p>
         <h2 id="book-title" data-i18n="contact.title"></h2>
@@ -405,7 +483,6 @@
                       <input class="stepper__input" type="number" id="bedrooms" name="bedrooms" value="0" min="0" step="1" inputmode="numeric">
                       <button type="button" class="stepper__btn stepper__btn--more" data-stepper="bedrooms" data-delta="1" data-i18n-attr="aria-label:form.step1.bedroomsMore"></button>
                     </div>
-                    <p class="field__note" data-i18n="form.step1.studioNote"></p>
                     <p class="field__error" id="err-bedrooms" data-error></p>
                   </div>
                   <div class="field counter" data-field="bathrooms">
@@ -436,19 +513,6 @@
                     <label class="pill"><input type="radio" name="property_type" value="Townhouse"><span data-i18n="form.step1.types.1"></span></label>
                     <label class="pill"><input type="radio" name="property_type" value="House"><span data-i18n="form.step1.types.2"></span></label>
                   </div>
-                </fieldset>
-              </div>
-
-              <div class="cond" data-when="regular" hidden>
-                <fieldset class="field">
-                  <legend class="label-field" data-i18n="form.step1.frequency"></legend>
-                  <div class="options">
-                    <label class="pill"><input type="radio" name="frequency" value="One time" data-freq="once" checked><span data-freq-label="once"></span></label>
-                    <label class="pill"><input type="radio" name="frequency" value="Weekly" data-freq="weekly"><span data-freq-label="weekly"></span></label>
-                    <label class="pill"><input type="radio" name="frequency" value="Bi-weekly" data-freq="biweekly"><span data-freq-label="biweekly"></span></label>
-                    <label class="pill"><input type="radio" name="frequency" value="Monthly" data-freq="monthly"><span data-freq-label="monthly"></span></label>
-                  </div>
-                  <p class="field__note" data-i18n="form.step1.frequencyNote"></p>
                 </fieldset>
               </div>
 
@@ -742,15 +806,20 @@
               </div>
             </div>
 
-            <!-- Estimation : mise à jour à chaque choix -->
+            <!-- Estimation : mise à jour à chaque choix. Le « ? » ouvre le détail ligne par ligne, sous le prix. -->
             <div class="estimate" data-estimate hidden>
               <div class="estimate__row" aria-live="polite">
-                <span class="estimate__label" data-estimate-label></span>
+                <p class="estimate__head">
+                  <span class="estimate__label" data-estimate-label></span>
+                  <button type="button" class="estimate__help" aria-expanded="false" aria-controls="estimate-detail" data-estimate-help data-i18n-attr="aria-label:form.estimate.detailLabel"><span aria-hidden="true">?</span></button>
+                </p>
                 <strong class="estimate__value" data-estimate-value></strong>
               </div>
               <p class="estimate__tax" data-estimate-tax hidden></p>
-              <ul class="estimate__breakdown" data-estimate-breakdown hidden></ul>
-              <p class="estimate__then" data-estimate-then hidden></p>
+              <div class="estimate__detail" id="estimate-detail" data-estimate-detail hidden>
+                <ul class="estimate__breakdown" data-estimate-breakdown></ul>
+                <p class="estimate__fine" data-estimate-fine></p>
+              </div>
               <p class="estimate__quote" data-estimate-quote hidden></p>
               <p class="estimate__note" data-estimate-note></p>
             </div>

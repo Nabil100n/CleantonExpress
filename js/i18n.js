@@ -1,37 +1,20 @@
 /*
- * Cleanton Express Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
+ * C for Cleaning : tous les textes visibles, en anglais (en) et en français (fr).
  * Règles : tiret cadratin avec modération ; aucun prix écrit en dur ; pas de faux avis ; jamais de mention « vingt-quatre sur sept ».
  * Les prix et pourcentages viennent de js/config.js, par ces repères :
  *   {price}  un prix formaté ($89 / 89 $)
  *   {phone}  le téléphone de config.js, (437) 717-8009
- *   {d}      une remise, {n} un nombre, {i} {n} les numéros d'étape du formulaire
+ *   {zero}   zéro dollar ($0 / 0 $), {n} un nombre, {i} {n} les numéros d’étape du formulaire
  */
-/* ==================== À REMPLIR ====================
-   Textes provisoires de la section « Pourquoi Cleanton Express ». */
-const FILL_IN = {
-  en: {
-    hours: "Requests accepted at any hour, reply as fast as possible.",
-    // TODO : remplacer par la mention du produit certifié une fois les produits choisis
-    productsTitle: "Cleaning products included",
-    productsText: "We bring everything, at no extra cost."
-  },
-  fr: {
-    hours: "Demandes acceptées à toute heure, réponse au plus vite.",
-    // TODO : remplacer par la mention du produit certifié une fois les produits choisis
-    productsTitle: "Produits inclus",
-    productsText: "Nous apportons tout, sans frais supplémentaires."
-  }
-};
-
 const I18N = {
   en: {
     meta: {
-      title: "Cleanton Express Cleaning | Cleaning services in Toronto",
-      description: "Professional cleaning in Toronto for condos, apartments, homes and businesses. Requests accepted at any hour, prices from {price}, eco-friendly products, service in English and French."
+      title: "C for Cleaning | Cleaning services in Toronto",
+      description: "Professional cleaning for condos, apartments, homes and businesses. Fast availability across Toronto, prices from {price}, eco-friendly products, service in English and French."
     },
     skip: "Skip to content",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
-    brand: { word1: "Cleanton", word2: "Express", word3: "Cleaning", home: "Cleanton Express Cleaning, back to top" },
+    brand: { word1: "C", word2: "for", word3: "Cleaning", home: "C for Cleaning, back to top" },
     nav: {
       label: "Main",
       why: "Why Us",
@@ -46,7 +29,7 @@ const I18N = {
       call: "Call {phone}"
     },
     hero: {
-      badge: "✦ Requests accepted at any hour",
+      badge: "✦ Fast availability across Toronto",
       title1: "We clean.",
       title2: "That’s it.",
       sub: "Reliable, fast and professional cleaning for homes and businesses, whenever you need us.",
@@ -54,25 +37,24 @@ const I18N = {
       whatsapp: "WhatsApp available",
       quick: "Quick response"
     },
-    ticker: ["Requests at any hour", "Professional equipment", "Reliable & punctual", "Competitive pricing", "Eco-friendly products", "Downtown Toronto & GTA", "English & French"],
+    ticker: ["Homes & condos", "Move-in & move-out", "Deep cleaning", "Offices & shops", "Eco-friendly products", "English & French", "Toronto & GTA", "Book online in 2 minutes"],
     why: {
-      label: "Why Cleanton Express",
-      title: "Fast. Fair. Personally checked.",
-      text: "Moving out, turning over a unit, or need it done on short notice? You get an instant estimate, a confirmed price within 2 hours, and a founder who actually reads your feedback.",
+      label: "Why choose us",
+      title: "What we promise, in writing",
+      text: "Instead of big claims, here are four commitments you can hold us to.",
       cards: [
-        { title: "Confirmed within 2 hours", text: "Instant estimate online, confirmation by text or WhatsApp. " + FILL_IN.en.hours },
-        { title: "Honest, upfront prices", text: "“From” prices on the site, final price before we start. Recurring clients save up to {weekly}." },
-        { title: "Your feedback runs the business", text: "Anything under 5 stars, we call you and make it right." },
-        { title: "Owner on every job", text: "Our founder cleans or checks every booking personally." },
-        { title: "Photo report on request", text: "Ideal for move-outs, landlords and property managers." },
-        { title: FILL_IN.en.productsTitle, text: FILL_IN.en.productsText }
-      ]
+        { number: "2 h", title: "Your price within 2 hours", text: "Instant estimate online, final price by text or WhatsApp within 2 hours, 8 am to 8 pm. Requests accepted at any hour." },
+        { number: "24 h", title: "Missed a spot? We come back", text: "Tell us within 24 hours and we return to fix it, free. Anything under 5 stars, we call you." },
+        { number: "1", title: "Same person every visit", text: "No new face each time: the person who cleans your home knows it, and you can reach us directly." },
+        { number: "{zero}", title: "Nothing to pay upfront", text: "You pay after the cleaning, by card or Interac e-Transfer. The price is set before we start: if your home needs more work, you get the new price before, never after." }
+      ],
+      tags: ["Eco-friendly products included", "English & French", "Photo report for every move-out"]
     },
     trust: { insured: "Insured — certificate of insurance available on request." },
     cta: { estimate: "Get my instant estimate", whatsapp: "WhatsApp us" },
     services: {
       label: "Our services",
-      labelBrand: "at Cleanton",
+      labelBrand: "at C for Cleaning",
       title: "What we do",
       hint: "Tap a card to discover more",
       more: "↺ Tap to discover more",
@@ -103,8 +85,27 @@ const I18N = {
     details: {
       label: "What’s included",
       title: "Service details",
-      intro: "Same checklist every time. Deep clean includes everything in Standard, and Move-in / out includes everything in Deep.",
+      intro: "Same checklist every time. Deep clean includes everything in Standard, and Move-in / out includes everything in Deep. Good to know: bathrooms are not included in the base package. Add each one in the form and it’s added to your estimate.",
       levels: { standard: "✓ Standard cleaning", deep: "+ Deep clean", move: "+ Move-in / out", addons: "Available add-ons" },
+      formulas: {
+        standard: {
+          short: "Upkeep of every room",
+          text: "Every room: surfaces dusted and wiped, floors swept and mopped, carpets vacuumed, mirrors cleaned, bins emptied. Kitchen: sink, stovetop, microwave and appliance exteriors. Bathrooms are not part of the base package: each one you add is cleaned and sanitized (toilet, sink, tub, shower faucets)."
+        },
+        deep: {
+          short: "Standard + the details",
+          text: "Everything in Standard, plus the details: baseboards, under furniture, window sills and frames, door frames, kitchen cabinet fronts and backsplash, bathroom doors and cabinet fronts. Best for a first visit."
+        },
+        move: {
+          short: "Deep + an empty home",
+          text: "Everything in Deep, for an empty home before or after a move: walls spot-cleaned, vents, ceilings and fans dusted, behind the appliances and the range hood. Inside the fridge, oven and cabinets are extras."
+        },
+        pro: {
+          name: "Commercial / Office",
+          short: "Offices, shops and units",
+          text: "Offices, shops, gyms, restaurants and units between tenants. Estimate by square foot, kitchens included, bathrooms added. We confirm the scope and the price with you by phone."
+        }
+      },
       tasks: "{n} tasks",
       options: "{n} options",
       rooms: {
@@ -132,17 +133,25 @@ const I18N = {
       notOffered: {
         title: "Services not offered",
         intro: "To ensure our cleaners can work safely and effectively, we are unable to provide the following:",
-        items: ["Cleaning of animal feces", "Mold", "Exterior of the home (garage, patio, balcony)", "Moving heavy furniture or fragile items", "Crawl spaces", "Bodily fluids", "Pest removal or infestations", "Dishes", "Full wash of ceilings and walls"]
+        items: ["Cleaning of animal feces", "Mold", "Garage, patio or balcony", "Moving heavy or fragile items", "Crawl spaces", "Bodily fluids", "Pest removal or infestations", "Dishes", "Full wash of ceilings and walls"]
       }
     },
     results: {
       label: "Results",
-      title: "Real results, real clients",
+      title: "Before and after",
+      sub: "A recent job in Toronto.",
       before: "Before",
       after: "After",
-      compare: "Before and after comparison: {caption}",
-      altBefore: "Before: {caption}",
-      altAfter: "After: {caption}",
+      compare: "Compare before and after",
+      altBefore: "Before the cleaning",
+      altAfter: "After the cleaning",
+      example: "Example",
+      exampleNote: "Example image: photos of a real job coming soon.",
+      reviewsTitle: "Client reviews",
+      sampleBadge: "Sample review",
+      sampleText: "This is where a real client review will appear, word for word. It will show the client’s first name and last initial, the service and the month.",
+      sampleName: "First name L.",
+      sampleMeta: "Service · Month",
       rating: "Rated {n} out of 5",
       google: "See all reviews on Google",
       launch: "We’re just getting started — be one of our first clients."
@@ -152,16 +161,24 @@ const I18N = {
       title: "Questions",
       items: [
         {
-          q: "What happens after I request a quote?",
+          q: "What happens after I send my request?",
           steps: [
-            { title: "Step 1: Confirmation.", text: "Once you submit your request, our team will review it and contact you shortly via SMS or phone call to confirm the details." },
-            { title: "Step 2: Securing your booking.", text: "You will receive a secure payment link to place a hold on your credit card. No funds are deducted at this stage. You also have the option to pay upfront via Interac e-Transfer." },
-            { title: "Step 3: The cleaning & final payment.", text: "Our professional team arrives and makes your space spotless. Your card is only charged after the service is completed." }
+            { title: "Step 1: Your price.", text: "We confirm your date and final price by text, WhatsApp or phone within 2 hours, 8 am to 8 pm." },
+            { title: "Step 2: The cleaning.", text: "We arrive at the agreed time with all the products and equipment." },
+            { title: "Step 3: Payment.", text: "You pay after the cleaning, by card through a secure payment link or by Interac e-Transfer. Nothing to pay before." }
           ]
         },
         { q: "Is the price shown final?", a: "It’s an estimate based on what you tell us. We confirm the final price with you before the cleaning, never after." },
+        { q: "I live in a studio, what do I pick?", a: "Set Bedrooms to 0: 0 bedrooms means a studio. Then choose your number of bathrooms." },
+        { q: "How long does a cleaning take?", a: "Usually 2 to 6 hours, depending on your home and the service. We tell you when we confirm your price." },
+        { q: "Which areas do you cover?", a: "Downtown Toronto and the GTA, with no travel fee. Not sure we come to you? Send us your postal code on WhatsApp." },
+        { q: "Can I book a regular cleaning?", a: "Yes: weekly, every 2 weeks or monthly. Book your first cleaning, then tell us by message how often you’d like us back. We can talk about a discount for regular cleanings." },
         { q: "Do you bring the products and equipment?", a: "Yes. We bring eco-friendly products and all the supplies. If you’d rather we use your vacuum or your own products, just tell us." },
-        { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." }
+        { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." },
+        { q: "Will a move-out clean help me get my deposit back?", a: "We can’t decide for your landlord, but we follow a move-out checklist and send you dated photos of every room when we finish, so you have proof." },
+        { q: "What if something isn’t right?", a: "Tell us within 24 hours, with a photo if you can, and we come back to fix it for free." },
+        { q: "Can I cancel or reschedule?", a: "Yes, free of charge up to 24 hours before your cleaning. Just message us." },
+        { q: "Do you work with property managers and realtors?", a: "Yes. We clean units between tenants and before listings, with a photo report and an invoice for each unit. Choose Commercial / Office in the form, or call us for volume pricing." }
       ]
     },
     contact: {
@@ -202,7 +219,6 @@ const I18N = {
         bedrooms: "Bedrooms",
         bedroomsLess: "One bedroom less",
         bedroomsMore: "One more bedroom",
-        studioNote: "0 = studio.",
         bathrooms: "Bathrooms",
         bathroomsLess: "One bathroom less",
         bathroomsMore: "One more bathroom",
@@ -212,10 +228,6 @@ const I18N = {
         halfNote: "Toilet and sink, no shower.",
         type: "Type of home",
         types: ["Condo or apartment", "Townhouse", "House"],
-        frequency: "How often?",
-        frequencies: { once: "One time", weekly: "Weekly", biweekly: "Every 2 weeks", monthly: "Monthly" },
-        discount: "−{d}",
-        frequencyNote: "The discount starts with your 2nd visit.",
         proType: "You are",
         proTypes: ["An office or shop", "A property manager", "A realtor", "Other"],
         sqft: "Square footage",
@@ -286,7 +298,6 @@ const I18N = {
         service: "Service",
         home: "Home",
         business: "Space",
-        frequency: "Frequency",
         addons: "Add-ons",
         when: "When",
         address: "Address",
@@ -306,18 +317,20 @@ const I18N = {
       estimate: {
         label: "Estimated total, before tax",
         note: "We confirm your final price by message before the cleaning. Nothing to pay now.",
-        then: "Then {price} per visit from your 2nd visit ({d}).",
         withTax: "{price} with tax ({rate} HST)",
         proLabel: "Estimate Only",
         proNote: "This is a rough estimate. We will call you shortly to discuss your needs and confirm the final quote.",
         proEmpty: "Enter your square footage",
         rate: "{sqft} × {price}",
         late: "Arrival after 6 pm",
-        deep: "Deep clean",
-        move: "Move-in / move-out",
-        blinds: "Blinds cleaning ({windows})",
+        blinds: "Blinds cleaning ({n} × {price})",
         minimum: "Minimum per visit",
-        quote: "Inside windows, {tier}: price on quote."
+        quote: "Inside windows, {tier}: price on quote.",
+        detailLabel: "How this price is calculated",
+        base: "{service} · {home}",
+        total: "Estimated total, before tax",
+        fine: "Final price confirmed by message before the cleaning.",
+        proFine: "Final price confirmed by phone before the cleaning."
       },
       privacy: "We only use your details to answer your request.",
       errors: {
@@ -337,11 +350,11 @@ const I18N = {
         close: "Close"
       }
     },
-    whatsapp: "Hi Cleanton! I’d like to book a cleaning.\nBedrooms and bathrooms: \nPreferred date: ",
+    whatsapp: "Hi C for Cleaning! I’d like to book a cleaning.\nBedrooms and bathrooms: \nPreferred date: ",
     footer: {
-      line: "© 2026 Cleanton Express · Professional cleaning · Toronto",
+      line: "© 2026 C for Cleaning · Professional cleaning · Toronto",
       privacy: "Privacy Policy",
-      legal: "Cleanton Express Cleaning · Toronto, Ontario, Canada. Prices in Canadian dollars, before tax. Services subject to availability."
+      legal: "C for Cleaning · Toronto, Ontario, Canada. Prices in Canadian dollars, before tax. Services subject to availability."
     },
     privacy: {
       title: "Privacy Policy",
@@ -358,12 +371,12 @@ const I18N = {
   },
   fr: {
     meta: {
-      title: "Cleanton Express Cleaning | Ménage à Toronto",
-      description: "Ménage professionnel à Toronto pour condos, appartements, maisons et entreprises. Demandes acceptées à toute heure, prix dès {price}, produits écologiques, service en français et en anglais."
+      title: "C for Cleaning | Ménage à Toronto",
+      description: "Ménage professionnel pour condos, appartements, maisons et entreprises. Disponibles rapidement partout à Toronto, prix dès {price}, produits écologiques, service en français et en anglais."
     },
     skip: "Aller au contenu",
     lang: { en: "EN", fr: "FR", enName: "English", frName: "Français" },
-    brand: { word1: "Cleanton", word2: "Express", word3: "Cleaning", home: "Cleanton Express Cleaning, haut de page" },
+    brand: { word1: "C", word2: "for", word3: "Cleaning", home: "C for Cleaning, haut de page" },
     nav: {
       label: "Navigation principale",
       why: "Pourquoi nous",
@@ -378,7 +391,7 @@ const I18N = {
       call: "Appeler le {phone}"
     },
     hero: {
-      badge: "✦ Demandes acceptées à toute heure",
+      badge: "✦ Disponibles rapidement partout à Toronto",
       title1: "On nettoie.",
       title2: "C’est tout.",
       sub: "Un ménage fiable, rapide et professionnel pour les logements et les entreprises, quand vous en avez besoin.",
@@ -386,25 +399,24 @@ const I18N = {
       whatsapp: "WhatsApp disponible",
       quick: "Réponse rapide"
     },
-    ticker: ["Demandes à toute heure", "Équipement professionnel", "Fiable et ponctuel", "Prix compétitifs", "Produits écologiques", "Centre-ville de Toronto et GTA", "Français et anglais"],
+    ticker: ["Maisons et condos", "Emménagement et déménagement", "Ménage en profondeur", "Bureaux et commerces", "Produits écologiques", "Français et anglais", "Toronto et GTA", "Réservation en ligne en 2 minutes"],
     why: {
-      label: "Pourquoi Cleanton Express",
-      title: "Rapides. Justes. Vérifiés par le fondateur.",
-      text: "Déménagement, remise en location ou besoin d’un ménage rapidement ? Estimation instantanée, prix confirmé sous 2 h, et un fondateur qui lit vraiment vos retours.",
+      label: "Pourquoi nous choisir",
+      title: "Nos promesses, noir sur blanc",
+      text: "Plutôt que de grandes phrases, quatre engagements que vous pouvez nous rappeler.",
       cards: [
-        { title: "Confirmé sous 2 h", text: "Estimation instantanée en ligne, confirmation par SMS ou WhatsApp. " + FILL_IN.fr.hours },
-        { title: "Des prix clairs, sans surprise", text: "Prix « à partir de » affichés, prix final confirmé avant l’intervention. Jusqu’à {weekly} de remise pour les clients réguliers." },
-        { title: "Vos retours pilotent l’entreprise", text: "En dessous de 5 étoiles, nous vous appelons et corrigeons." },
-        { title: "Le fondateur sur chaque mission", text: "Notre fondateur réalise ou contrôle personnellement chaque intervention." },
-        { title: "Rapport photo sur demande", text: "Idéal pour les déménagements, propriétaires et gestionnaires immobiliers." },
-        { title: FILL_IN.fr.productsTitle, text: FILL_IN.fr.productsText }
-      ]
+        { number: "2 h", title: "Votre prix en moins de 2 h", text: "Estimation instantanée en ligne, prix final par SMS ou WhatsApp en moins de 2 h, de 8 h à 20 h. Demandes acceptées à toute heure." },
+        { number: "24 h", title: "Un oubli ? On revient", text: "Signalez-le sous 24 h et on revient le corriger, gratuitement. Moins de 5 étoiles : on vous appelle." },
+        { number: "1", title: "La même personne à chaque visite", text: "Pas un inconnu à chaque fois : la personne qui fait votre ménage connaît votre logement, et vous nous joignez directement." },
+        { number: "{zero}", title: "Rien à payer avant", text: "Vous payez après le ménage, par carte ou par virement Interac. Le prix est fixé avant de commencer : si le logement demande plus de travail, vous avez le nouveau prix avant, jamais après." }
+      ],
+      tags: ["Produits écologiques inclus", "Français et anglais", "Rapport photo à chaque déménagement"]
     },
     trust: { insured: "Assurés — attestation d’assurance disponible sur demande." },
     cta: { estimate: "Obtenir mon estimation", whatsapp: "Écrire sur WhatsApp" },
     services: {
       label: "Nos services",
-      labelBrand: "chez Cleanton",
+      labelBrand: "chez C for Cleaning",
       title: "Ce qu’on fait",
       hint: "Touchez une carte pour en savoir plus",
       more: "↺ Touchez pour en savoir plus",
@@ -435,8 +447,27 @@ const I18N = {
     details: {
       label: "Ce qui est inclus",
       title: "Détail des services",
-      intro: "La même checklist à chaque fois. Le ménage en profondeur comprend tout le ménage standard, et le déménagement comprend tout le ménage en profondeur.",
+      intro: "La même checklist à chaque fois. Le ménage en profondeur comprend tout le ménage standard, et le déménagement comprend tout le ménage en profondeur. Bon à savoir : les salles de bain ne sont pas comprises dans le forfait de base. Indiquez-les dans le formulaire, chacune s’ajoute à votre estimation.",
       levels: { standard: "✓ Ménage standard", deep: "+ Ménage en profondeur", move: "+ Déménagement", addons: "Extras disponibles" },
+      formulas: {
+        standard: {
+          short: "L’entretien de chaque pièce",
+          text: "Toutes les pièces : surfaces dépoussiérées et essuyées, sols balayés et lavés, tapis aspirés, miroirs nettoyés, poubelles vidées. Cuisine : évier, plaque de cuisson, micro-ondes et extérieur des appareils. Les salles de bain ne sont pas comprises dans le forfait de base : chacune que vous ajoutez est nettoyée et désinfectée (toilette, lavabo, baignoire, robinetterie de douche)."
+        },
+        deep: {
+          short: "Le standard + les détails",
+          text: "Tout le ménage standard, plus les détails : plinthes, dessous des meubles, rebords et cadres de fenêtres, cadres de portes, façades des placards et crédence de la cuisine, portes et façades de meubles de la salle de bain. Idéal pour une première visite."
+        },
+        move: {
+          short: "Le profond + un logement vide",
+          text: "Tout le ménage en profondeur, pour un logement vide avant ou après un déménagement : taches sur les murs, grilles d’aération, plafonds et ventilateurs dépoussiérés, derrière les appareils et la hotte. L’intérieur du frigo, du four et des placards est en extra."
+        },
+        pro: {
+          name: "Commercial / bureau",
+          short: "Bureaux, commerces et logements",
+          text: "Bureaux, commerces, salles de sport, restaurants et logements entre deux locataires. Estimation au pied carré, cuisines comprises, salles de bain en plus. On confirme avec vous le contenu et le prix par téléphone."
+        }
+      },
       tasks: "{n} tâches",
       options: "{n} options",
       rooms: {
@@ -464,17 +495,25 @@ const I18N = {
       notOffered: {
         title: "Services non offerts",
         intro: "Pour que nos agents d’entretien travaillent en sécurité et efficacement, nous ne pouvons pas offrir les services suivants :",
-        items: ["Nettoyage d’excréments d’animaux", "Moisissure", "Extérieur du logement (garage, terrasse, balcon)", "Déplacement de meubles lourds ou d’objets fragiles", "Vides sanitaires", "Fluides corporels", "Extermination ou infestation de nuisibles", "Vaisselle", "Lavage complet des plafonds et des murs"]
+        items: ["Nettoyage d’excréments d’animaux", "Moisissure", "Garage, terrasse ou balcon", "Déplacer des objets lourds ou fragiles", "Vides sanitaires", "Fluides corporels", "Nuisibles ou infestations", "Vaisselle", "Lavage complet des murs et plafonds"]
       }
     },
     results: {
       label: "Résultats",
-      title: "De vrais résultats, de vrais clients",
+      title: "Avant et après",
+      sub: "Une mission récente à Toronto.",
       before: "Avant",
       after: "Après",
-      compare: "Comparaison avant et après : {caption}",
-      altBefore: "Avant : {caption}",
-      altAfter: "Après : {caption}",
+      compare: "Comparer avant et après",
+      altBefore: "Avant le ménage",
+      altAfter: "Après le ménage",
+      example: "Exemple",
+      exampleNote: "Image d’exemple : les photos d’une vraie mission arrivent bientôt.",
+      reviewsTitle: "Avis clients",
+      sampleBadge: "Exemple d’avis",
+      sampleText: "Ici s’affichera un vrai avis client, mot pour mot. On y verra le prénom et l’initiale du client, le service et le mois.",
+      sampleName: "Prénom I.",
+      sampleMeta: "Service · Mois",
       rating: "Note de {n} sur 5",
       google: "Voir tous les avis sur Google",
       launch: "Nous démarrons — devenez l’un de nos premiers clients."
@@ -484,16 +523,24 @@ const I18N = {
       title: "Questions",
       items: [
         {
-          q: "Que se passe-t-il après ma demande de devis ?",
+          q: "Que se passe-t-il après ma demande ?",
           steps: [
-            { title: "Étape 1 : Confirmation.", text: "Une fois votre demande envoyée, notre équipe l’examine et vous contacte rapidement par texto ou par téléphone pour confirmer les détails." },
-            { title: "Étape 2 : Garantir votre réservation.", text: "Vous recevez un lien de paiement sécurisé pour bloquer un montant sur votre carte de crédit. Aucun montant n’est prélevé à cette étape. Vous pouvez aussi payer d’avance par virement Interac." },
-            { title: "Étape 3 : Le ménage et le paiement final.", text: "Notre équipe professionnelle arrive et rend votre espace impeccable. Votre carte n’est débitée qu’une fois le service terminé." }
+            { title: "Étape 1 : votre prix.", text: "Nous confirmons la date et le prix final par SMS, WhatsApp ou téléphone en moins de 2 h, de 8 h à 20 h." },
+            { title: "Étape 2 : le ménage.", text: "Nous arrivons à l’heure prévue avec tous les produits et le matériel." },
+            { title: "Étape 3 : le paiement.", text: "Vous payez après le ménage, par carte via un lien de paiement sécurisé ou par virement Interac. Rien à payer avant." }
           ]
         },
         { q: "Le prix affiché est-il définitif ?", a: "C’est une estimation selon ce que vous nous indiquez. On vous confirme le prix final avant le ménage, jamais après." },
+        { q: "J’habite un studio, je choisis quoi ?", a: "Mettez 0 dans Chambres : 0 chambre correspond à un studio. Indiquez ensuite votre nombre de salles de bain." },
+        { q: "Combien de temps dure un ménage ?", a: "En général 2 à 6 h, selon le logement et le service. Nous vous le disons en confirmant le prix." },
+        { q: "Où intervenez-vous ?", a: "Le centre-ville de Toronto et la GTA, sans frais de déplacement. Un doute ? Envoyez-nous votre code postal sur WhatsApp." },
+        { q: "Puis-je réserver un ménage régulier ?", a: "Oui : chaque semaine, aux deux semaines ou chaque mois. Réservez un premier ménage, puis dites-nous par message à quel rythme revenir. On peut parler d’une remise pour un ménage régulier." },
         { q: "Apportez-vous les produits et le matériel ?", a: "Oui. On apporte des produits écologiques et tout le matériel. Vous préférez qu’on utilise votre aspirateur ou vos produits ? Dites-le-nous." },
-        { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." }
+        { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." },
+        { q: "Le ménage de départ m’aide-t-il à récupérer mon dépôt ?", a: "La décision revient à votre propriétaire, mais nous suivons une checklist de départ et vous envoyons des photos datées de chaque pièce à la fin : vous avez une preuve." },
+        { q: "Et si quelque chose ne va pas ?", a: "Signalez-le sous 24 h, avec une photo si possible, et on revient le corriger gratuitement." },
+        { q: "Puis-je annuler ou décaler ?", a: "Oui, gratuitement jusqu’à 24 h avant le ménage. Un message suffit." },
+        { q: "Travaillez-vous avec les gestionnaires et agents immobiliers ?", a: "Oui. Nous remettons en état les logements entre deux locataires et avant une mise en vente, avec rapport photo et facture par logement. Choisissez Commercial / bureau dans le formulaire, ou appelez-nous pour un tarif au volume." }
       ]
     },
     contact: {
@@ -534,7 +581,6 @@ const I18N = {
         bedrooms: "Chambres",
         bedroomsLess: "Une chambre de moins",
         bedroomsMore: "Une chambre de plus",
-        studioNote: "0 = studio.",
         bathrooms: "Salles de bain",
         bathroomsLess: "Une salle de bain de moins",
         bathroomsMore: "Une salle de bain de plus",
@@ -544,10 +590,6 @@ const I18N = {
         halfNote: "Toilette et lavabo, sans douche.",
         type: "Type de logement",
         types: ["Condo ou appartement", "Maison en rangée", "Maison"],
-        frequency: "À quelle fréquence ?",
-        frequencies: { once: "Une fois", weekly: "Chaque semaine", biweekly: "Aux deux semaines", monthly: "Chaque mois" },
-        discount: "−{d}",
-        frequencyNote: "Le rabais s’applique dès votre 2e visite.",
         proType: "Vous êtes",
         proTypes: ["Bureau ou commerce", "Gestionnaire immobilier", "Agent immobilier", "Autre"],
         sqft: "Superficie (pi²)",
@@ -584,15 +626,15 @@ const I18N = {
         dateOptional: "Date souhaitée (facultative)",
         arrival: "Heure d’arrivée",
         arrivalOptional: "Heure d’arrivée (facultative)",
-        windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h", "De 16 h à 18 h"],
-        late: "Après 18 h",
+        windows: ["Matin, de 8 h à 10 h", "Midi, de 11 h à 13 h", "Après-midi, de 14 h à 16 h", "De 16 h à 18 h"],
+        late: "Après 18 h",
         exact: "Heure précise",
         exactLabel: "Heure d’arrivée précise",
         timeChoose: "Choisir une heure",
         dateChoose: "Choisir une date",
         prevMonth: "Mois précédent",
         nextMonth: "Mois suivant",
-        arrivalNote: "C’est l’heure à laquelle on arrive, pas la durée. Un ménage dure de 2 à 6 h selon le logement et le service.",
+        arrivalNote: "C’est l’heure à laquelle on arrive, pas la durée. Un ménage dure de 2 à 6 h selon le logement et le service.",
         flexibility: "Si cette date est prise ?",
         flexibilities: ["Seulement cette date", "La veille ou le lendemain", "N’importe quel jour de la semaine"],
         access: "Comment on entre ?",
@@ -618,7 +660,6 @@ const I18N = {
         service: "Service",
         home: "Logement",
         business: "Local",
-        frequency: "Fréquence",
         addons: "Extras",
         when: "Quand",
         address: "Adresse",
@@ -638,18 +679,20 @@ const I18N = {
       estimate: {
         label: "Total estimé, avant taxes",
         note: "On vous confirme le prix final par message avant le ménage. Rien à payer maintenant.",
-        then: "Puis {price} par visite dès votre 2e visite ({d}).",
         withTax: "{price} taxes incluses (TVH {rate})",
         proLabel: "Prix indicatif",
         proNote: "Ceci est une estimation approximative. Nous vous appellerons rapidement pour discuter de vos besoins et confirmer le prix final.",
         proEmpty: "Indiquez la superficie",
         rate: "{sqft} × {price}",
-        late: "Arrivée après 18 h",
-        deep: "Ménage en profondeur",
-        move: "Déménagement",
-        blinds: "Nettoyage des stores ({windows})",
+        late: "Arrivée après 18 h",
+        blinds: "Nettoyage des stores ({n} × {price})",
         minimum: "Minimum par visite",
-        quote: "Vitres intérieures, {tier} : prix sur devis."
+        quote: "Vitres intérieures, {tier} : prix sur devis.",
+        detailLabel: "Détail du calcul du prix",
+        base: "{service} · {home}",
+        total: "Total estimé, avant taxes",
+        fine: "Prix final confirmé par message avant le ménage.",
+        proFine: "Prix final confirmé par appel avant le ménage."
       },
       privacy: "Vos coordonnées servent uniquement à répondre à votre demande.",
       errors: {
@@ -665,15 +708,15 @@ const I18N = {
       },
       success: {
         title: "Demande envoyée",
-        text: "Merci ! On vous confirme la date et le prix en moins de 2 h, de 8 h à 20 h.",
+        text: "Merci ! On vous confirme la date et le prix en moins de 2 h, de 8 h à 20 h.",
         close: "Fermer"
       }
     },
-    whatsapp: "Bonjour Cleanton ! J’aimerais réserver un ménage.\nChambres et salles de bain : \nDate souhaitée : ",
+    whatsapp: "Bonjour C for Cleaning ! J’aimerais réserver un ménage.\nChambres et salles de bain : \nDate souhaitée : ",
     footer: {
-      line: "© 2026 Cleanton Express · Ménage professionnel · Toronto",
+      line: "© 2026 C for Cleaning · Ménage professionnel · Toronto",
       privacy: "Politique de confidentialité",
-      legal: "Cleanton Express Cleaning · Toronto (Ontario), Canada. Prix en dollars canadiens, avant taxes. Services selon les disponibilités."
+      legal: "C for Cleaning · Toronto (Ontario), Canada. Prix en dollars canadiens, avant taxes. Services selon les disponibilités."
     },
     privacy: {
       title: "Politique de confidentialité",

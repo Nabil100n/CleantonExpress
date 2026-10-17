@@ -1,12 +1,12 @@
 /*
- * Cleanton Express Cleaning : réglages du site.
+ * C for Cleaning : réglages du site.
  * C'est le SEUL endroit où changer un prix, une remise, une option, le téléphone ou le courriel.
  * Le formulaire, les services et les textes qui citent un prix reprennent tous ces valeurs.
  * Tous les prix sont avant taxes, en dollars canadiens.
  */
 const CONFIG = {
   phone: "+14377178009",
-  email: "contact@cleantonexpress.com",
+  email: "contact@cforcleaning.com",
   formspree: "https://formspree.io/f/mjgeappr",
 
   // Résidentiel (grille du 16 octobre 2026).
@@ -28,9 +28,6 @@ const CONFIG = {
   // Salles de bain : prix résidentiel + 20 % (35 $ la 1re, 29 $ les suivantes, arrondi au total).
   pro: { perSqft: 0.20, minimum: 89, bathroomMarkup: 0.20 },
 
-  // Remises récurrentes, appliquées dès la 2e visite (ménage régulier uniquement)
-  recurring: { weekly: 0.15, biweekly: 0.10, monthly: 0.05 },
-
   // Extras (tuiles de l'étape 2). Draps + lessive : par visite.
   addons: { kitchen: 59, fridge: 29, oven: 29, cabinets: 39, pets: 29, sheetsLaundry: 29 },
 
@@ -50,9 +47,13 @@ const CONFIG = {
   // TVH de l'Ontario, pour le prix après taxes affiché sous l'estimation
   taxRate: 0.13,
 
-  /* ==================== À REMPLIR (section « Résultats ») ====================
-     Tant qu'un tableau est vide, son bloc reste masqué. Aucune note moyenne ni
-     aucun nombre d'avis n'est calculé ni affiché. */
+  /* ==================== À REMPLIR (section « Avant et après ») ====================
+     Aucune note moyenne ni aucun nombre d'avis n'est calculé ni affiché. */
+
+  // false tant que le comparateur montre des photos temporaires : badge « Exemple » visible,
+  // sous-titre « Une mission récente à Toronto » masqué. Passer à true avec les vraies photos
+  // (images/before-1.jpg et images/after-1.jpg, chemins à mettre dans index.html).
+  beforeAfterReal: false,
 
   // Lien « Voir tous les avis sur Google ». Vide = lien masqué.
   googleReviewsUrl: "",
@@ -61,14 +62,12 @@ const CONFIG = {
   // Format :
   // { name: "Prénom I.", service: "Move-out clean", date: "2026-10", rating: 5,
   //   text_en: "…", text_fr: "…", location: "" }   // location : facultatif, vide = aucun lieu affiché
+  // { sample: true } = carte « Exemple d'avis » pour voir la mise en page : à SUPPRIMER dès le premier vrai avis.
   reviews: [
+    { sample: true }, // EXEMPLE : à supprimer
     { name: "", service: "", date: "", rating: 5, text_en: "", text_fr: "", location: "" }, // TODO : avis à remplir
     { name: "", service: "", date: "", rating: 5, text_en: "", text_fr: "", location: "" }, // TODO : avis à remplir
     { name: "", service: "", date: "", rating: 5, text_en: "", text_fr: "", location: "" }  // TODO : avis à remplir
   ],
 
-  // Photos avant / après de VRAIS ménages, avec l'accord du client.
-  // Fichiers dans images/before-after/ : <id>-before.webp et <id>-after.webp
-  // Format : { id: "move-out-01", service_en: "Move-out clean", service_fr: "Ménage de déménagement", location: "Liberty Village" }
-  beforeAfter: []
 };
