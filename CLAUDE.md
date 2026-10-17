@@ -7,21 +7,23 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 ## Direction visuelle (décision du 14 octobre 2026)
 - Le site reprend le style de l'ancien site Vercel : fond bleu nuit, titres Bebas Neue en capitales, texte DM Sans, orange pour les actions, bleu clair en accent, cartes Services à retourner, bandeau défilant.
 - La section 1 de `docs/brief-site.md` (direction « hôtel boutique », Cormorant, Jost, fond lin) ne s'applique plus. Le reste du brief (réservation en 4 étapes, prix, textes du formulaire, comportements) reste valable.
-- Avis : uniquement de vrais avis clients (section « Résultats »), jamais de note moyenne ni de nombre d'avis, pas de balisage schema.org. Pas de mention « urgence ».
-- Ne jamais écrire « 24/7 ». Formule à utiliser : « Demandes acceptées à toute heure, réponse au plus vite », en cohérence avec « confirmé sous 2 h ».
+- Avis : uniquement de vrais avis clients (section « Avant et après », bloc « Avis clients »), jamais de note moyenne ni de nombre d'avis, pas de balisage schema.org. Pas de mention « urgence ». La carte « Sample review / Exemple d'avis » (`{ sample: true }` dans `reviews`) sert seulement à voir la mise en page : on la retire dès le premier vrai avis.
+- Ne jamais écrire « 24/7 », ni de délai chiffré du type « en 1 h » ou « same day guaranteed ». Badge du hero, bandeau et description : « Fast availability across Toronto » / « Disponibles rapidement partout à Toronto » (décision du 17 octobre 2026). La carte « Confirmé sous 2 h » et le lien WhatsApp gardent « Demandes acceptées à toute heure, réponse au plus vite ».
 - Texte des boutons orange en bleu nuit (contraste AA), pas en blanc.
 
 ## Contenu, prix et formulaire (décisions des 15 et 16 octobre 2026)
-- Ordre de la page : hero, bandeau, « What we do » (Résidentiel à gauche, Commercial à droite), « Pourquoi Cleanton Express » (6 arguments, ligne « assurés », 2 boutons), « Détail des services » (checklist par pièce, extras, services non offerts), « Résultats » (avant/après et avis réels), FAQ, Contact (titre, formulaire, puis coordonnées).
+- Ordre de la page : hero (3 photos en fondu, `images/hero-3.jpg` encore temporaire), bandeau, « What we do » (Résidentiel à gauche, Commercial à droite), « Why choose us / Pourquoi nous choisir » (6 arguments, ligne « assurés », 2 boutons), « Détail des services » (intro, une ligne cliquable par formule, checklist par pièce, extras, services non offerts), « Avant et après » (comparateur, puis avis clients), FAQ, Contact (titre, formulaire, puis coordonnées).
+- Fonds : deux sections voisines n'ont jamais le même fond (`--bg` et `--bg-2` pour les sections foncées, blanc pour Services et Détail).
+- Les salles de bain ne sont pas comprises dans le forfait de base : le site le dit dans « Détail des services ».
 - Ces règles remplacent les prix et la réservation de `docs/brief-site.md`.
-- Résidentiel : départ 89 $ (studio, 0 salle de bain) + chambres (39 $ la 1re, 29 $ les suivantes) + salles de bain (29 $ la 1re, 24 $ les suivantes) + demi-salles de bain (19 $ la 1re, 14 $ les suivantes). Compteurs à partir de 0 (0 chambre = studio). Deep clean : +89 $. Move-in/out : +139 $. Arrivée après 18 h : +10 $. Remises récurrentes (15, 10, 5 %) sur le total, dès la 2e visite, ménage régulier seulement.
+- Résidentiel : départ 89 $ (studio, 0 salle de bain) + chambres (39 $ la 1re, 29 $ les suivantes) + salles de bain (29 $ la 1re, 24 $ les suivantes) + demi-salles de bain (19 $ la 1re, 14 $ les suivantes). Compteurs à partir de 0 (0 chambre = studio). Deep clean : +89 $. Move-in/out : +139 $. Arrivée après 18 h : +10 $. Aucune remise pour l'instant (décision du 17 octobre 2026) : `recurring` vaut 0 dans `js/config.js` et le formulaire n'affiche alors aucun pourcentage. La FAQ dit qu'on peut parler d'une remise pour un ménage régulier.
 - « Dès 89 $ » est affiché au dos de la carte Résidentiel de « What we do », sans plus de détail : le formulaire donne le prix.
 - Extras en tuiles : Extra kitchen 59 $, Inside fridge 29 $, Inside oven 29 $, Inside cabinets 39 $, Pets in home 29 $, Change bed sheets + laundry 29 $ par visite, stores 8 $ par fenêtre (compteur sur la tuile). Vitres intérieures + rails : jusqu'à 6 fenêtres 39 $, de 7 à 12 : 69 $, plus de 12 : sur devis. Pas de sous-sol ni de lave-vaisselle.
 - Commercial / Office : superficie obligatoire, 0,20 $ le pied carré, salles de bain au prix résidentiel + 20 %, cuisines comprises, plancher de 89 $. Pas de deep clean en ligne (il faut un appel), pas de supplément après 18 h. Affiché « Estimate Only » / « Prix indicatif » avec le message d'appel de confirmation.
-- Dans le formulaire, un prix n'apparaît que dans l'encadré bleu d'estimation, sous chaque étape. Le détail ligne par ligne s'affiche à l'étape 4.
+- Dans le formulaire, un prix n'apparaît que dans l'encadré bleu d'estimation, sous chaque étape, en orange et en grand. Le détail ligne par ligne s'ouvre avec le « ? » à côté du libellé, à toutes les étapes, sous le prix (pas d'infobulle flottante). « 0 chambre = studio » est expliqué dans la FAQ, plus dans le formulaire.
 - Sous le total de l'encadré, en plus petit et en orange : le prix après taxes (TVH de l'Ontario, 13 %, `taxRate` dans `js/config.js`).
 - Date souhaitée : calendrier maison. Heure précise : liste de créneaux de 30 minutes.
-- Toutes ces valeurs vivent dans `js/config.js`, comme les avis et les photos avant/après à remplir.
+- Toutes ces valeurs vivent dans `js/config.js`, comme les avis à remplir. Avant/après : `images/before-1.jpg` et `images/after-1.jpg` ; tant que `beforeAfterReal` vaut `false`, le comparateur montre une photo temporaire avec un badge « Example / Exemple » et le sous-titre « A recent job in Toronto » reste masqué.
 
 ## L'entreprise
 - C for Cleaning (nom adopté le 17 octobre 2026, anciennement Cleanton Express Cleaning) : ménage de condos, d'appartements et de townhouses à Toronto (GTA), Ontario, Canada.
@@ -32,9 +34,9 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
   - **Pros** : gestionnaires immobiliers, agents immobiliers, bureaux, studios et commerces, sur devis.
 - Positionnement : milieu de gamme à presque premium, produits écologiques.
 - Téléphone et WhatsApp : +1 437 717 8009.
-- Courriel : contact@cleantonexpress.com, actif, affiché dans le bloc Contact (valeur dans `js/config.js`).
+- Courriel : contact@cforcleaning.com (17 octobre 2026 ; Nabil achète le domaine cforcleaning.com), affiché dans le bloc Contact (valeur dans `js/config.js`). À vérifier avant la mise en ligne : la boîte doit recevoir.
 - Assurance responsabilité civile confirmée par Nabil le 16 octobre 2026 : la mention « Insured / Assurés, attestation sur demande » est autorisée.
-- Le site web sur le domaine cleantonexpress.com n'est pas encore en ligne : aucun lien vers ce domaine.
+- Aucun site n'est en ligne sur cleantonexpress.com ni sur cforcleaning.com : aucun lien vers ces domaines (le courriel seulement).
 
 ## Stack (rester simple)
 - Site statique d'une seule page : HTML, CSS et JavaScript, sans framework, sans étape de build, sans dépendance npm.

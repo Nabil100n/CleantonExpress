@@ -17,7 +17,7 @@
 
   /* Fonds des sections foncées : deux sections voisines n'ont jamais le même fond */
   --bg: #0b1628;                  /* fond normal (= --black) */
-  --bg-2: #13284a;                /* fond teinté */
+  --bg-2: #112448;                /* fond teinté (orange #F15A29 dessus : 4,5:1) */
 
   /* Sur fond blanc (Services, formulaire) */
   --paper: #ffffff;

@@ -2,7 +2,7 @@
 
 Toutes les images vont dans le dossier `images/`, à la racine du site.
 Pour remplacer une photo, il suffit de déposer un fichier du même nom dans `images/`.
-Les photos du hero et des cartes Services sont des fonds CSS (`css/style.css`) : sans fichier, le cadre garde sa couleur bleu nuit.
+Les photos des cartes Services sont des fonds CSS (`css/style.css`) ; celles du hero et du comparateur avant/après sont des balises `<img>` dans `index.html`. Sans fichier, le cadre garde sa couleur bleu nuit.
 
 ## Règles pour toutes les images
 - **Poids et format** : JPG, qualité autour de 80, 300 Ko maximum par photo.
@@ -15,6 +15,8 @@ Les photos du hero et des cartes Services sont des fonds CSS (`css/style.css`) :
 |---|---|---|---|---|---|
 | 1 | `images/hero-1.jpg` | Hero, 1re photo du fondu (fond plein écran) | Paysage, 2000 × 1333 px | Silhouette qui passe la serpillière (ancien site) | Une vraie photo de ménage à Toronto |
 | 2 | `images/hero-2.jpg` | Hero, 2e photo du fondu | Portrait, 1066 × 1600 px | Deux personnes qui lavent des vitres (ancien site) | Une vraie photo de ménage à Toronto |
+| 2 bis | `images/hero-3.jpg` | Hero, 3e photo du fondu | Paysage, environ 2000 × 1333 px | Temporaire : `service-residential.jpg` (commentaire « IMAGE TEMPORAIRE » dans `index.html`) | Une vraie photo de ménage à Toronto, puis changer le `src` |
+| 2 ter | `images/before-1.jpg` et `images/after-1.jpg` | « Avant et après », comparateur | Paysage 4:3, environ 1200 × 900 px, même angle pour les deux | Temporaire : photo d'ambiance avec le badge « Example » (commentaire « PHOTOS TEMPORAIRES ») | Un vrai avant/après, avec l'accord du client ; puis changer les `src` et mettre `beforeAfterReal: true` dans `js/config.js` |
 | 3 | `images/service-commercial.jpg` | Carte « Commercial », face avant | Portrait, 800 × 1200 px | Autolaveuse dans un couloir (ancien site) | Un bureau ou un hall d'immeuble après ton ménage |
 | 4 | `images/service-residential.jpg` | Carte « Residential », face avant | Paysage, 1400 × 931 px | Gants jaunes qui essuient une table (ancien site) | Une cuisine ou une salle de bain de condo faite par toi |
 | 5 | `images/logo.png` | Navigation et pied de page | PNG transparent, 80 px de haut | Le symbole détouré | Une version plate du symbole |
