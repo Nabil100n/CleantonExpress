@@ -8,15 +8,16 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 - Le site reprend le style de l'ancien site Vercel : fond bleu nuit, titres Bebas Neue en capitales, texte DM Sans, orange pour les actions, bleu clair en accent, cartes Services à retourner, bandeau défilant.
 - La section 1 de `docs/brief-site.md` (direction « hôtel boutique », Cormorant, Jost, fond lin) ne s'applique plus. Le reste du brief (réservation en 4 étapes, prix, textes du formulaire, comportements) reste valable.
 - Avis : uniquement de vrais avis clients (section « Avant et après », bloc « Avis clients »), jamais de note moyenne ni de nombre d'avis, pas de balisage schema.org. Pas de mention « urgence ». La carte « Sample review / Exemple d'avis » (`{ sample: true }` dans `reviews`) sert seulement à voir la mise en page : on la retire dès le premier vrai avis.
-- Ne jamais écrire « 24/7 », ni de délai chiffré du type « en 1 h » ou « same day guaranteed ». Badge du hero, bandeau et description : « Fast availability across Toronto » / « Disponibles rapidement partout à Toronto » (décision du 17 octobre 2026). La carte « Confirmé sous 2 h » et le lien WhatsApp gardent « Demandes acceptées à toute heure, réponse au plus vite ».
+- Ne jamais écrire « 24/7 », ni de délai chiffré du type « en 1 h » ou « same day guaranteed ». « Fast availability across Toronto » / « Disponibles rapidement partout à Toronto » reste pour le badge du hero et la description (décision du 17 octobre 2026). Le bandeau liste les services : Homes & condos, Move-in & move-out, Deep cleaning, Offices & shops, Eco-friendly products, English & French, Toronto & GTA, Book online in 2 minutes. La carte « 2 h » de « Why choose us » et le lien WhatsApp gardent « Demandes acceptées à toute heure ».
 - Texte des boutons orange en bleu nuit (contraste AA), pas en blanc.
 
 ## Contenu, prix et formulaire (décisions des 15 et 16 octobre 2026)
-- Ordre de la page : hero (3 photos en fondu, `images/hero-3.jpg` encore temporaire), bandeau, « What we do » (Résidentiel à gauche, Commercial à droite), « Why choose us / Pourquoi nous choisir » (6 arguments, ligne « assurés », 2 boutons), « Détail des services » (intro, une ligne cliquable par formule, checklist par pièce, extras, services non offerts), « Avant et après » (comparateur, puis avis clients), FAQ, Contact (titre, formulaire, puis coordonnées).
+- Ordre de la page : hero (3 photos en fondu, `images/hero-3.jpg` encore temporaire), bandeau, « What we do » (Résidentiel à gauche, Commercial à droite), « Why choose us / Pourquoi nous choisir » (4 engagements chiffrés, pastilles, ligne assurés, 2 boutons ; aucun prénom ni « founder / fondateur » dans cette section), « Détail des services » (intro, une ligne cliquable par formule, checklist par pièce, extras, services non offerts), « Avant et après » (comparateur, puis avis clients), FAQ, Contact (titre, formulaire, puis coordonnées).
 - Fonds : deux sections voisines n'ont jamais le même fond (`--bg` et `--bg-2` pour les sections foncées, blanc pour Services et Détail).
 - Les salles de bain ne sont pas comprises dans le forfait de base : le site le dit dans « Détail des services ».
 - Ces règles remplacent les prix et la réservation de `docs/brief-site.md`.
-- Résidentiel : départ 89 $ (studio, 0 salle de bain) + chambres (39 $ la 1re, 29 $ les suivantes) + salles de bain (29 $ la 1re, 24 $ les suivantes) + demi-salles de bain (19 $ la 1re, 14 $ les suivantes). Compteurs à partir de 0 (0 chambre = studio). Deep clean : +89 $. Move-in/out : +139 $. Arrivée après 18 h : +10 $. Aucune remise pour l'instant (décision du 17 octobre 2026) : `recurring` vaut 0 dans `js/config.js` et le formulaire n'affiche alors aucun pourcentage. La FAQ dit qu'on peut parler d'une remise pour un ménage régulier.
+- Résidentiel : départ 89 $ (studio, 0 salle de bain) + chambres (39 $ la 1re, 29 $ les suivantes) + salles de bain (29 $ la 1re, 24 $ les suivantes) + demi-salles de bain (19 $ la 1re, 14 $ les suivantes). Compteurs à partir de 0 (0 chambre = studio). Deep clean : +89 $. Move-in/out : +139 $. Arrivée après 18 h : +10 $. Plus de choix de fréquence (17 octobre 2026) ; aucune remise affichée. La FAQ dit qu'on peut réserver un ménage régulier par message et parler d'une remise.
+- Paiement : après le ménage, par carte via lien de paiement ou par virement Interac. Pas de blocage de carte. Prix confirmé en moins de 2 h, de 8 h à 20 h.
 - « Dès 89 $ » est affiché au dos de la carte Résidentiel de « What we do », sans plus de détail : le formulaire donne le prix.
 - Extras en tuiles : Extra kitchen 59 $, Inside fridge 29 $, Inside oven 29 $, Inside cabinets 39 $, Pets in home 29 $, Change bed sheets + laundry 29 $ par visite, stores 8 $ par fenêtre (compteur sur la tuile). Vitres intérieures + rails : jusqu'à 6 fenêtres 39 $, de 7 à 12 : 69 $, plus de 12 : sur devis. Pas de sous-sol ni de lave-vaisselle.
 - Commercial / Office : superficie obligatoire, 0,20 $ le pied carré, salles de bain au prix résidentiel + 20 %, cuisines comprises, plancher de 89 $. Pas de deep clean en ligne (il faut un appel), pas de supplément après 18 h. Affiché « Estimate Only » / « Prix indicatif » avec le message d'appel de confirmation.
@@ -50,8 +51,8 @@ Claude Code lit ce fichier à chaque session. Il donne le contexte et les règle
 ```
 index.html
 css/style.css
-js/config.js   prix, remises, extras, téléphone, courriel, Formspree, avis et photos avant/après : le seul endroit où changer un prix
-js/i18n.js     tous les textes visibles, en anglais et en français (textes provisoires à remplir en haut : FILL_IN)
+js/config.js   prix, extras, téléphone, courriel, Formspree, avis et photos avant/après : le seul endroit où changer un prix
+js/i18n.js     tous les textes visibles, en anglais et en français
 js/main.js     langue, menu mobile, cartes Services, FAQ, résultats, réservation et estimation
 images/        photos et logo, voir docs/images.md
 docs/          brief et plan des images, à ne pas publier comme pages
