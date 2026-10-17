@@ -28,8 +28,10 @@ const CONFIG = {
   // Salles de bain : prix résidentiel + 20 % (35 $ la 1re, 29 $ les suivantes, arrondi au total).
   pro: { perSqft: 0.20, minimum: 89, bathroomMarkup: 0.20 },
 
-  // Remises récurrentes, appliquées dès la 2e visite (ménage régulier uniquement)
-  recurring: { weekly: 0.15, biweekly: 0.10, monthly: 0.05 },
+  // Remises récurrentes : AUCUNE pour l'instant (décision du 17 octobre 2026).
+  // Pour en remettre une : 0.15 = 15 %, appliquée dès la 2e visite, ménage régulier uniquement.
+  // Elle s'affiche alors toute seule dans le formulaire ; pense aussi à la mentionner dans la FAQ (js/i18n.js).
+  recurring: { weekly: 0, biweekly: 0, monthly: 0 },
 
   // Extras (tuiles de l'étape 2). Draps + lessive : par visite.
   addons: { kitchen: 59, fridge: 29, oven: 29, cabinets: 39, pets: 29, sheetsLaundry: 29 },

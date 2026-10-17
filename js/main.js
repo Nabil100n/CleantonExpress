@@ -591,12 +591,17 @@
     $$("[data-freq-label]", form).forEach((span) => {
       const key = span.dataset.freqLabel;
       const name = t("form.step1.frequencies." + key);
-      span.textContent = key === "once" ? name : name + " " + t("form.step1.discount", { d: percent(CONFIG.recurring[key]) });
+      const rate = CONFIG.recurring[key] || 0;
+      span.textContent = rate > 0 ? name + " " + t("form.step1.discount", { d: percent(rate) }) : name;
     });
     $$("input[data-freq]", form).forEach((input) => {
       const key = input.dataset.freq;
-      if (key !== "once") input.value = FREQ_VALUES[key] + " (-" + Math.round(CONFIG.recurring[key] * 100) + "%)";
+      const rate = CONFIG.recurring[key] || 0;
+      if (key !== "once") input.value = FREQ_VALUES[key] + (rate > 0 ? " (-" + Math.round(rate * 100) + "%)" : "");
     });
+    // La phrase « la remise s'applique dès la 2e visite » n'a de sens que s'il y a une remise
+    const anyDiscount = Object.values(CONFIG.recurring).some((rate) => rate > 0);
+    $$("[data-discount-only]", form).forEach((node) => { node.hidden = !anyDiscount; });
 
     // Le supplément n'apparaît que dans l'estimation ; la valeur envoyée le rappelle à Nabil
     form.querySelector("input[data-late]").value = t("form.step3.late", null, "en") + " (+" + money(CONFIG.lateArrival, "en") + ")";
@@ -990,7 +995,8 @@
 
     const freq = svc === "regular" ? checked("frequency") : null;
     const freqKey = freq ? freq.dataset.freq : "once";
-    const then = freqKey === "once" ? null : { rate: CONFIG.recurring[freqKey], total: Math.round(total * (1 - CONFIG.recurring[freqKey])) };
+    const rate = freqKey === "once" ? 0 : CONFIG.recurring[freqKey] || 0;
+    const then = rate > 0 ? { rate, total: Math.round(total * (1 - rate)) } : null;
     return { pro: false, total, lines, then, quote };
   }
 

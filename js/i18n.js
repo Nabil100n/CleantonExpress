@@ -61,7 +61,7 @@ const I18N = {
       text: "Moving out, turning over a unit, or need it done on short notice? You get an instant estimate, a confirmed price within 2 hours, and a founder who actually reads your feedback.",
       cards: [
         { title: "Confirmed within 2 hours", text: "Instant estimate online, confirmation by text or WhatsApp. " + FILL_IN.en.hours },
-        { title: "Honest, upfront prices", text: "“From” prices on the site, final price before we start. Recurring clients save up to {weekly}." },
+        { title: "Honest, upfront prices", text: "“From” prices on the site, final price before we start." },
         { title: "Your feedback runs the business", text: "Anything under 5 stars, we call you and make it right." },
         { title: "Owner on every job", text: "Our founder cleans or checks every booking personally." },
         { title: "Photo report on request", text: "Ideal for move-outs, landlords and property managers." },
@@ -160,6 +160,8 @@ const I18N = {
           ]
         },
         { q: "Is the price shown final?", a: "It’s an estimate based on what you tell us. We confirm the final price with you before the cleaning, never after." },
+        { q: "I live in a studio, what do I pick?", a: "Set Bedrooms to 0: 0 bedrooms means a studio. Then choose your number of bathrooms." },
+        { q: "Do you offer a discount for regular cleaning?", a: "If you’d like a regular cleaning (weekly, every 2 weeks or monthly), tell us in the form or by message and we can talk about a discount." },
         { q: "Do you bring the products and equipment?", a: "Yes. We bring eco-friendly products and all the supplies. If you’d rather we use your vacuum or your own products, just tell us." },
         { q: "Do I need to be home?", a: "No. Many clients leave a key with the concierge or in a lockbox. We agree on access when we confirm your booking." }
       ]
@@ -202,7 +204,6 @@ const I18N = {
         bedrooms: "Bedrooms",
         bedroomsLess: "One bedroom less",
         bedroomsMore: "One more bedroom",
-        studioNote: "0 = studio.",
         bathrooms: "Bathrooms",
         bathroomsLess: "One bathroom less",
         bathroomsMore: "One more bathroom",
@@ -393,7 +394,7 @@ const I18N = {
       text: "Déménagement, remise en location ou besoin d’un ménage rapidement ? Estimation instantanée, prix confirmé sous 2 h, et un fondateur qui lit vraiment vos retours.",
       cards: [
         { title: "Confirmé sous 2 h", text: "Estimation instantanée en ligne, confirmation par SMS ou WhatsApp. " + FILL_IN.fr.hours },
-        { title: "Des prix clairs, sans surprise", text: "Prix « à partir de » affichés, prix final confirmé avant l’intervention. Jusqu’à {weekly} de remise pour les clients réguliers." },
+        { title: "Des prix clairs, sans surprise", text: "Prix « à partir de » affichés, prix final confirmé avant l’intervention." },
         { title: "Vos retours pilotent l’entreprise", text: "En dessous de 5 étoiles, nous vous appelons et corrigeons." },
         { title: "Le fondateur sur chaque mission", text: "Notre fondateur réalise ou contrôle personnellement chaque intervention." },
         { title: "Rapport photo sur demande", text: "Idéal pour les déménagements, propriétaires et gestionnaires immobiliers." },
@@ -492,6 +493,8 @@ const I18N = {
           ]
         },
         { q: "Le prix affiché est-il définitif ?", a: "C’est une estimation selon ce que vous nous indiquez. On vous confirme le prix final avant le ménage, jamais après." },
+        { q: "J’habite un studio, je choisis quoi ?", a: "Mettez 0 dans Chambres : 0 chambre correspond à un studio. Indiquez ensuite votre nombre de salles de bain." },
+        { q: "Faites-vous une remise pour un ménage régulier ?", a: "Si vous souhaitez un ménage régulier (chaque semaine, aux deux semaines ou chaque mois), dites-le-nous dans le formulaire ou par message : on peut parler d’une remise." },
         { q: "Apportez-vous les produits et le matériel ?", a: "Oui. On apporte des produits écologiques et tout le matériel. Vous préférez qu’on utilise votre aspirateur ou vos produits ? Dites-le-nous." },
         { q: "Dois-je être présent ?", a: "Non. Beaucoup de clients laissent une clé au concierge ou dans une boîte à clé. On fixe l’accès au moment de confirmer." }
       ]
@@ -534,7 +537,6 @@ const I18N = {
         bedrooms: "Chambres",
         bedroomsLess: "Une chambre de moins",
         bedroomsMore: "Une chambre de plus",
-        studioNote: "0 = studio.",
         bathrooms: "Salles de bain",
         bathroomsLess: "Une salle de bain de moins",
         bathroomsMore: "Une salle de bain de plus",
